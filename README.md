@@ -2,6 +2,18 @@
 
 An uptime monitoring web application that is easy to understand, use, and extend.
 
+- [uptime](#uptime)
+  - [Features](#Features)
+    - [Currently supported](#Currently-supported)
+    - [Coming soon](#Coming-soon)
+  - [Getting started](#Getting-started)
+  - [Developers](#Developers)
+    - [Usage](#Usage)
+      - [clone](#clone)
+      - [install](#install)
+      - [dev](#dev)
+      - [build](#build)
+
 ## Features
 
 ### Currently supported
@@ -38,9 +50,26 @@ Coming soon.
 
 ### Usage
 
+#### clone
+
 ```sh
-git clone https://github.com/khalidx/uptime
-cd uptime
+git clone https://github.com/khalidx/uptime && cd uptime
+```
+
+#### install
+
+```sh
 npm install
+```
+
+#### dev
+
+```sh
 npm run dev
+```
+
+#### build
+
+```sh
+npm run build
 ```
