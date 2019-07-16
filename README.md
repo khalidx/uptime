@@ -1,5 +1,7 @@
 # uptime
 
+![logo](./logo.png "Logo")
+
 An uptime monitoring web application that is easy to understand, use, and extend.
 
 ![GitHub package.json dynamic](https://img.shields.io/github/package-json/keywords/khalidx/uptime.svg?style=flat-square)
