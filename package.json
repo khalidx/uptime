@@ -3,6 +3,13 @@
   "private": true,
   "version": "0.1.0",
   "description": "An uptime monitoring web application that is easy to understand, use, and extend.",
+  "author": "Khalid Zoabi <kzoabi@outlook.com>",
+  "keywords": [
+    "uptime",
+    "monitoring",
+    "serverless"
+  ],
+  "license": "MIT",
   "main": "index.js",
   "scripts": {
     "dev": "parcel src/index.html --open",
