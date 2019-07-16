@@ -1,6 +1,6 @@
 # uptime
 
-![logo](./logo.png "Logo")
+<img src="./logo.png" style="max-width: 150px;">
 
 An uptime monitoring web application that is easy to understand, use, and extend.
 
@@ -27,7 +27,7 @@ An uptime monitoring web application that is easy to understand, use, and extend
 
 ## Screenshot
 
-![screenshot](./screenshot.png "Screenshot")
+<img src="./screenshot.png" style="max-width: 500px;">
 
 ## Features
 
