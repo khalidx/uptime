@@ -2,6 +2,14 @@
 
 An uptime monitoring web application that is easy to understand, use, and extend.
 
+![GitHub package.json dynamic](https://img.shields.io/github/package-json/keywords/khalidx/uptime.svg?style=flat-square)
+
+![GitHub](https://img.shields.io/github/license/khalidx/uptime.svg?style=flat-square)
+![GitHub package.json version](https://img.shields.io/github/package-json/v/khalidx/uptime.svg?style=flat-square)
+![GitHub top language](https://img.shields.io/github/languages/top/khalidx/uptime.svg?style=flat-square)
+
+![GitHub last commit](https://img.shields.io/github/last-commit/khalidx/uptime.svg?style=flat-square)
+
 - [uptime](#uptime)
   - [Features](#Features)
     - [Currently supported](#Currently-supported)
