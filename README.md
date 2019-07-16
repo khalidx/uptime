@@ -11,6 +11,7 @@ An uptime monitoring web application that is easy to understand, use, and extend
 ![GitHub last commit](https://img.shields.io/github/last-commit/khalidx/uptime.svg?style=flat-square)
 
 - [uptime](#uptime)
+  - [Screenshot](#Screenshot)
   - [Features](#Features)
     - [Currently supported](#Currently-supported)
     - [Coming soon](#Coming-soon)
@@ -21,6 +22,10 @@ An uptime monitoring web application that is easy to understand, use, and extend
       - [install](#install)
       - [dev](#dev)
       - [build](#build)
+
+## Screenshot
+
+![screenshot](./screenshot.png "Screenshot")
 
 ## Features
 
