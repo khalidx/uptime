@@ -1,27 +1,28 @@
 <template>
   <div>
-    <nav-brand></nav-brand>
     <nav-bar></nav-bar>
-    <status-page></status-page>
+    <router-view></router-view>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import VueRouter from 'vue-router'
 
-// https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js
-// https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js
+Vue.use(VueRouter)
 
-import NavBrand from './components/NavBrand'
 import NavBar from './components/NavBar'
 import StatusPage from './components/StatusPage'
 
 export default Vue.extend({
   components: {
-    NavBrand,
-    NavBar,
-    StatusPage
-  }
+    NavBar
+  },
+  router: new VueRouter({
+    routes: [
+      { path: '/status', component: StatusPage }
+    ]
+  })
 })
 </script>
 
@@ -39,11 +40,6 @@ body {
 }
 
 .navbar-brand {
- color: var(--px-app-nav-item-text-color, #4f6674) !important;
-}
-
-.navbar-dark {
- color: var(--px-app-nav-item-text-color, #4f6674) !important;
- background-color: var(--px-app-nav-background-color, #1a272d) !important;
+  color: var(--px-app-nav-item-text-color, #4f6674) !important;
 }
 </style>
