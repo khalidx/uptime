@@ -23,8 +23,11 @@
     "vue-template-compiler": "^2.6.10"
   },
   "dependencies": {
+    "chart.js": "^2.8.0",
     "vue": "^2.6.10",
+    "vue-chartkick": "^0.5.2",
+    "vue-hot-reload-api": "^2.3.3",
     "vue-router": "^3.0.7",
-    "vue-hot-reload-api": "^2.3.3"
+    "vuetrend": "^0.3.4"
   }
 }

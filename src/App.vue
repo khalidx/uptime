@@ -12,7 +12,11 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 import NavBar from './components/NavBar'
-import StatusPage from './components/StatusPage'
+
+import Dashboard from './pages/Dashboard'
+import Status from './pages/Status'
+import Detail from './pages/Detail'
+import NotFound from './pages/NotFound'
 
 export default Vue.extend({
   components: {
@@ -20,7 +24,12 @@ export default Vue.extend({
   },
   router: new VueRouter({
     routes: [
-      { path: '/status', component: StatusPage }
+      { path: '/', redirect: '/status' },
+      { path: '/status', component: Status },
+      { path: '/status/:id', component: Detail },
+      { path: '/dashboard', component: Dashboard },
+      { path: '/404', component: NotFound },
+      { path: '*', redirect: '/404' }
     ]
   })
 })
