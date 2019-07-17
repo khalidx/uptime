@@ -39,7 +39,7 @@ An uptime monitoring web application that is easy to understand, use, and extend
 - [ ] manually toggle health status, with message (3 days)
 - [ ] persistent history (3 days)
 - [ ] post status and scheduled maintenance messages (5 days)
-- [ ] notifications via email, sms, and slack (5 days)
+- [ ] notifications via email, sms, slack, and webhooks (5 days)
 - [ ] webpage screenshot support (7 days)
 - [ ] load testing support with artillery (7 days)
 
