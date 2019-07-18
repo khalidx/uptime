@@ -13,13 +13,15 @@
   "main": "index.js",
   "scripts": {
     "dev": "parcel src/index.html --open",
-    "build": "parcel build src/index.html",
+    "clean": "rimraf dist/",
+    "build": "npm run clean && parcel build src/index.html",
     "start": "http-server dist/ -d false"
   },
   "devDependencies": {
     "@vue/component-compiler-utils": "^3.0.0",
     "http-server": "^0.11.1",
     "parcel-bundler": "^1.12.3",
+    "rimraf": "^2.6.3",
     "sass": "^1.22.5",
     "typescript": "^3.5.3",
     "vue-template-compiler": "^2.6.10"
