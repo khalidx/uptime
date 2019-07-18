@@ -14,11 +14,11 @@
               <div class="d-flex justify-content-between">
                 
                 <router-link
-                  to="/status"
+                  :to="$route.path.includes('/dashboard/') ? '/dashboard' : '/status'"
                   class="btn btn-outline-secondary btn-hero-sm btn-hero-secondary"
                   tag="a">
                   <i class="fa fa-arrow-left mr-1"></i> 
-                  Status
+                  {{ $route.path.includes('/dashboard/') ? 'Dashboard' : 'Status' }}
                 </router-link>
 
                 <subscribe></subscribe>
