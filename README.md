@@ -32,9 +32,12 @@ An uptime monitoring web application that is easy to understand, use, and extend
 
 ## Features
 
-- [x] basic status page with static data
-- [ ] status page with charts (for MVP)
-- [ ] static data embedded in status page (for MVP)
+- [x] static page with static data (for MVP)
+- [x] status page with services (for MVP)
+- [x] detail page with charts (for MVP)
+- [x] create (and delete) services and service messages
+- [x] export JSON data
+- [x] deployable to s3
 - [ ] serverless infrastructure (1 day)
 - [ ] ping thousands of endpoints and IPs (1 day)
 - [ ] call thousands of endpoints with a pre-defined request (2 days)
@@ -43,8 +46,7 @@ An uptime monitoring web application that is easy to understand, use, and extend
 - [ ] scheduled checks
 - [ ] manually trigger a check, outside of schedule (3 days)
 - [ ] see debug logs for a check
-- [ ] auth for users
-- [ ] auth for API
+- [ ] auth for UI and API users
 - [ ] persistent history (3 days)
 - [ ] post status and scheduled maintenance messages (5 days)
 - [ ] notifications via email, sms, slack, and webhooks (5 days)
