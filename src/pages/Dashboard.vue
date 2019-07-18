@@ -7,7 +7,7 @@
             <a class="link-fx font-w700 font-size-h1 display-4" href="#">
               <span class="text-dark">API</span><span class="text-primary"></span>
             </a>
-            <p class="text-uppercase font-w700 font-size-sm text-muted">Status Page</p>
+            <p class="text-uppercase font-w700 font-size-sm text-muted">Dashboard Page</p>
           </div>
           <div class="row no-gutters d-flex justify-content-center">
             <div class="col-md-6 col-xl-4">
@@ -26,9 +26,28 @@
               <hr>
 
               <div class="d-flex justify-content-between">
-                <a class="btn btn-outline-secondary btn-hero-sm btn-hero-success" href="javascript:void(0)">
-                  <i class="fa fa-plus"></i> <span class="d-none d-sm-inline-block ml-1">Message</span>
-                </a>
+                <ul>
+                  <li class="mb-3">
+                    <a class="btn btn-outline-primary btn-hero-sm btn-hero-success" href="javascript:void(0)">
+                      <i class="fa fa-plus"></i> <span class="d-none d-sm-inline-block ml-1">Broadcast a change in service health</span>
+                    </a>
+                  </li>
+                  <li class="mb-3">
+                    <a class="btn btn-outline-success btn-hero-sm btn-hero-success" href="javascript:void(0)">
+                      <i class="fa fa-plus"></i> <span class="d-none d-sm-inline-block ml-1">Add a new service</span>
+                    </a>
+                  </li>
+                  <li class="mb-3">
+                    <a class="btn btn-outline-success btn-hero-sm btn-hero-success" href="javascript:void(0)">
+                      <i class="fa fa-plus"></i> <span class="d-none d-sm-inline-block ml-1">Add a new service check</span>
+                    </a>
+                  </li>
+                  <li class="mb-3">
+                    <a class="btn btn-outline-danger btn-hero-sm btn-hero-success" href="javascript:void(0)">
+                      <i class="fa fa-minus"></i> <span class="d-none d-sm-inline-block ml-1">Remove a service</span>
+                    </a>
+                  </li>
+                </ul>
               </div>
               
             </div>
