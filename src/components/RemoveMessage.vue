@@ -1,26 +1,55 @@
 <template>
-  <a class="btn btn-outline-secondary btn-hero-sm btn-hero-success" href="#" @click="comingSoon">
-    <i class="fa fa-rss"></i> <span class="d-none d-sm-inline-block ml-1">{{ text }}</span>
-  </a>
+  <div>
+    <p><em>Remove a message broadcast</em><p>
+    <p><strong>Select the message to remove</strong>
+    <div
+      v-for="(message, index) in messages" :key="index"
+      :class="{
+        'alert-success': message.status === 'Operational',
+        'alert-warning': message.status === 'Maintenance',
+        'alert-danger': message.status === 'Down'
+      }"
+      class="alert d-flex align-items-center justify-content-between"
+      @click="remove(message)"
+      role="alert">
+      <div class="flex-fill mr-3">
+        <p class="mb-0">{{ message.summary }} </p>
+      </div>
+      <div class="flex-00-auto">
+        <i
+          class="fa fa-fw fa-2x"
+          :class="{
+            'fa-check': message.status === 'Operational',
+            'fa-wrench': message.status === 'Maintenance',
+            'fa-exclamation': message.status === 'Down'
+          }"></i>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 
+import data from '../services/data'
+
 export default Vue.extend({
   data () {
     return {
-      clicked: false
+      endpoints: data.getEndpoints()
     }
   },
   methods: {
-    comingSoon () {
-      this.clicked = !this.clicked
+    remove (message) {
+      message.active = false
+      data.saveEndpoints(this.endpoints)
     }
   },
   computed: {
-    text () {
-      return this.clicked ? 'Coming soon!' : 'Subscribe'
+    messages () {
+      return (this.endpoints || [])
+        .filter(endpoint => endpoint.messages.length > 0)
+        .reduce((final, endpoint) => final.concat(endpoint.messages.filter(message => message.active)), [])
     }
   }
 })
