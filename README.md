@@ -16,12 +16,15 @@ An uptime monitoring web application that is easy to understand, use, and extend
   - [Screenshot](#Screenshot)
   - [Features](#Features)
   - [Getting started](#Getting-started)
+  - [Support](#Support)
   - [Developers](#Developers)
     - [Usage](#Usage)
       - [clone](#clone)
       - [install](#install)
       - [dev](#dev)
       - [build](#build)
+      - [start](#start)
+      - [docker](#docker)
 
 ## Screenshot
 
@@ -47,6 +50,9 @@ An uptime monitoring web application that is easy to understand, use, and extend
 - [ ] notifications via email, sms, slack, and webhooks (5 days)
 - [ ] webpage screenshot support (7 days)
 - [ ] load testing support with artillery (7 days)
+- [ ] one-click AWS deployment
+- [ ] serverless deployment
+- [ ] terraform deployment
 
 Nice to have:
 
@@ -57,11 +63,19 @@ Nice to have:
 
 Coming soon.
 
+## Support
+
+Open a GitHub issue to ask a question, report a bug, raise a concern, or request a new feature.
+
 ## Developers
+
+This section is for developers looking to develop, modify, or extend this project.
 
 ### Usage
 
 #### clone
+
+Clone the repository from GitHub.
 
 ```sh
 git clone https://github.com/khalidx/uptime && cd uptime
@@ -69,11 +83,15 @@ git clone https://github.com/khalidx/uptime && cd uptime
 
 #### install
 
+Install the project dependencies.
+
 ```sh
 npm install
 ```
 
 #### dev
+
+Start the project with a development server and hot-reload.
 
 ```sh
 npm run dev
@@ -81,6 +99,25 @@ npm run dev
 
 #### build
 
+Build the project into static assets.
+
 ```sh
 npm run build
+```
+
+#### start
+
+Start a production-like HTTP server. Ensure you've run the `build` step first.
+
+```sh
+npm run start
+```
+
+#### docker
+
+Build and run with Docker.
+
+```sh
+docker build -t uptime .
+docker run --rm uptime
 ```

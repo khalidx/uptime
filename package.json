@@ -13,10 +13,12 @@
   "main": "index.js",
   "scripts": {
     "dev": "parcel src/index.html --open",
-    "build": "parcel build src/index.html"
+    "build": "parcel build src/index.html",
+    "start": "http-server dist/ -d false"
   },
   "devDependencies": {
     "@vue/component-compiler-utils": "^3.0.0",
+    "http-server": "^0.11.1",
     "parcel-bundler": "^1.12.3",
     "sass": "^1.22.5",
     "typescript": "^3.5.3",
