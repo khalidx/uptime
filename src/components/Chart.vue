@@ -1,6 +1,6 @@
 <template>
   <div>
-    <line-chart :data="{'2017-05-13': 2, '2017-05-14': 5}"></line-chart>
+    <line-chart :data="values"></line-chart>
   </div>
 </template>
 
@@ -12,8 +12,10 @@ import Chart from 'chart.js'
 Vue.use(Chartkick.use(Chart))
 
 export default Vue.extend({
-  data () {
-    return {}
+  props: {
+    values: {
+      required: true
+    }
   }
 })
 </script>
