@@ -3,7 +3,7 @@
     <ul>
       <li class="mb-3">
         <router-link
-          to="/messages/add"
+          to="/dashboard/messages/add"
           class="btn btn-outline-primary btn-hero-sm btn-hero-success"
           tag="a">
           <i class="fa fa-rss"></i> <span class="d-none d-sm-inline-block ml-1">Broadcast a change in service health</span>
@@ -11,7 +11,7 @@
       </li>
       <li class="mb-3">
         <router-link
-          to="/messages/remove"
+          to="/dashboard/messages/remove"
           class="btn btn-outline-danger btn-hero-sm btn-hero-success"
           tag="a">
           <i class="fa fa-minus"></i> <span class="d-none d-sm-inline-block ml-1">Remove a message broadcast</span>
@@ -19,23 +19,25 @@
       </li>
       <li class="mb-3">
         <router-link
-          to="/services/add"
+          to="/dashboard/services/add"
           class="btn btn-outline-success btn-hero-sm btn-hero-success"
           tag="a">
           <i class="fa fa-plus"></i> <span class="d-none d-sm-inline-block ml-1">Add a new service</span>
         </router-link>
       </li>
+      <!--
       <li class="mb-3">
         <router-link
-          to="/services/checks/add"
+          to="/dashboard/services/checks/add"
           class="btn btn-outline-success btn-hero-sm btn-hero-success"
           tag="a">
           <i class="fa fa-plus"></i> <span class="d-none d-sm-inline-block ml-1">Add a new service check</span>
         </router-link>
       </li>
+      -->
       <li class="mb-3">
         <router-link
-          to="/services/remove"
+          to="/dashboard/services/remove"
           class="btn btn-outline-danger btn-hero-sm btn-hero-success"
           tag="a">
           <i class="fa fa-minus"></i> <span class="d-none d-sm-inline-block ml-1">Remove a service</span>
@@ -43,7 +45,7 @@
       </li>
       <li class="mb-3">
         <router-link
-          to="/export"
+          to="/dashboard/export"
           class="btn btn-outline-primary btn-hero-sm btn-hero-success"
           tag="a">
           <i class="fa fa-code"></i> <span class="d-none d-sm-inline-block ml-1">Export configuration to JSON</span>

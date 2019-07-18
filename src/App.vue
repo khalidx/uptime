@@ -35,15 +35,15 @@ export default Vue.extend({
     routes: [
       { path: '/', redirect: '/status' },
       { path: '/status', component: Status },
-      { path: '/status/:title', component: Detail, props: true },
+      { path: '/status/:name', component: Detail, props: true },
       { path: '/dashboard', component: Dashboard, children: [
-        { path: '/', component: Actions },
-        { path: '/messages/add', component: AddMessage },
-        { path: '/messages/remove', component: RemoveMessage },
-        { path: '/services/add', component: AddService },
-        { path: '/services/checks/add', component: AddServiceCheck },
-        { path: '/services/remove', component: RemoveService },
-        { path: '/export', component: Export }
+        { path: '', component: Actions },
+        { path: 'messages/add', component: AddMessage },
+        { path: 'messages/remove', component: RemoveMessage },
+        { path: 'services/add', component: AddService },
+        { path: 'services/checks/add', component: AddServiceCheck },
+        { path: 'services/remove', component: RemoveService },
+        { path: 'export', component: Export }
       ] },
       { path: '/404', component: NotFound },
       { path: '*', redirect: '/404' }
