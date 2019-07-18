@@ -24,6 +24,8 @@
   },
   "dependencies": {
     "chart.js": "^2.8.0",
+    "moment": "^2.24.0",
+    "uuid": "^3.3.2",
     "vue": "^2.6.10",
     "vue-chartkick": "^0.5.2",
     "vue-hot-reload-api": "^2.3.3",
