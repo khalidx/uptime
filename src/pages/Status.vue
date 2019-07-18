@@ -25,40 +25,29 @@
               </div>
               <hr>
               <div
-                v-for="message in messages" :key="message.id"
+                v-for="(message, index) in messages" :key="index"
                 :class="{
+                  'alert-success': message.status === 'Operational',
                   'alert-warning': message.status === 'Maintenance',
                   'alert-danger': message.status === 'Down'
                 }"
                 class="alert d-flex align-items-center justify-content-between" role="alert">
                 <div class="flex-fill mr-3">
-                  <p class="mb-0">{{ message.text }} </p>
+                  <p class="mb-0">{{ message.summary }} </p>
                 </div>
                 <div class="flex-00-auto">
                   <i
                     class="fa fa-fw fa-2x"
                     :class="{
-                      'fa-exclamation-triangle': message.status === 'Maintenance',
-                      'fa-bug': message.status === 'Down'
+                      'fa-check': message.status === 'Operational',
+                      'fa-wrench': message.status === 'Maintenance',
+                      'fa-exclamation': message.status === 'Down'
                     }"></i>
                 </div>
               </div>
-              <ul class="list-group push">
-                <li
-                  v-for="endpoint in endpoints" :key="endpoint.title"
-                  class="list-group-item d-flex justify-content-between align-items-center">
 
-                  <router-link
-                    :to="`/status/${endpoint.title.toLowerCase()}`"
-                    tag="a">
-                    {{ endpoint.title }}
-                  </router-link>
+              <services></services>
 
-                  <span v-if="endpoint.status === 'Operational'" class="badge badge-pill badge-success">{{ endpoint.status }}</span>
-                  <span v-if="endpoint.status === 'Maintenance'" class="badge badge-pill badge-warning">{{ endpoint.status }}</span>
-                  <span v-if="endpoint.status === 'Down'" class="badge badge-pill badge-danger">{{ endpoint.status }}</span>
-                </li>
-              </ul>
             </div>
           </div>
         </div>
@@ -71,17 +60,25 @@
 import Vue from 'vue'
 
 import Subscribe from '../components/Subscribe'
+import Services from '../components/Services'
 
 import data from '../services/data'
 
 export default Vue.extend({
   components: {
-    Subscribe
+    Subscribe,
+    Services
   },
   data () {
     return {
-      messages: data.getMessages(),
       endpoints: data.getEndpoints()
+    }
+  },
+  computed: {
+    messages () {
+      return (this.endpoints || [])
+        .filter(endpoint => endpoint.messages.length > 0)
+        .reduce((final, endpoint) => final.concat(endpoint.messages.filter(message => message.active)), [])
     }
   }
 })
