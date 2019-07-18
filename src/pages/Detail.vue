@@ -5,7 +5,7 @@
         <div class="px-3 py-5">
           <div class="mb-5 text-center">
             <a class="link-fx font-w700 font-size-h1 display-4" href="#">
-              <span class="text-dark">API</span><span class="text-primary"></span>
+              <span class="text-dark">{{ title }}</span><span class="text-primary"></span>
             </a>
             <p class="text-uppercase font-w700 font-size-sm text-muted">Status Page</p>
           </div>
@@ -72,6 +72,11 @@ export default Vue.extend({
     Subscribe,
     Trend,
     Chart
+  },
+  props: {
+    title: { 
+      required: true,
+    }
   },
   data () {
     return {

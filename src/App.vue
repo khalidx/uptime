@@ -28,7 +28,7 @@ export default Vue.extend({
     routes: [
       { path: '/', redirect: '/status' },
       { path: '/status', component: Status },
-      { path: '/status/:id', component: Detail },
+      { path: '/status/:title', component: Detail, props: true },
       { path: '/dashboard', component: Dashboard },
       { path: '/404', component: NotFound },
       { path: '*', redirect: '/404' }
