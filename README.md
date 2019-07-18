@@ -37,6 +37,11 @@ An uptime monitoring web application that is easy to understand, use, and extend
 - [ ] call thousands of endpoints with a pre-defined request (2 days)
 - [ ] log to CloudWatch and use CloudWatch alarms (2 days)
 - [ ] manually toggle health status, with message (3 days)
+- [ ] scheduled checks
+- [ ] manually trigger a check, outside of schedule (3 days)
+- [ ] see debug logs for a check
+- [ ] auth for users
+- [ ] auth for API
 - [ ] persistent history (3 days)
 - [ ] post status and scheduled maintenance messages (5 days)
 - [ ] notifications via email, sms, slack, and webhooks (5 days)
