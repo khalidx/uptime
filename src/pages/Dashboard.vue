@@ -44,18 +44,12 @@ import Vue from 'vue'
 
 import Subscribe from '../components/Subscribe'
 
-import { endpoints } from '../services/data'
-
 export default Vue.extend({
   components: {
     Subscribe
   },
   data () {
-    return {
-      endpoints,
-      selectedEndpoint = endpoints[0]
-      selectedStatus = 'Maintenance'
-    }
+    return {}
   }
 })
 </script>
