@@ -14,10 +14,17 @@ Vue.use(VueRouter)
 Vue.use(Vuex)
 
 import NavBar from './components/NavBar'
+import Actions from './components/Actions'
+import AddMessage from './components/AddMessage'
+import RemoveMessage from './components/RemoveMessage'
+import AddService from './components/AddService'
+import AddServiceCheck from './components/AddServiceCheck'
+import RemoveService from './components/RemoveService'
+import Export from './components/Export'
 
-import Dashboard from './pages/Dashboard'
 import Status from './pages/Status'
 import Detail from './pages/Detail'
+import Dashboard from './pages/Dashboard'
 import NotFound from './pages/NotFound'
 
 export default Vue.extend({
@@ -29,7 +36,15 @@ export default Vue.extend({
       { path: '/', redirect: '/status' },
       { path: '/status', component: Status },
       { path: '/status/:title', component: Detail, props: true },
-      { path: '/dashboard', component: Dashboard },
+      { path: '/dashboard', component: Dashboard, children: [
+        { path: '/', component: Actions },
+        { path: '/messages/add', component: AddMessage },
+        { path: '/messages/remove', component: RemoveMessage },
+        { path: '/services/add', component: AddService },
+        { path: '/services/checks/add', component: AddServiceCheck },
+        { path: '/services/remove', component: RemoveService },
+        { path: '/export', component: Export }
+      ] },
       { path: '/404', component: NotFound },
       { path: '*', redirect: '/404' }
     ]

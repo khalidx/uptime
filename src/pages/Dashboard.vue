@@ -25,31 +25,8 @@
               </div>
               <hr>
 
-              <div class="d-flex justify-content-between">
-                <ul>
-                  <li class="mb-3">
-                    <a class="btn btn-outline-primary btn-hero-sm btn-hero-success" href="javascript:void(0)">
-                      <i class="fa fa-plus"></i> <span class="d-none d-sm-inline-block ml-1">Broadcast a change in service health</span>
-                    </a>
-                  </li>
-                  <li class="mb-3">
-                    <a class="btn btn-outline-success btn-hero-sm btn-hero-success" href="javascript:void(0)">
-                      <i class="fa fa-plus"></i> <span class="d-none d-sm-inline-block ml-1">Add a new service</span>
-                    </a>
-                  </li>
-                  <li class="mb-3">
-                    <a class="btn btn-outline-success btn-hero-sm btn-hero-success" href="javascript:void(0)">
-                      <i class="fa fa-plus"></i> <span class="d-none d-sm-inline-block ml-1">Add a new service check</span>
-                    </a>
-                  </li>
-                  <li class="mb-3">
-                    <a class="btn btn-outline-danger btn-hero-sm btn-hero-success" href="javascript:void(0)">
-                      <i class="fa fa-minus"></i> <span class="d-none d-sm-inline-block ml-1">Remove a service</span>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              
+              <router-view></router-view>
+
             </div>
           </div>
         </div>
