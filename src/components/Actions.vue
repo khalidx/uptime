@@ -1,0 +1,54 @@
+<template>
+  <div class="d-flex justify-content-between">
+    <ul>
+      <li class="mb-3">
+        <router-link
+          to="/messages/add"
+          class="btn btn-outline-primary btn-hero-sm btn-hero-success"
+          tag="a">
+          <i class="fa fa-rss"></i> <span class="d-none d-sm-inline-block ml-1">Broadcast a change in service health</span>
+        </router-link>
+      </li>
+      <li class="mb-3">
+        <router-link
+          to="/messages/remove"
+          class="btn btn-outline-danger btn-hero-sm btn-hero-success"
+          tag="a">
+          <i class="fa fa-minus"></i> <span class="d-none d-sm-inline-block ml-1">Remove a message broadcast</span>
+        </router-link>
+      </li>
+      <li class="mb-3">
+        <router-link
+          to="/services/add"
+          class="btn btn-outline-success btn-hero-sm btn-hero-success"
+          tag="a">
+          <i class="fa fa-plus"></i> <span class="d-none d-sm-inline-block ml-1">Add a new service</span>
+        </router-link>
+      </li>
+      <li class="mb-3">
+        <router-link
+          to="/services/checks/add"
+          class="btn btn-outline-success btn-hero-sm btn-hero-success"
+          tag="a">
+          <i class="fa fa-plus"></i> <span class="d-none d-sm-inline-block ml-1">Add a new service check</span>
+        </router-link>
+      </li>
+      <li class="mb-3">
+        <router-link
+          to="/services/remove"
+          class="btn btn-outline-danger btn-hero-sm btn-hero-success"
+          tag="a">
+          <i class="fa fa-minus"></i> <span class="d-none d-sm-inline-block ml-1">Remove a service</span>
+        </router-link>
+      </li>
+      <li class="mb-3">
+        <router-link
+          to="/export"
+          class="btn btn-outline-primary btn-hero-sm btn-hero-success"
+          tag="a">
+          <i class="fa fa-code"></i> <span class="d-none d-sm-inline-block ml-1">Export configuration to JSON</span>
+        </router-link>
+      </li>
+    </ul>
+  </div>
+</template>
