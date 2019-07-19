@@ -20,6 +20,7 @@ import RemoveMessage from './components/RemoveMessage'
 import AddService from './components/AddService'
 import AddServiceCheck from './components/AddServiceCheck'
 import RemoveService from './components/RemoveService'
+import Settings from './components/Settings'
 import Export from './components/Export'
 
 import Status from './pages/Status'
@@ -43,6 +44,7 @@ export default Vue.extend({
         { path: 'services/add', component: AddService },
         { path: 'services/checks/add', component: AddServiceCheck },
         { path: 'services/remove', component: RemoveService },
+        { path: 'settings', component: Settings },
         { path: 'export', component: Export }
       ] },
       { path: '/404', component: NotFound },

@@ -37,6 +37,10 @@ export interface Endpoint {
   }>
 }
 
+export interface Settings {
+  title: string
+}
+
 export default {
   getEndpoints (): Array<Endpoint> {
     let endpoints = JSON.parse(localStorage.getItem('endpoints') || '[]') as Array<Endpoint>
@@ -86,9 +90,9 @@ export default {
         messages: (sample.title === 'API') ? [
           {
             submitted: moment().subtract(3, 'hours').calendar(),
-            content: ''
-            summary: 'API is currently under maintenance.'
-            status: 'Maintenance'
+            content: '',
+            summary: 'API is currently under maintenance.',
+            status: 'Maintenance',
             active: true
           }
         ] : (sample.title === 'Helpdesk' ) ? [
@@ -105,6 +109,15 @@ export default {
   },
   saveEndpoints (endpoints: Array<Endpoint>): void {
     localStorage.setItem('endpoints', JSON.stringify(endpoints))
+  },
+  getSettings (): Settings {
+    let settings = JSON.parse(localStorage.getItem('settings')) as Settings
+    return settings ? settings : {
+      title: 'API'
+    }
+  },
+  saveSettings (settings: Settings): void {
+    localStorage.setItem('settings', JSON.stringify(settings))
   },
   reset (): void {
     localStorage.removeItem('endpoints')

@@ -5,7 +5,7 @@
         <div class="px-3 py-5">
           <div class="mb-5 text-center">
             <a class="link-fx font-w700 font-size-h1 display-4" href="#">
-              <span class="text-dark">API</span><span class="text-primary"></span>
+              <span class="text-dark">{{ settings.title }}</span><span class="text-primary"></span>
             </a>
             <p class="text-uppercase font-w700 font-size-sm text-muted">Dashboard Page</p>
           </div>
@@ -40,12 +40,16 @@ import Vue from 'vue'
 
 import Subscribe from '../components/Subscribe'
 
+import data from '../services/data'
+
 export default Vue.extend({
   components: {
     Subscribe
   },
   data () {
-    return {}
+    return {
+      settings: data.getSettings()
+    }
   }
 })
 </script>

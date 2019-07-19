@@ -45,6 +45,14 @@
       </li>
       <li class="mb-3">
         <router-link
+          to="/dashboard/settings"
+          class="btn btn-outline-secondary btn-hero-sm btn-hero-success"
+          tag="a">
+          <i class="fa fa-gear"></i> <span class="d-none d-sm-inline-block ml-1">Edit system settings</span>
+        </router-link>
+      </li>
+      <li class="mb-3">
+        <router-link
           to="/dashboard/export"
           class="btn btn-outline-primary btn-hero-sm btn-hero-success"
           tag="a">
