@@ -79,6 +79,7 @@
 <script lang="ts">
 import Vue from 'vue'
 
+import uuid from 'uuid/v4'
 import moment from 'moment'
 
 import data from '../services/data'
@@ -119,7 +120,8 @@ export default Vue.extend({
     submit () {
       if (!this.submittable) return
       this.endpoints.find(endpoint => endpoint.name === this.selectedService).messages.push({
-        submitted: moment().calendar(),
+        id: uuid(),
+        submitted: moment().toISOString(),
         content: this.content,
         summary: this.summary,
         status: this.selectedStatus,
