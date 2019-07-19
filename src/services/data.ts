@@ -29,6 +29,7 @@ export interface Endpoint {
     content: string
   }>
   messages: Array<{
+    id: string
     submitted: string
     content: string
     summary: string
@@ -89,7 +90,8 @@ export default {
         ],
         messages: (sample.title === 'API') ? [
           {
-            submitted: moment().subtract(3, 'hours').calendar(),
+            id: uuid(),
+            submitted: moment().subtract(3, 'hours').toISOString(),
             content: '',
             summary: 'API is currently under maintenance.',
             status: 'Maintenance',
@@ -97,13 +99,39 @@ export default {
           }
         ] : (sample.title === 'Helpdesk' ) ? [
           {
-            submitted: moment().subtract(5, 'minutes').calendar(),
+            id: uuid(),
+            submitted: moment().subtract(5, 'minutes').toISOString(),
             content: '',
             summary: 'Helpdesk is experiencing issues.',
             status: 'Down',
             active: true
           }
-        ] : []
+        ] : (sample.title === 'Backend' ) ? [
+          {
+            id: uuid(),
+            submitted: moment().subtract(1, 'days').toISOString(),
+            content: 'Thank you for your patience during issue resolution.',
+            summary: 'Backend is operational after being down for 2 hours.',
+            status: 'Operational',
+            active: false
+          },
+          {
+            id: uuid(),
+            submitted: moment().subtract(1, 'days').subtract(2, 'hours').toISOString(),
+            content: 'Services are experiencing request latencies of more than 7 seconds on average.',
+            summary: 'Backend is down.',
+            status: 'Down',
+            active: false
+          },
+          {
+            id: uuid(),
+            submitted: moment().subtract(1, 'year').subtract(3, 'months').toISOString(),
+            content: 'Restarting production servers 1, 2, and 3.',
+            summary: 'Scheduled backend server restarts.',
+            status: 'Maintenance',
+            active: false
+          }
+        ] :[]
       }
     })
   },
