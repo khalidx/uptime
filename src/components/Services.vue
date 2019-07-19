@@ -19,6 +19,8 @@
 <script lang="ts">
 import Vue from 'vue'
 
+import moment from 'moment'
+
 import data from '../services/data'
 
 export default Vue.extend({
@@ -29,8 +31,9 @@ export default Vue.extend({
   },
   methods: {
     status (endpoint) {
-      let recentMessage = endpoint.messages.slice().reverse().find(message => message.active)
-      let status = (recentMessage) ? recentMessage.status: endpoint.status
+      let sortedRecentToOldest = endpoint.messages.slice().sort((a, b) => moment(b.submitted).valueOf() - moment(a.submitted).valueOf())
+      let recentActiveMessage = sortedRecentToOldest.slice().reverse().find(message => message.active)
+      let status = (recentActiveMessage) ? recentActiveMessage.status: endpoint.status
       let className = status === 'Operational' ? 'badge-success'
         : status === 'Maintenance' ? 'badge-warning'
           : status === 'Down' ? 'badge-danger'
