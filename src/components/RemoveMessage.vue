@@ -51,7 +51,7 @@ export default Vue.extend({
     messages () {
       return (this.endpoints || [])
         .filter(endpoint => endpoint.messages.length > 0)
-        .reduce((final, endpoint) => final.concat(endpoint.messages.filter(message => message.active)), [])
+        .reduce((final, endpoint) => final.concat(endpoint.messages), [])
     }
   }
 })
