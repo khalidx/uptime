@@ -22,6 +22,7 @@ import AddServiceCheck from './components/AddServiceCheck'
 import RemoveService from './components/RemoveService'
 import Settings from './components/Settings'
 import Export from './components/Export'
+import Reset from './components/Reset'
 
 import Status from './pages/Status'
 import Detail from './pages/Detail'
@@ -45,7 +46,8 @@ export default Vue.extend({
         { path: 'services/checks/add', component: AddServiceCheck },
         { path: 'services/remove', component: RemoveService },
         { path: 'settings', component: Settings },
-        { path: 'export', component: Export }
+        { path: 'export', component: Export },
+        { path: 'reset', component: Reset }
       ] },
       { path: '/404', component: NotFound },
       { path: '*', redirect: '/404' }
