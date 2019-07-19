@@ -4,7 +4,7 @@
       <li class="mb-3">
         <router-link
           to="/dashboard/messages/add"
-          class="btn btn-outline-primary btn-hero-sm btn-hero-success"
+          class="btn btn-primary btn-hero-sm btn-hero-success"
           tag="a">
           <i class="fa fa-rss"></i> <span class="d-none d-sm-inline-block ml-1">Broadcast a change in service health</span>
         </router-link>
@@ -28,7 +28,7 @@
       <li class="mb-3">
         <router-link
           to="/dashboard/services/add"
-          class="btn btn-outline-success btn-hero-sm btn-hero-success"
+          class="btn btn-success btn-hero-sm btn-hero-success"
           tag="a">
           <i class="fa fa-plus"></i> <span class="d-none d-sm-inline-block ml-1">Add a new service</span>
         </router-link>
@@ -54,7 +54,7 @@
       <li class="mb-3">
         <router-link
           to="/dashboard/settings"
-          class="btn btn-outline-secondary btn-hero-sm btn-hero-success"
+          class="btn btn-secondary btn-hero-sm btn-hero-success"
           tag="a">
           <i class="fa fa-gear"></i> <span class="d-none d-sm-inline-block ml-1">Edit system settings</span>
         </router-link>
@@ -62,7 +62,7 @@
       <li class="mb-3">
         <router-link
           to="/dashboard/export"
-          class="btn btn-outline-primary btn-hero-sm btn-hero-success"
+          class="btn btn-primary btn-hero-sm btn-hero-success"
           tag="a">
           <i class="fa fa-code"></i> <span class="d-none d-sm-inline-block ml-1">Export configuration to JSON</span>
         </router-link>
