@@ -41,8 +41,10 @@ export default Vue.extend({
   },
   methods: {
     remove (message) {
-      message.active = false
-      data.saveEndpoints(this.endpoints)
+      data.saveEndpoints(this.endpoints.map(endpoint => {
+        endpoint.messages = endpoint.messages.filter(m => m.id !== message.id)
+        return endpoint
+      }))
     }
   },
   computed: {
