@@ -16,6 +16,7 @@ Vue.use(Vuex)
 import NavBar from './components/NavBar'
 import Actions from './components/Actions'
 import AddMessage from './components/AddMessage'
+import ArchiveMessage from './components/ArchiveMessage'
 import RemoveMessage from './components/RemoveMessage'
 import AddService from './components/AddService'
 import AddServiceCheck from './components/AddServiceCheck'
@@ -41,6 +42,7 @@ export default Vue.extend({
       { path: '/dashboard', component: Dashboard, children: [
         { path: '', component: Actions },
         { path: 'messages/add', component: AddMessage },
+        { path: 'messages/archive', component: ArchiveMessage },
         { path: 'messages/remove', component: RemoveMessage },
         { path: 'services/add', component: AddService },
         { path: 'services/checks/add', component: AddServiceCheck },

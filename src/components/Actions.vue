@@ -11,6 +11,14 @@
       </li>
       <li class="mb-3">
         <router-link
+          to="/dashboard/messages/archive"
+          class="btn btn-warning btn-hero-sm btn-hero-success"
+          tag="a">
+          <i class="fa fa-history"></i> <span class="d-none d-sm-inline-block ml-1">Archive a message broadcast</span>
+        </router-link>
+      </li>
+      <li class="mb-3">
+        <router-link
           to="/dashboard/messages/remove"
           class="btn btn-outline-danger btn-hero-sm btn-hero-success"
           tag="a">
