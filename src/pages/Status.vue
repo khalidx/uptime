@@ -48,6 +48,8 @@
 
               <services></services>
 
+              <timeline :endpoints="endpoints"></timeline>
+
             </div>
           </div>
         </div>
@@ -61,13 +63,15 @@ import Vue from 'vue'
 
 import Subscribe from '../components/Subscribe'
 import Services from '../components/Services'
+import Timeline from '../components/Timeline'
 
 import data from '../services/data'
 
 export default Vue.extend({
   components: {
     Subscribe,
-    Services
+    Services,
+    Timeline
   },
   data () {
     return {
