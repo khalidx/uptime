@@ -16,6 +16,7 @@ An uptime monitoring web application that is easy to understand, use, and extend
   - [Screenshot](#Screenshot)
   - [Features](#Features)
   - [Getting started](#Getting-started)
+  - [Components](#Components)
   - [Support](#Support)
   - [Developers](#Developers)
     - [Usage](#Usage)
@@ -64,6 +65,11 @@ Nice to have:
 ## Getting started
 
 Coming soon.
+
+## Components
+
+- `uptime-ui` (the uptime web application frontend)
+- `uptime-app` (the uptime serverless application backend)
 
 ## Support
 

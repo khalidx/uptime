@@ -1,5 +1,5 @@
 {
-  "name": "uptime",
+  "name": "@khalidx/uptime-ui",
   "private": true,
   "version": "0.1.0",
   "description": "An uptime monitoring web application that is easy to understand, use, and extend.",
@@ -10,7 +10,6 @@
     "serverless"
   ],
   "license": "MIT",
-  "main": "index.js",
   "scripts": {
     "dev": "parcel src/index.html --open",
     "clean": "rimraf dist/",
