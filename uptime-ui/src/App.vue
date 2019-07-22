@@ -57,11 +57,7 @@ export default Vue.extend({
       { path: '/404', component: NotFound },
       { path: '*', redirect: '/404' }
     ]
-  }),
-  mounted () {
-    this.$store.dispatch('getServices')
-    this.$store.dispatch('getSettings')
-  }
+  })
 })
 </script>
 
