@@ -115,7 +115,6 @@ body {
 	  color: $font-color;
 }
 #main {
-    width: 32em;
     margin: 1em auto;
     padding: 40px;
     background: $dark-blue;

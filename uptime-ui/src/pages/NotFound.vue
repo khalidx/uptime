@@ -44,10 +44,6 @@ import Subscribe from '../components/Subscribe'
 export default Vue.extend({
   components: {
     Subscribe
-  },
-  data () {
-    return {
-    }
   }
 })
 </script>
