@@ -2,7 +2,7 @@ Resources:
 
     DynamoDbTable:
       Type: 'AWS::DynamoDB::Table'
-      DeletionPolicy: Retain
+      DeletionPolicy: ${self:custom.uptime.table.deletionPolicy}
       Properties:
         TableName: ${self:custom.uptime.table.name}
         AttributeDefinitions:
