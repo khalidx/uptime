@@ -1,20 +1,68 @@
 service:
-  name: uptime-app-2
-#app: your-app-name
-#tenant: your-tenant-name
+  name: uptime-app
 
-# Add the serverless-webpack plugin
+frameworkVersion: ">=1.1.0 <2.0.0"
+
 plugins:
   - serverless-webpack
+  - serverless-offline
 
 provider:
   name: aws
   runtime: nodejs10.x
+  environment:
+    DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
 
 functions:
-  hello:
-    handler: handler.hello
+
+  getServices:
+    handler: src/getServices.handler
     events:
       - http:
           method: get
-          path: hello
+          path: services
+          cors: true
+
+  getSettings:
+    handler: src/getSettings.handler
+    events:
+      - http:
+          method: get
+          path: settings
+          cors: true
+
+  putSettings:
+    handler: src/putSettings.handler
+    events:
+      - http:
+          method: put
+          path: settings
+          cors: true
+
+resources:
+  Resources:
+    
+    DynamoDbTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:provider.environment.DYNAMODB_TABLE}
