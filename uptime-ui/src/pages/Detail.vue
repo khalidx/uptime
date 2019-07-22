@@ -1,7 +1,8 @@
 <template>
   <main id="main-container">
     <div class="hero-static bg-white">
-      <div class="content content-full">
+      <loading></loading>
+      <div v-if="endpoint" class="content content-full">
         <div class="px-3 py-5">
           <div class="mb-5 text-center">
             <a class="link-fx font-w700 font-size-h1 display-4" href="#">
@@ -108,6 +109,7 @@
 <script lang="ts">
 import Vue from 'vue'
 
+import Loading from '../components/Loading'
 import Subscribe from '../components/Subscribe'
 import Trend from '../components/Trend'
 import Chart from '../components/Chart'
@@ -115,6 +117,7 @@ import Feedback from '../components/Feedback'
 
 export default Vue.extend({
   components: {
+    Loading,
     Subscribe,
     Trend,
     Chart,
@@ -125,9 +128,12 @@ export default Vue.extend({
       required: true,
     }
   },
+  created () {
+    this.$store.dispatch('getServices')
+  },
   computed: {
     endpoint () {
-      return this.$store.state.endpoints.find(endpoint => endpoint.name === this.name)
+      return this.$store.state.services.find(endpoint => endpoint.name === this.name)
     }
   }
 })

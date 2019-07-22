@@ -1,7 +1,8 @@
 <template>
   <main id="main-container">
     <div class="hero-static bg-white">
-      <div class="content content-full">
+      <loading></loading>
+      <div v-if="settings && endpoints" class="content content-full">
         <div class="px-3 py-5">
           <div class="mb-5 text-center">
             <a class="link-fx font-w700 font-size-h1 display-4" href="#">
@@ -61,23 +62,29 @@
 <script lang="ts">
 import Vue from 'vue'
 
+import Loading from '../components/Loading'
 import Subscribe from '../components/Subscribe'
 import Services from '../components/Services'
 import Timeline from '../components/Timeline'
 
 export default Vue.extend({
   components: {
+    Loading,
     Subscribe,
     Services,
     Timeline
   },
+  created () {
+    this.$store.dispatch('getSettings')
+    this.$store.dispatch('getServices')
+  },
   computed: {
+    settings () {
+      return this.$store.state.settings
+    },
     endpoints () {
       return this.$store.state.services
     },
-    settings () {
-      return this.$store.state.settings
-  },
     messages () {
       return (this.endpoints || [])
         .filter(endpoint => endpoint.messages.length > 0)

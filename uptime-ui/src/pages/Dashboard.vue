@@ -1,7 +1,8 @@
 <template>
   <main id="main-container">
     <div class="hero-static bg-white">
-      <div class="content content-full">
+      <loading></loading>
+      <div v-if="settings" class="content content-full">
         <div class="px-3 py-5">
           <div class="mb-5 text-center">
             <a class="link-fx font-w700 font-size-h1 display-4" href="#">
@@ -38,11 +39,16 @@
 <script lang="ts">
 import Vue from 'vue'
 
+import Loading from '../components/Loading'
 import Subscribe from '../components/Subscribe'
 
 export default Vue.extend({
   components: {
+    Loading,
     Subscribe
+  },
+  created () {
+    this.$store.dispatch('getSettings')
   },
   computed: {
     settings () {
