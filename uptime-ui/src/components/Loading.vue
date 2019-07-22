@@ -1,5 +1,5 @@
 <template>
-  <div class="ajax-loader">
+  <div v-if="loading" class="ajax-loader">
     <div class="ajax-loader-animation">
       <div><div></div></div>
       <div><div></div></div>
@@ -9,6 +9,18 @@
     </div>
   </div>
 </template>
+
+<script lang="ts">
+import Vue from 'vue'
+
+export default Vue.extend({
+	computed: {
+		loading () {
+			return this.$store.state.loading
+		}
+	}
+})
+</script>
 
 <style lang="scss">
 @mixin ajax-loader($ball-size){
