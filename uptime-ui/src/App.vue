@@ -13,6 +13,8 @@ import Vuex from 'vuex'
 Vue.use(VueRouter)
 Vue.use(Vuex)
 
+import { store } from './services/data'
+
 import NavBar from './components/NavBar'
 import Actions from './components/Actions'
 import AddMessage from './components/AddMessage'
@@ -34,6 +36,7 @@ export default Vue.extend({
   components: {
     NavBar
   },
+  store,
   router: new VueRouter({
     routes: [
       { path: '/', redirect: '/status' },
@@ -54,7 +57,11 @@ export default Vue.extend({
       { path: '/404', component: NotFound },
       { path: '*', redirect: '/404' }
     ]
-  })
+  }),
+  mounted () {
+    this.$store.dispatch('getServices')
+    this.$store.dispatch('getSettings')
+  }
 })
 </script>
 
