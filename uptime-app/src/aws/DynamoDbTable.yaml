@@ -1,0 +1,16 @@
+Resources:
+
+    DynamoDbTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        TableName: ${self:custom.uptime.table.name}
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: ${self:custom.uptime.table.throughput}
+          WriteCapacityUnits: ${self:custom.uptime.table.throughput}

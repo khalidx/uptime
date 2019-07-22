@@ -1,7 +1,14 @@
 service:
   name: uptime-app
 
-frameworkVersion: ">=1.1.0 <2.0.0"
+custom:
+  stage: ${opt:stage, self:provider.stage}
+  uptime:
+    table:
+      name: ${self:service}-${self:custom.stage}
+      throughput: 5
+
+frameworkVersion: ">=1.47.0 <2.0.0"
 
 plugins:
   - serverless-webpack
@@ -9,9 +16,11 @@ plugins:
 
 provider:
   name: aws
+  stage: dev
+  region: us-east-1
   runtime: nodejs10.x
   environment:
-    DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
+    DYNAMODB_TABLE: ${self:custom.uptime.table.name}
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -21,7 +30,8 @@ provider:
         - dynamodb:PutItem
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
-      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
+      Resource:
+        - "Fn::GetAtt": [ DynamoDbTable, Arn ]
 
 functions:
 
@@ -50,19 +60,4 @@ functions:
           cors: true
 
 resources:
-  Resources:
-    
-    DynamoDbTable:
-      Type: 'AWS::DynamoDB::Table'
-      DeletionPolicy: Retain
-      Properties:
-        AttributeDefinitions:
-          - AttributeName: id
-            AttributeType: S
-        KeySchema:
-          - AttributeName: id
-            KeyType: HASH
-        ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
-        TableName: ${self:provider.environment.DYNAMODB_TABLE}
+  - ${file(src/aws/DynamoDbTable.yaml)}
