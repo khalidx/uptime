@@ -27,13 +27,13 @@
               <hr>
 
               <div v-if="endpoint.status === 'Operational'" class="alert alert-success" role="alert">
-                <span>👍</span> <strong>{{ endpoint.status }}</strong>
+                <i class="fa fa-thumbs-up"></i> <strong>{{ endpoint.status }}</strong>
               </div>
               <div v-if="endpoint.status === 'Maintenance'" class="alert alert-warning" role="alert">
-                <span>🔧</span> <strong>{{ endpoint.status }}</strong>
+                <i class="fa fa-wrench"></i> <strong>{{ endpoint.status }}</strong>
               </div>
               <div v-if="endpoint.status === 'Down'" class="alert alert-danger" role="alert">
-                <span>🤦</span> <strong>{{ endpoint.status }}</strong>
+                <i class="fa fa-thumbs-down"></i> <strong>{{ endpoint.status }}</strong>
               </div>
 
               <feedback></feedback>
