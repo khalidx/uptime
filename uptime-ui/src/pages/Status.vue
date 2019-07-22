@@ -46,7 +46,7 @@
                 </div>
               </div>
 
-              <services></services>
+              <services :endpoints="endpoints"></services>
 
               <timeline :endpoints="endpoints"></timeline>
 

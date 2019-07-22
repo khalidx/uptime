@@ -21,12 +21,10 @@ import Vue from 'vue'
 
 import moment from 'moment'
 
-import data from '../services/data'
-
 export default Vue.extend({
-  data () {
-    return {
-      endpoints: data.getEndpoints()
+  props: {
+    endpoints: {
+      required: true
     }
   },
   methods: {
