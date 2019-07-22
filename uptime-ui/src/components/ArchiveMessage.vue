@@ -31,21 +31,17 @@
 <script lang="ts">
 import Vue from 'vue'
 
-import data from '../services/data'
-
 export default Vue.extend({
-  data () {
-    return {
-      endpoints: data.getEndpoints()
-    }
-  },
   methods: {
     archive (message) {
       message.active = false
-      data.saveEndpoints(this.endpoints)
+      // TODO data.saveEndpoints(this.endpoints)
     }
   },
   computed: {
+    endpoints () {
+      return this.$store.state.services
+    },
     messages () {
       return (this.endpoints || [])
         .filter(endpoint => endpoint.messages.length > 0)

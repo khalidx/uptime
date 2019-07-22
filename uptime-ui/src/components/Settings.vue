@@ -37,16 +37,16 @@ import Vue from 'vue'
 import uuid from 'uuid/v4'
 import moment from 'moment'
 
-import data from '../services/data'
-
 export default Vue.extend({
   data () {
     return {
-      settings: data.getSettings(),
       title: ''
     }
   },
   computed: {
+    settings () {
+      return this.$store.state.settings
+    },
     submittable () {
       if (!this.title || this.title.length == 0) {
         return false
@@ -61,7 +61,7 @@ export default Vue.extend({
     submit () {
       if (!this.submittable) return
       this.settings.title = this.title
-      data.saveSettings(this.settings)    
+      // TODO data.saveSettings(this.settings)    
       this.$router.push('/status')
     }
   }

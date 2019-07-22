@@ -82,12 +82,9 @@ import Vue from 'vue'
 import uuid from 'uuid/v4'
 import moment from 'moment'
 
-import data from '../services/data'
-
 export default Vue.extend({
   data () {
     return {
-      endpoints: data.getEndpoints(),
       selectedService: '',
       selectedStatus: '',
       summary: '',
@@ -96,6 +93,9 @@ export default Vue.extend({
     }
   },
   computed: {
+    endpoints () {
+      return this.$store.state.services
+    },
     submittable () {
       if (!this.selectedService || this.selectedService.length == 0
         || !this.selectedStatus || this.selectedStatus.length == 0
@@ -127,7 +127,7 @@ export default Vue.extend({
         status: this.selectedStatus,
         active: true
       })
-      data.saveEndpoints(this.endpoints)
+      // TODO data.saveEndpoints(this.endpoints)
       this.$router.push('/status')
     }
   }

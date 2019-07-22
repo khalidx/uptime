@@ -27,18 +27,11 @@ import Vue from 'vue'
 
 import moment from 'moment'
 
-import data from '../services/data'
-
 export default Vue.extend({
-  data () {
-    return {
-      endpoints: data.getEndpoints()
-    }
-  },
   methods: {
     remove (endpoint) {
       this.endpoints = this.endpoints.filter(e => e.name !== endpoint.name)
-      data.saveEndpoints(this.endpoints)
+      // TODO data.saveEndpoints(this.endpoints)
     },
     status (endpoint) {
       let sortedRecentToOldest = endpoint.messages.slice().sort((a, b) => moment(b.submitted).valueOf() - moment(a.submitted).valueOf())
@@ -51,6 +44,11 @@ export default Vue.extend({
       return (className)
         ? `<span class="badge badge-pill ${className}">${status}</span>`
         : `<span class="badge badge-pill">${status}</span>`
+    }
+  },
+  computed: {
+    endpoints () {
+      return this.$store.state.services
     }
   }
 })

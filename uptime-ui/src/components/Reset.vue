@@ -28,15 +28,13 @@
 <script lang="ts">
 import Vue from 'vue'
 
-import data from '../services/data'
-
 export default Vue.extend({
   methods: {
     cancel () {
       this.$router.push('/dashboard')
     },
     submit () {
-      data.reset()
+      // TODO data.reset()
       this.$router.push('/status')
     }
   }

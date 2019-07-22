@@ -16,12 +16,10 @@
 <script lang="ts">
 import Vue from 'vue'
 
-import data from '../services/data'
-
 export default Vue.extend({
-  data () {
-    return {
-      endpoints: JSON.stringify(data.getEndpoints(), null, 2)
+  computed: {
+    endpoints () {
+      return JSON.stringify(this.$store.state.services, null, 2)
     }
   }
 })

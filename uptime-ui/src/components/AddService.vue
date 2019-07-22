@@ -63,12 +63,9 @@ import Vue from 'vue'
 import uuid from 'uuid/v4'
 import moment from 'moment'
 
-import data from '../services/data'
-
 export default Vue.extend({
   data () {
     return {
-      endpoints: data.getEndpoints(),
       title: '',
       location: '',
       cron: '',
@@ -76,6 +73,9 @@ export default Vue.extend({
     }
   },
   computed: {
+    endpoints () {
+      return this.$store.state.services
+    },
     submittable () {
       if (!this.title || this.title.length == 0
         || !this.location || this.location.length == 0
@@ -132,7 +132,7 @@ export default Vue.extend({
         ],
         messages: []
       })
-      data.saveEndpoints(this.endpoints)
+      // TODO data.saveEndpoints(this.endpoints)
       this.$router.push('/status')
     }
   }

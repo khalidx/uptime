@@ -65,21 +65,19 @@ import Subscribe from '../components/Subscribe'
 import Services from '../components/Services'
 import Timeline from '../components/Timeline'
 
-import data from '../services/data'
-
 export default Vue.extend({
   components: {
     Subscribe,
     Services,
     Timeline
   },
-  data () {
-    return {
-      settings: data.getSettings(),
-      endpoints: data.getEndpoints()
-    }
-  },
   computed: {
+    endpoints () {
+      return this.$store.state.services
+    },
+    settings () {
+      return this.$store.state.settings
+  },
     messages () {
       return (this.endpoints || [])
         .filter(endpoint => endpoint.messages.length > 0)

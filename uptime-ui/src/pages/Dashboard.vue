@@ -40,15 +40,13 @@ import Vue from 'vue'
 
 import Subscribe from '../components/Subscribe'
 
-import data from '../services/data'
-
 export default Vue.extend({
   components: {
     Subscribe
   },
-  data () {
-    return {
-      settings: data.getSettings()
+  computed: {
+    settings () {
+      return this.$store.state.settings
     }
   }
 })

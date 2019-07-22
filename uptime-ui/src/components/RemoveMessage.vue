@@ -31,23 +31,19 @@
 <script lang="ts">
 import Vue from 'vue'
 
-import data from '../services/data'
-
 export default Vue.extend({
-  data () {
-    return {
-      endpoints: data.getEndpoints()
-    }
-  },
   methods: {
     remove (message) {
-      data.saveEndpoints(this.endpoints.map(endpoint => {
-        endpoint.messages = endpoint.messages.filter(m => m.id !== message.id)
-        return endpoint
-      }))
+      // TODO data.saveEndpoints(this.endpoints.map(endpoint => {
+      //   endpoint.messages = endpoint.messages.filter(m => m.id !== message.id)
+      //   return endpoint
+      // }))
     }
   },
   computed: {
+    endpoints () {
+      return this.$store.state.services
+    },
     messages () {
       return (this.endpoints || [])
         .filter(endpoint => endpoint.messages.length > 0)

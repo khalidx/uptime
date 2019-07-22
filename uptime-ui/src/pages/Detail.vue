@@ -113,8 +113,6 @@ import Trend from '../components/Trend'
 import Chart from '../components/Chart'
 import Feedback from '../components/Feedback'
 
-import data from '../services/data'
-
 export default Vue.extend({
   components: {
     Subscribe,
@@ -127,9 +125,9 @@ export default Vue.extend({
       required: true,
     }
   },
-  data () {
-    return {
-      endpoint: data.getEndpoints().find(endpoint => endpoint.name === this.name)
+  computed: {
+    endpoint () {
+      return this.$store.state.endpoints.find(endpoint => endpoint.name === this.name)
     }
   }
 })
