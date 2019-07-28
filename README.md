@@ -9,13 +9,13 @@ An uptime monitoring web application that is easy to understand, use, and extend
 ![GitHub last commit](https://img.shields.io/github/last-commit/khalidx/uptime.svg?style=flat-square)
 
 - [uptime](#uptime)
-  - [Screenshot](#Screenshot)
-  - [Features](#Features)
-  - [Getting started](#Getting-started)
-  - [Components](#Components)
-  - [Support](#Support)
-  - [Developers](#Developers)
-    - [Usage](#Usage)
+  - [Screenshot](#screenshot)
+  - [Features](#features)
+  - [Getting started](#getting-started)
+  - [Components](#components)
+  - [Support](#support)
+  - [Developers](#developers)
+    - [Usage](#usage)
       - [clone](#clone)
       - [install](#install)
       - [dev](#dev)
@@ -52,11 +52,12 @@ An uptime monitoring web application that is easy to understand, use, and extend
 - [ ] one-click AWS deployment
 - [ ] serverless deployment
 - [ ] terraform deployment
+- [ ] deployable as: EC2/AMI/Docker/Fargate/Lambda/S3/NGINX/Process
 
 Nice to have:
 
-- logo
-- literate
+- [x] logo
+- [ ] literate
 
 ## Getting started
 
