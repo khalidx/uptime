@@ -8,6 +8,8 @@ custom:
       name: ${self:service}-${self:custom.stage}
       throughput: 5
       deletionPolicy: Retain
+    # vpc: vpc-ea6db38c
+    # vpce:
 
 frameworkVersion: ">=1.47.0 <2.0.0"
 
@@ -65,3 +67,4 @@ package:
 
 resources:
   - ${file(src/aws/DynamoDbTable.yaml)}
+  - ${file(src/aws/S3Bucket.yaml)}
