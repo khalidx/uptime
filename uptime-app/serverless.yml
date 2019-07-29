@@ -60,5 +60,8 @@ functions:
           path: settings
           cors: true
 
+package:
+  individually: true
+
 resources:
   - ${file(src/aws/DynamoDbTable.yaml)}
