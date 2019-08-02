@@ -111,4 +111,5 @@ export default new KoaRouter()
 
 .get('/', async (ctx, next) => {
   ctx.body = await getServices()
+  await next()
 })

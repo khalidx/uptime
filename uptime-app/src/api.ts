@@ -13,7 +13,10 @@ import services from './routes/services'
 const router = new KoaRouter()
 
 router
-  .get('/', async (ctx, next) => ctx.body = { message: 'Welcome to uptime!' })
+  .get('/', async (ctx, next) => {
+    ctx.body = { message: 'Welcome to uptime!' }
+    await next()
+  })
   .use('/settings', settings.routes(), settings.allowedMethods())
   .use('/services', services.routes(), services.allowedMethods())
 
