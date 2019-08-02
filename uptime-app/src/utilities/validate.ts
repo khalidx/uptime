@@ -2,10 +2,7 @@ import Joi from '@hapi/joi'
 
 let options: Joi.ValidationOptions = {
   abortEarly: false,
-  stripUnknown: {
-    arrays: true,
-    objects: true
-  }
+  allowUnknown: false
 }
 
 export default function validate<Type> (schema: Joi.ObjectSchema, object: any): Joi.ValidationResult<Type> {

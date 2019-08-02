@@ -47,7 +47,6 @@ export default new KoaRouter()
 })
 
 .put('/', async (ctx, next) => {
-  console.log('Validating the request ...')
   const validation = Validate<Settings>(schema, ctx.request.body)
   if (validation.error) throw new HttpError(400, 'Bad request')
   ctx.body = await putSettings(validation.value)
