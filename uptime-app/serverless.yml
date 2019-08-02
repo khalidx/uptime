@@ -4,8 +4,9 @@ service:
 custom:
   stage: ${opt:stage, self:provider.stage}
   uptime:
+    prefix: ${self:service}-${self:custom.stage}
     table:
-      name: ${self:service}-${self:custom.stage}
+      name: ${self:custom.uptime.prefix}
       throughput: 5
       deletionPolicy: Retain
     # vpc: vpc-ea6db38c
@@ -38,29 +39,29 @@ provider:
 
 functions:
 
-  getServices:
-    handler: src/getServices.handler
+  api:
+    handler: src/api.handler
+    memorySize: 256
+    timeout: 6
     events:
+      - http: 
+          path: / # this matches the base path
+          method: ANY
+          cors: true
       - http:
-          method: get
-          path: services
+          path: /{any+} # this matches any path, the token 'any' doesn't mean anything special
+          method: ANY
           cors: true
 
-  getSettings:
-    handler: src/getSettings.handler
+  pinger:
+    handler: src/pinger.handler
+    memorySize: 256
+    timeout: 45
     events:
-      - http:
-          method: get
-          path: settings
-          cors: true
-
-  putSettings:
-    handler: src/putSettings.handler
-    events:
-      - http:
-          method: put
-          path: settings
-          cors: true
+      - schedule:
+          name: ${self:custom.uptime.prefix}-scheduled-pinger
+          description: 'This is the core component of the uptime app, which runs checks on a schedule.'
+          rate: rate(1 minute)
 
 package:
   individually: true

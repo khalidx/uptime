@@ -1,25 +1,10 @@
-import 'source-map-support/register'
-import { APIGatewayProxyHandler } from 'aws-lambda'
+import KoaRouter from 'koa-router'
 
 import uuid from 'uuid/v4'
 import moment from 'moment'
 
-import Service, { Status } from './types/service'
-import DynamoDb from './utilities/dynamoDb'
-import Response from './utilities/response'
-
-export const handler: APIGatewayProxyHandler = async (event, context) => {
-  try {
-    console.log('Reading from the database ...')
-    let settings = await getServices()
-    console.log('Responding with status:success ...')
-    return Response(200, JSON.stringify(settings, null, 2))
-  } catch (error) {
-    console.error(error.message)
-    console.log('Responding with status:error ...')
-    return Response(500, JSON.stringify({ message: 'Internal server error.' }))
-  }
-}
+import Service, { Status } from '../types/service'
+import DynamoDb from '../utilities/dynamoDb'
 
 export async function getServices (): Promise<Array<Service>> {
   let table = process.env.DYNAMODB_TABLE
@@ -121,3 +106,9 @@ export async function getServices (): Promise<Array<Service>> {
     }
   })
 }
+
+export default new KoaRouter()
+
+.get('/', async (ctx, next) => {
+  ctx.body = await getServices()
+})
