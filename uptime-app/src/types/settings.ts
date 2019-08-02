@@ -5,5 +5,5 @@ export default interface Settings {
 }
 
 export const schema = Joi.object().keys({
-  title: Joi.string().alphanum().min(3).max(30).required()
+  title: Joi.string().min(3).max(30).required()
 })
