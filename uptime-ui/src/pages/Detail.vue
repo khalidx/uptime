@@ -53,6 +53,13 @@
                 </div>
               </div>
 
+              <div class="card mb-3">
+                <h5 class="card-header">Responses</h5>
+                <div class="card-body">
+                  <advanced-chart></advanced-chart>
+                </div>
+              </div>
+
               <div class="card shadow-lg mb-3 bg-white rounded">
                 <h5 class="card-header">Checks</h5>
                 <div class="card-body">
@@ -113,6 +120,7 @@ import Loading from '../components/Loading'
 import Subscribe from '../components/Subscribe'
 import Trend from '../components/Trend'
 import Chart from '../components/Chart'
+import AdvancedChart from '../components/AdvancedChart'
 import Feedback from '../components/Feedback'
 
 export default Vue.extend({
@@ -121,6 +129,7 @@ export default Vue.extend({
     Subscribe,
     Trend,
     Chart,
+    AdvancedChart,
     Feedback
   },
   props: {
