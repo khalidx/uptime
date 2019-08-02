@@ -67,14 +67,6 @@
           <i class="fa fa-code"></i> <span class="d-none d-sm-inline-block ml-1">Export configuration to JSON</span>
         </router-link>
       </li>
-      <li class="mb-3">
-        <router-link
-          to="/dashboard/reset"
-          class="btn btn-outline-danger btn-hero-sm btn-hero-success"
-          tag="a">
-          <i class="fa fa-minus"></i> <span class="d-none d-sm-inline-block ml-1">Reset sample data</span>
-        </router-link>
-      </li>
     </ul>
   </div>
 </template>

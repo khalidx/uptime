@@ -97,9 +97,3 @@ export const store = new Vuex.Store<State>({
   mutations,
   actions
 })
-
-// export default {
-//   reset (): void {
-//     localStorage.removeItem('endpoints')
-//   }
-// }
