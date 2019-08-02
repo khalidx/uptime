@@ -3,7 +3,9 @@ import KoaRouter from 'koa-router'
 import uuid from 'uuid/v4'
 import moment from 'moment'
 
-import Service, { Status } from '../types/service'
+import Service, { Status, schema } from '../types/service'
+import HttpError from '../types/httpError'
+import Validate from '../utilities/validate'
 import DynamoDb from '../utilities/dynamoDb'
 
 export async function getServices (): Promise<Array<Service>> {
@@ -107,9 +109,35 @@ export async function getServices (): Promise<Array<Service>> {
   })
 }
 
+export async function putServices (services: Array<Service>): Promise<void> {
+  let table = process.env.DYNAMODB_TABLE
+  if (!table) throw new Error('Missing DynamoDb table name.')
+  await DynamoDb.update({
+    TableName: table,
+    Key: {
+      id: 'services'
+    },
+    ExpressionAttributeNames: {
+      '#services': 'json',
+    },
+    ExpressionAttributeValues: {
+      ':services': JSON.stringify(services)
+    },
+    UpdateExpression: 'SET #services = :services',
+    ReturnValues: 'ALL_NEW'
+  }).promise()
+}
+
 export default new KoaRouter()
 
 .get('/', async (ctx, next) => {
   ctx.body = await getServices()
+  await next()
+})
+
+.put('/', async (ctx, next) => {
+  const validation = Validate<Array<Service>>(schema, ctx.request.body)
+  if (validation.error) throw new HttpError(400, 'Bad request')
+  ctx.body = await putServices(validation.value)
   await next()
 })
