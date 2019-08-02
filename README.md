@@ -13,6 +13,7 @@ An uptime monitoring web application that is easy to understand, use, and extend
   - [Features](#features)
   - [Getting started](#getting-started)
   - [Components](#components)
+  - [API](#api)
   - [Support](#support)
   - [Developers](#developers)
     - [Usage](#usage)
@@ -67,6 +68,22 @@ Coming soon.
 
 - `uptime-ui` (the uptime web application frontend)
 - `uptime-app` (the uptime serverless application backend)
+
+## API
+
+| Operations | Path | Description |
+|--- |--- |--- |
+| GET, PUT | `/settings` | Manage system settings, like the status page `title` |
+| GET, POST | `/services` | Get a list of monitored services or add a service |
+| GET, PUT, DELETE | `/services/{id}` | Get or manage a specific service |
+| GET, POST | `/services/messages` | Get a list of operational status messages for a service, or add a new message |
+| GET, PUT, DELETE | `/services/messages/{id}` | Get or manage a specific service message |
+| GET, POST | `/services/feedback` | Get a list of feedback messages for a service, or submit a feedback message |
+| GET, PUT, DELETE | `/services/feedback/{id}` | Get or manage a specific service feedback message |
+| GET, POST | `/services/checks` | Get the configured checks for a service, like scheduled pings, or add a new service check |
+| GET, PUT, DELETE | `/services/checks/{id}` | Get or manage a specific service check |
+| GET, POST | `/services/requests` | Get the request metrics for a service |
+| GET, PUT, DELETE | `/services/requests/{id}` | Get or manage a specific request metric |
 
 ## Support
 
