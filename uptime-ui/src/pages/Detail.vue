@@ -46,21 +46,18 @@
                 </div>
               </div>
 
-              <div class="card mb-3">
+              <div class="card shadow-lg mb-3 bg-white rounded">
                 <h5 class="card-header">Errors</h5>
                 <div class="card-body">
                   <chart :values="{ '2019-07-10': 2, '2019-07-12': 5, '2019-07-14': 1, '2019-07-16': 3, '2019-07-18': 3 }"></chart>
                 </div>
               </div>
 
-              <div class="card mb-3">
-                <h5 class="card-header">Responses</h5>
-                <div class="card-body">
-                  <advanced-chart></advanced-chart>
+              <div class="card shadow-lg mb-3 bg-white rounded">
                 </div>
               </div>
 
-              <div class="card shadow-lg mb-3 bg-white rounded">
+              <div class="card shadow-lg mb-3 text-white bg-primary rounded">
                 <h5 class="card-header">Checks</h5>
                 <div class="card-body">
                   <p class="card-text"><em>Scheduled pings and requests</em></p>
@@ -83,7 +80,7 @@
                 </div>
               </div>
 
-              <div class="card mb-3">
+              <div class="card shadow-lg mb-3 bg-white rounded">
                 <h5 class="card-header">Submissions</h5>
                 <div class="card-body">
                   <p class="card-text"><em>Recently submitted feedback</em></p>

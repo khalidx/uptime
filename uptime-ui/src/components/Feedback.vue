@@ -1,5 +1,5 @@
 <template>
-  <div class="card mb-3">
+  <div class="card shadow-lg mb-3 bg-white rounded">
     <h5 class="card-header">Feedback</h5>
     <div class="card-body">
       <h5 class="card-title">Submit a bug report</h5>
