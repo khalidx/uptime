@@ -8,12 +8,6 @@ let options: Joi.ValidationOptions = {
   }
 }
 
-// TODO need a better validator to handle unclean input
-export default function validate<Type> (schema: Joi.ObjectSchema, json: string | undefined | null): Joi.ValidationResult<Type> {
-  try {
-    let object = JSON.parse(json || '')
-    return schema.validate<Type>(object, options)
-  } catch (error) {
-    return schema.validate<Type>({} as Type, options)
-  }
+export default function validate<Type> (schema: Joi.ObjectSchema, object: any): Joi.ValidationResult<Type> {
+  return schema.validate<Type>(object, options)
 }
