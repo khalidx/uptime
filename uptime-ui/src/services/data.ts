@@ -36,7 +36,7 @@ const actions: ActionTree<State, State> = {
   getServices ({ commit }) {
     commit('loading')
     axios
-    .get('https://su7e8qlg21.execute-api.us-east-1.amazonaws.com/dev/services')
+    .get(`${process.env.API_URL}/services`)
     .then((response) => commit('servicesLoaded', response.data))
     .catch((error) => {
       console.error(error)
@@ -46,7 +46,7 @@ const actions: ActionTree<State, State> = {
   getSettings ({ commit }) {
     commit('loading')
     axios
-    .get('https://su7e8qlg21.execute-api.us-east-1.amazonaws.com/dev/settings')
+    .get(`${process.env.API_URL}/settings`)
     .then((response) => commit('settingsLoaded', response.data))
     .catch((error) => {
       console.error(error)
