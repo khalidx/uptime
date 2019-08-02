@@ -26,6 +26,11 @@ const mutations: MutationTree<State> = {
     state.loading = false
     state.error = undefined
   },
+  settingsUpdated (state, payload: Settings) {
+    state.settings = payload
+    state.loading = false
+    state.error = undefined
+  },
   error (state, payload: string) {
     state.loading = false
     state.error = payload
@@ -57,7 +62,7 @@ const actions: ActionTree<State, State> = {
     commit('loading')
     axios
     .put(`${process.env.API_URL}/settings`, settings)
-    .then((response) => commit('settingsLoaded', settings))
+    .then((response) => commit('settingsUpdated', settings))
     .catch((error) => {
       console.error(error)
       commit('error', 'Error while updating settings.')
