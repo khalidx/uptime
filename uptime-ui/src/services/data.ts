@@ -52,6 +52,16 @@ const actions: ActionTree<State, State> = {
       console.error(error)
       commit('error', 'Error while loading settings.')
     })
+  },
+  putSettings ({ commit, state }, settings: Settings) {
+    commit('loading')
+    axios
+    .put(`${process.env.API_URL}/settings`, settings)
+    .then((response) => commit('settingsLoaded', settings))
+    .catch((error) => {
+      console.error(error)
+      commit('error', 'Error while updating settings.')
+    })
   }
 }
 
@@ -71,9 +81,6 @@ export const store = new Vuex.Store<State>({
 // export default {
 //   saveEndpoints (endpoints: Array<Service>): void {
 //     localStorage.setItem('endpoints', JSON.stringify(endpoints))
-//   },
-//   saveSettings (settings: Settings): void {
-//     localStorage.setItem('settings', JSON.stringify(settings))
 //   },
 //   reset (): void {
 //     localStorage.removeItem('endpoints')
