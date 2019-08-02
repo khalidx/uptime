@@ -31,7 +31,7 @@ export default Vue.extend({
   methods: {
     remove (endpoint) {
       this.endpoints = this.endpoints.filter(e => e.name !== endpoint.name)
-      // TODO data.saveEndpoints(this.endpoints)
+      this.$store.dispatch('putServices', this.endpoints)
     },
     status (endpoint) {
       let sortedRecentToOldest = endpoint.messages.slice().sort((a, b) => moment(b.submitted).valueOf() - moment(a.submitted).valueOf())

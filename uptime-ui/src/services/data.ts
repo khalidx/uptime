@@ -21,6 +21,11 @@ const mutations: MutationTree<State> = {
     state.loading = false
     state.error = undefined
   },
+  servicesUpdated (state, payload: Array<Service>) {
+    state.services = payload
+    state.loading = false
+    state.error = undefined
+  },
   settingsLoaded (state, payload: Settings) {
     state.settings = payload
     state.loading = false
@@ -46,6 +51,16 @@ const actions: ActionTree<State, State> = {
     .catch((error) => {
       console.error(error)
       commit('error', 'Error while loading services.')
+    })
+  },
+  putServices ({ commit, state }, services: Array<Service>) {
+    commit('loading')
+    axios
+    .put(`${process.env.API_URL}/services`, services)
+    .then((response) => commit('servicesUpdated', services))
+    .catch((error) => {
+      console.error(error)
+      commit('error', 'Error while updating services.')
     })
   },
   getSettings ({ commit }) {
@@ -84,9 +99,6 @@ export const store = new Vuex.Store<State>({
 })
 
 // export default {
-//   saveEndpoints (endpoints: Array<Service>): void {
-//     localStorage.setItem('endpoints', JSON.stringify(endpoints))
-//   },
 //   reset (): void {
 //     localStorage.removeItem('endpoints')
 //   }

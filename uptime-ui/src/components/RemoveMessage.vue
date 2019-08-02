@@ -34,10 +34,10 @@ import Vue from 'vue'
 export default Vue.extend({
   methods: {
     remove (message) {
-      // TODO data.saveEndpoints(this.endpoints.map(endpoint => {
-      //   endpoint.messages = endpoint.messages.filter(m => m.id !== message.id)
-      //   return endpoint
-      // }))
+      this.$store.dispatch('putServices', this.endpoints.map(endpoint => {
+        endpoint.messages = endpoint.messages.filter(m => m.id !== message.id)
+        return endpoint
+      }))
     }
   },
   computed: {

@@ -35,7 +35,7 @@ export default Vue.extend({
   methods: {
     archive (message) {
       message.active = false
-      // TODO data.saveEndpoints(this.endpoints)
+      this.$store.dispatch('putServices', this.endpoints)
     }
   },
   computed: {

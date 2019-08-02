@@ -132,8 +132,7 @@ export default Vue.extend({
         ],
         messages: []
       })
-      // TODO data.saveEndpoints(this.endpoints)
-      this.$router.push('/status')
+      this.$store.dispatch('putServices', this.endpoints).then(() => this.$router.push('/status'))
     }
   }
 })
