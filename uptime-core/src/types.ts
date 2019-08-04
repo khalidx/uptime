@@ -16,3 +16,7 @@ export type Service = {
 export type IdentifiableService = Identifiable & Service
 
 export type IdentifiableServices = Array<IdentifiableService>
+
+export type Settings = {
+  title: string
+}
