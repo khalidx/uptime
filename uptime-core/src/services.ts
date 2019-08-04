@@ -48,6 +48,7 @@ export async function readService (table: Table, service: Identifiable): Promise
       id: service.id
     }
   }).promise()
+  if (!response.Item) throw new Error(`Service ${service.id} does not exist`)
   return response.Item as IdentifiableService
 }
 
