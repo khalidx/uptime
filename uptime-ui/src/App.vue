@@ -1,7 +1,9 @@
 <template>
   <div>
     <nav-bar></nav-bar>
-    <router-view></router-view>
+    <transition name="fade">
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 
@@ -75,5 +77,12 @@ body {
 
 .navbar-brand {
   color: var(--px-app-nav-item-text-color, #4f6674) !important;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .3s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 </style>
