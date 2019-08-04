@@ -6,13 +6,11 @@ import moment from 'moment'
 import Service, { Status, schema } from '../types/service'
 import HttpError from '../types/httpError'
 import Validate from '../utilities/validate'
-import DynamoDb from '../utilities/dynamoDb'
+import { servicesTable } from '../utilities/dynamoDb'
 
 export async function getServices (): Promise<Array<Service>> {
-  let table = process.env.DYNAMODB_TABLE
-  if (!table) throw new Error('Missing DynamoDb table name.')
-  let response = await DynamoDb.get({
-    TableName: table,
+  let response = await servicesTable.client.get({
+    TableName: servicesTable.tableName,
     Key: {
       id: 'services'
     }
@@ -110,10 +108,8 @@ export async function getServices (): Promise<Array<Service>> {
 }
 
 export async function putServices (services: Array<Service>): Promise<void> {
-  let table = process.env.DYNAMODB_TABLE
-  if (!table) throw new Error('Missing DynamoDb table name.')
-  await DynamoDb.update({
-    TableName: table,
+  await servicesTable.client.update({
+    TableName: servicesTable.tableName,
     Key: {
       id: 'services'
     },

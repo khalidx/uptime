@@ -3,13 +3,11 @@ import KoaRouter from 'koa-router'
 import Settings, { schema } from '../types/settings'
 import HttpError from '../types/httpError'
 import Validate from '../utilities/validate'
-import DynamoDb from '../utilities/dynamoDb'
+import { servicesTable } from '../utilities/dynamoDb'
 
 export async function getSettings (): Promise<Settings> {
-  let table = process.env.DYNAMODB_TABLE
-  if (!table) throw new Error('Missing DynamoDb table name.')
-  let response = await DynamoDb.get({
-    TableName: table,
+  let response = await servicesTable.client.get({
+    TableName: servicesTable.tableName,
     Key: {
       id: 'settings'
     }
@@ -21,10 +19,8 @@ export async function getSettings (): Promise<Settings> {
 }
 
 export async function putSettings (settings: Settings): Promise<void> {
-  let table = process.env.DYNAMODB_TABLE
-  if (!table) throw new Error('Missing DynamoDb table name.')
-  await DynamoDb.update({
-    TableName: table,
+  await servicesTable.client.update({
+    TableName: servicesTable.tableName,
     Key: {
       id: 'settings'
     },
