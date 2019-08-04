@@ -31,7 +31,7 @@ router
   .post('/services', create(services, serviceSchema))
   .get('/services/:id', read(services))
   .put('/services/:id', update(services, serviceSchema))
-  .del('/services/:id', del(services, serviceSchema))
+  .del('/services/:id', del(services))
 
 const app = new Koa()
 
