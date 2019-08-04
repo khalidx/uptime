@@ -49,3 +49,8 @@ test('can CRUD a service', async t => {
   // delete
   await deleteService(servicesTable, { id: result.id })
 })
+
+test('throws an error when reading a service that does not exist', async t =>{
+  let result = await t.throwsAsync(readService(servicesTable, { id: 'this-id-does-not-exist' }))
+  t.true(result.message === 'Service this-id-does-not-exist does not exist')
+})
