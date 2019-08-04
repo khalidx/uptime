@@ -3,7 +3,7 @@ import test from 'ava'
 import AWS from 'aws-sdk'
 
 import { Table } from './types'
-import { listServices, createService, readService, updateService, deleteService } from './index'
+import { listServices, createService, readService, updateService, deleteService } from './services'
 
 let servicesTable: Table
 
