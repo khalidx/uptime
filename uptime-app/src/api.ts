@@ -4,21 +4,34 @@ import serverless from 'serverless-http'
 import Koa from 'koa'
 import KoaRouter from 'koa-router'
 import koaBodyParser from 'koa-bodyparser'
-
 import moment from 'moment-timezone'
 
-import settings from './routes/settings'
-import services from './routes/services'
- 
+import { servicesTable } from '../../uptime-core/src/constants'
+import Settings, { settingsSchema } from '../../uptime-core/src/settings'
+import Services, { serviceSchema } from '../../uptime-core/src/services'
+import { list, create, read, update, del } from '../../uptime-core/src/rest'
+
+const settings = new Settings(servicesTable)
+const services = new Services(servicesTable)
+
 const router = new KoaRouter()
 
 router
+  // root
   .get('/', async (ctx, next) => {
     ctx.body = { message: 'Welcome to uptime!' }
     await next()
   })
-  .use('/settings', settings.routes(), settings.allowedMethods())
-  .use('/services', services.routes(), services.allowedMethods())
+  // settings
+  .get('/settings', read(settings))
+  .put('/settings', update(settings, settingsSchema))
+  .del('/settings', del(settings))
+  // services
+  .get('/services', list(services))
+  .post('/services', create(services, serviceSchema))
+  .get('/services/:id', read(services))
+  .put('/services/:id', update(services, serviceSchema))
+  .del('/services/:id', del(services, serviceSchema))
 
 const app = new Koa()
 
