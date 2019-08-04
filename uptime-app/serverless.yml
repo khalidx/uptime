@@ -66,9 +66,35 @@ functions:
     timeout: 45
     events:
       - schedule:
-          name: ${self:custom.uptime.prefix}-scheduled-pinger
-          description: 'This is the core component of the uptime app, which runs checks on a schedule.'
+          name: ${self:custom.uptime.prefix}-scheduled-pinger-1-minute
+          description: 'The uptime pinger, which runs checks on a schedule (1 minute)'
           rate: rate(1 minute)
+          input:
+            rate: 1 minute
+      - schedule:
+          name: ${self:custom.uptime.prefix}-scheduled-pinger-5-minutes
+          description: 'The uptime pinger, which runs checks on a schedule (5 minutes)'
+          rate: rate(5 minutes)
+          input:
+            rate: 5 minutes
+      - schedule:
+          name: ${self:custom.uptime.prefix}-scheduled-pinger-15-minutes
+          description: 'The uptime pinger, which runs checks on a schedule (15 minutes)'
+          rate: rate(15 minutes)
+          input:
+            rate: 15 minutes
+      - schedule:
+          name: ${self:custom.uptime.prefix}-scheduled-pinger-30-minutes
+          description: 'The uptime pinger, which runs checks on a schedule (30 minutes)'
+          rate: rate(30 minutes)
+          input:
+            rate: 30 minutes
+      - schedule:
+          name: ${self:custom.uptime.prefix}-scheduled-pinger-1-hour
+          description: 'The uptime pinger, which runs checks on a schedule (1 hour)'
+          rate: rate(1 hour)
+          input:
+            rate: 1 hour
 
 package:
   individually: true
