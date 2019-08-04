@@ -29,7 +29,7 @@ Resources:
         - AttributeName: id
           KeyType: HASH
         - AttributeName: time
-          KeyType: HASH
+          KeyType: RANGE
       ProvisionedThroughput:
         ReadCapacityUnits: ${self:custom.uptime.metricsTable.throughput}
         WriteCapacityUnits: ${self:custom.uptime.metricsTable.throughput}
