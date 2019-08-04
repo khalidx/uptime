@@ -5,10 +5,15 @@ custom:
   stage: ${opt:stage, self:provider.stage}
   uptime:
     prefix: ${self:service}-${self:custom.stage}
-    table:
-      name: ${self:custom.uptime.prefix}
+    servicesTable:
+      name: ${self:custom.uptime.prefix}-services
       throughput: 5
       deletionPolicy: Retain
+    metricsTable:
+      name: ${self:custom.uptime.prefix}-metrics
+      throughput: 5
+      deletionPolicy: Retain
+
     # vpc: vpc-ea6db38c
     # vpce:
 
@@ -24,7 +29,8 @@ provider:
   region: us-east-1
   runtime: nodejs10.x
   environment:
-    DYNAMODB_TABLE: ${self:custom.uptime.table.name}
+    SERVICES_TABLE: ${self:custom.uptime.servicesTable.name}
+    METRICS_TABLE: ${self:custom.uptime.metricsTable.name}
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -35,7 +41,8 @@ provider:
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
       Resource:
-        - "Fn::GetAtt": [ DynamoDbTable, Arn ]
+        - "Fn::GetAtt": [ ServicesTable, Arn ]
+        - "Fn::GetAtt": [ MetricsTable, Arn ]
 
 functions:
 
@@ -67,5 +74,5 @@ package:
   individually: true
 
 resources:
-  - ${file(src/aws/DynamoDbTable.yaml)}
+  - ${file(src/aws/DynamoDbTables.yaml)}
   - ${file(src/aws/S3Bucket.yaml)}

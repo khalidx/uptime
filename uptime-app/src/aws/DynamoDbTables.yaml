@@ -1,0 +1,35 @@
+Resources:
+
+  ServicesTable:
+    Type: 'AWS::DynamoDB::Table'
+    DeletionPolicy: ${self:custom.uptime.servicesTable.deletionPolicy}
+    Properties:
+      TableName: ${self:custom.uptime.servicesTable.name}
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: ${self:custom.uptime.servicesTable.throughput}
+        WriteCapacityUnits: ${self:custom.uptime.servicesTable.throughput}
+
+  MetricsTable:
+    Type: 'AWS::DynamoDB::Table'
+    DeletionPolicy: ${self:custom.uptime.metricsTable.deletionPolicy}
+    Properties:
+      TableName: ${self:custom.uptime.metricsTable.name}
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+        - AttributeName: time
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+        - AttributeName: time
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: ${self:custom.uptime.metricsTable.throughput}
+        WriteCapacityUnits: ${self:custom.uptime.metricsTable.throughput}
