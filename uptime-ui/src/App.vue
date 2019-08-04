@@ -37,6 +37,7 @@ export default Vue.extend({
   },
   store,
   router: new VueRouter({
+    mode: 'history',
     routes: [
       { path: '/', redirect: '/status' },
       { path: '/status', component: Status },
