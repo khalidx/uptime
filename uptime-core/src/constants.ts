@@ -1,16 +1,13 @@
 import AWS from 'aws-sdk'
 
-export interface Table {
-  tableName: string
-  client: AWS.DynamoDB.DocumentClient
-}
+import { Table } from './crud'
 
 const dynamodb = new AWS.DynamoDB.DocumentClient()
 
 function getClientForTable (environmentVariable: string | undefined): Table {
-  if (!environmentVariable) throw new Error('Missing DynamoDb table name.')
+  if (!environmentVariable || environmentVariable.length == 0) throw new Error('Missing DynamoDb table name.')
   return {
-    tableName: environmentVariable,
+    name: environmentVariable,
     client: dynamodb
   }
 }
