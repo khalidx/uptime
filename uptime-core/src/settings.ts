@@ -1,43 +1,42 @@
-import { Table, Settings } from './types'
+import Joi from '@hapi/joi'
 
-/**
- * Reads the settings record from the services table. If the settings
- *   record doesn't already exist, it returns default settings.
- */
-export async function readSettings (table: Table): Promise<Settings> {
-  let response = await table.client.get({
-    TableName: table.name,
-    Key: {
-      id: 'settings'
-    }
-  }).promise()
-  return (response.Item) ? response.Item as Settings : {
-    title: 'API'
+import CRUD, { Table, Identifiable } from './crud'
+
+export type Settings = {
+  title: string
+}
+
+export const settingsSchema = Joi.object().keys({
+  title: Joi.string().min(3).max(30).required()
+})
+
+export default class extends CRUD<Settings> {
+  constructor (table: Table) {
+    super(table, 'settings')
   }
-}
-
-/**
- * Updates the settings record in the services table. If the settings
- *   record doesn't already exist, it is created.
- */
-export async function updateSettings (table: Table, settings: Settings): Promise<void> {
-  await table.client.put({
-    TableName: table.name,
-    Item: {
-      ...settings,
-      id: 'settings'
+  public async list (): Promise<Array<Identifiable & Settings>> {
+    throw new Error('Illegal operation. list() is not applicable for Settings')
+  }
+  public async create (): Promise<Identifiable & Settings> {
+    throw new Error('Illegal operation. create() is not applicable for Settings')
+  }
+  public async read () {
+    let settings = await super.read({ id: 'settings' })
+    return (settings) ? settings : {
+      id: 'settings',
+      title: 'API'
     }
-  }).promise()
-}
-
-/**
- * Deletes the settings record in the services table.
- */
-export async function deleteSettings (table: Table): Promise<void> {
-  await table.client.delete({
-    TableName: table.name,
-    Key: {
-      id: 'settings'
-    }
-  }).promise()
+  }
+  public async update (settings: Settings) {
+    await this.table.client.put({
+      TableName: this.table.name,
+      Item: {
+        ...settings,
+        id: 'settings'
+      }
+    }).promise()
+  }
+  public async delete () {
+    return await super.delete({ id: 'settings' })
+  }
 }
