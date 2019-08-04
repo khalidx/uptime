@@ -14,13 +14,14 @@
     "dev": "ts-node ./src/index.ts",
     "clean": "rimraf ./dist/",
     "build": "npm run clean && tsc",
-    "test": "npm run build && ava --verbose"
+    "test": "npm run build && nyc --reporter=html --reporter=text ava --verbose"
   },
   "devDependencies": {
     "@types/deep-equal": "^1.0.1",
     "@types/uuid": "^3.4.5",
     "ava": "^2.2.0",
     "deep-equal": "^1.0.1",
+    "nyc": "^14.1.1",
     "rimraf": "^2.6.3",
     "ts-node": "^8.3.0",
     "typescript": "^3.5.3"
