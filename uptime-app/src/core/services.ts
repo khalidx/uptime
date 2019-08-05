@@ -3,6 +3,7 @@ import moment from 'moment-timezone'
 import Joi from '@hapi/joi'
 
 import CRUD, { Table, Identifiable } from './crud'
+import { Metric } from '../pinger'
 
 export type Status = 'Operational' | 'Maintenance' | 'Down'
 
@@ -14,14 +15,7 @@ export type Service = {
   title: string
   location: string
   status: Status
-  requests: Array<{
-    start: string
-    end: string
-    latency: number
-    type: 'success' | 'error',
-    message: string
-    raw: string
-  }>
+  metrics: Array<Metric>
   checks: Array<{
     rate: Rate
     lastCheck: string,
@@ -46,16 +40,17 @@ export const serviceSchema: Joi.ObjectSchema = Joi.object().keys({
   title: Joi.string().min(1).max(30).required(),
   location: Joi.string().uri().required(),
   status: Joi.allow('Operational', 'Maintenance', 'Down').required(),
-  requests: Joi.array().required().items(Joi.object().keys({
-    start: Joi.string().isoDate().required(),
-    end: Joi.string().isoDate().required(),
-    latency: Joi.number().integer().unit('milliseconds').required(),
-    response: Joi.object().required().keys({
-      type: Joi.allow('success', 'error').required(),
-      message: Joi.string().min(1).max(30).required(),
-      raw: Joi.string().min(1).max(500).required()
-    })
-  })),
+  // Don't allow metrics to be provided when creating a service
+  // metrics: Joi.array().required().items(Joi.object().keys({
+  //   start: Joi.string().isoDate().required(),
+  //   end: Joi.string().isoDate().required(),
+  //   latency: Joi.number().integer().unit('milliseconds').required(),
+  //   response: Joi.object().required().keys({
+  //     type: Joi.allow('success', 'error').required(),
+  //     message: Joi.string().min(1).max(30).required(),
+  //     raw: Joi.string().min(1).max(500).required()
+  //   })
+  // })),
   checks: Joi.array().required().items(Joi.object().keys({
     rate: Joi.string().min(1).max(30).required(),
     lastCheck: Joi.string().isoDate().required(),
@@ -95,14 +90,16 @@ export default class extends CRUD<Service> {
         title: sample.title,
         location: `https://example.com/${encodeURIComponent(sample.title.toLowerCase())}`,
         status: sample.status,
-        requests: [ 5, 4, 3, 2, 1 ].map(n => {
+        metrics: [...Array(15).keys()].map(n => {
           return {
-            start: moment().subtract(n, 'days').format('YYYY-MM-DD'),
-            end: moment().subtract(n, 'days').add(2, 'seconds').format('YYYY-MM-DD'),
-            latency: 2000,
-            type: 'success',
-            message: '200 OK',
-            raw: 'Nothing'
+            id: sample.id,
+            time: moment().subtract(n, 'days').toISOString(),
+            start: moment().subtract(n, 'days').toISOString(),
+            end: moment().subtract(n, 'days').add(2, 'seconds').toISOString(),
+            type: (n != 7 && n != 8 && n != 14) ? 'success' : 'error',
+            code: (n != 7 && n != 8 && n != 14) ? 200 : 500,
+            message: (n != 7 && n != 8 && n != 14) ? '200 OK': '500 Internal server error',
+            latency: Math.floor(Math.random() * (4000 - 10)) + 10
           }
         }),
         checks: [
