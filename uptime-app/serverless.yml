@@ -69,33 +69,48 @@ functions:
       - schedule:
           name: ${self:custom.uptime.prefix}-scheduled-pinger-1-minute
           description: 'The uptime pinger, which runs checks on a schedule (1 minute)'
-          rate: rate(1 minute)
-          input:
-            rate: 1 minute
+          rate: cron(* * * * ? *)
+          inputTransformer:
+            inputPathsMap:
+              eventId: '$.id'
+              eventTime: '$.time'
+            inputTemplate: '{"id": <eventId>, "time": <eventTime>, "rate": "1 minute"}'
       - schedule:
           name: ${self:custom.uptime.prefix}-scheduled-pinger-5-minutes
           description: 'The uptime pinger, which runs checks on a schedule (5 minutes)'
-          rate: rate(5 minutes)
-          input:
-            rate: 5 minutes
+          rate: cron(0/5 * * * ? *)
+          inputTransformer:
+            inputPathsMap:
+              eventId: '$.id'
+              eventTime: '$.time'
+            inputTemplate: '{"id": <eventId>, "time": <eventTime>, "rate": "5 minutes"}'
       - schedule:
           name: ${self:custom.uptime.prefix}-scheduled-pinger-15-minutes
           description: 'The uptime pinger, which runs checks on a schedule (15 minutes)'
-          rate: rate(15 minutes)
-          input:
-            rate: 15 minutes
+          rate: cron(0/15 * * * ? *)
+          inputTransformer:
+            inputPathsMap:
+              eventId: '$.id'
+              eventTime: '$.time'
+            inputTemplate: '{"id": <eventId>, "time": <eventTime>, "rate": "15 minutes"}'
       - schedule:
           name: ${self:custom.uptime.prefix}-scheduled-pinger-30-minutes
           description: 'The uptime pinger, which runs checks on a schedule (30 minutes)'
-          rate: rate(30 minutes)
-          input:
-            rate: 30 minutes
+          rate: cron(0/30 * * * ? *)
+          inputTransformer:
+            inputPathsMap:
+              eventId: '$.id'
+              eventTime: '$.time'
+            inputTemplate: '{"id": <eventId>, "time": <eventTime>, "rate": "30 minutes"}'
       - schedule:
           name: ${self:custom.uptime.prefix}-scheduled-pinger-1-hour
           description: 'The uptime pinger, which runs checks on a schedule (1 hour)'
-          rate: rate(1 hour)
-          input:
-            rate: 1 hour
+          rate: cron(0 * * * ? *)
+          inputTransformer:
+            inputPathsMap:
+              eventId: '$.id'
+              eventTime: '$.time'
+            inputTemplate: '{"id": <eventId>, "time": <eventTime>, "rate": "1 hour"}'
 
 package:
   individually: true
