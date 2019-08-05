@@ -33,3 +33,6 @@ Resources:
       ProvisionedThroughput:
         ReadCapacityUnits: ${self:custom.uptime.metricsTable.throughput}
         WriteCapacityUnits: ${self:custom.uptime.metricsTable.throughput}
+      TimeToLiveSpecification:
+        AttributeName: ttl
+        Enabled: true
