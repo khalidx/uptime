@@ -45,20 +45,17 @@ An uptime monitoring web application that is easy to understand, use, and extend
 - [ ] manually trigger a check, outside of schedule (3 days)
 - [ ] see debug logs for a check
 - [ ] auth for UI and API users
+- [x] display errors when actions fail
 - [x] persistent history (3 days)
 - [x] post status and scheduled maintenance messages (5 days)
 - [ ] notifications via email, sms, slack, and webhooks (5 days)
 - [ ] webpage screenshot support (7 days)
 - [ ] load testing support with artillery (7 days)
+- [ ] version/refresh/etag support to prevent stale updates
 - [ ] one-click AWS deployment
 - [x] serverless deployment
 - [ ] terraform deployment
 - [ ] deployable as: EC2/AMI/Docker/Fargate/Lambda/S3/NGINX/Process
-
-Nice to have:
-
-- [x] logo
-- [ ] literate
 
 ## Getting started
 
