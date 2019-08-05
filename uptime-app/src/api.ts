@@ -6,10 +6,10 @@ import KoaRouter from 'koa-router'
 import koaBodyParser from 'koa-bodyparser'
 import moment from 'moment-timezone'
 
-import { servicesTable } from '../../uptime-core/src/constants'
-import Settings, { settingsSchema } from '../../uptime-core/src/settings'
-import Services, { serviceSchema } from '../../uptime-core/src/services'
-import { list, create, read, update, del } from '../../uptime-core/src/rest'
+import { servicesTable } from './core/constants'
+import Settings, { settingsSchema } from './core/settings'
+import Services, { serviceSchema } from './core/services'
+import { list, create, read, update, del } from './core/rest'
 
 const settings = new Settings(servicesTable)
 const services = new Services(servicesTable)
