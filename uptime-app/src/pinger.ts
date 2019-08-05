@@ -14,6 +14,7 @@ export type Metric = {
   start: string
   end: string
   type: 'success' | 'error'
+  code: number
   message: string
   raw: string
   latency: number
@@ -87,6 +88,7 @@ export const handler = async (event: CustomScheduledEvent, context: Context): Pr
               start: start.toISOString(),
               end: end.toISOString(),
               type: (error || response.statusCode >= 400 || response.statusCode >= 500) ? 'error' : 'success',
+              code: response.statusCode,
               message: response.statusMessage,
               raw: JSON.stringify(response),
               latency: response.timingPhases!.firstByte
