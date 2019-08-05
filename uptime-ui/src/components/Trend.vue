@@ -1,10 +1,13 @@
 <template>
-  <trend
-    :data="values.length > 0 ? values : [0, 2, 5, 9, 5, 10, 3, 5, 0, 0, 1, 8, 2, 9, 0]"
-    :gradient="gradients[endpoint.status]"
-    auto-draw
-    smooth>
-  </trend>
+  <div>
+    <trend v-if="values"
+      :data="values"
+      :gradient="gradients[endpoint.status]"
+      auto-draw
+      smooth>
+    </trend>
+    <p v-else>Not enough latency data. Check back soon!</p>
+  </div>
 </template>
 
 <script lang="ts">
@@ -24,12 +27,16 @@ export default Vue.extend({
   },
   data () {
     return {
-      values: [],
       gradients: {
         Operational: ['#5ab43a', '#1dfd71', '#2fe7c8'],
         Maintenance: [ '#b4a13a', '#fdcf1d', '#d0e623' ],
         Down: [ '#b43a60', '#fd1d50', '#e62323' ]
       }
+    }
+  },
+  computed: {
+    values () {
+      return this.endpoint.metrics.map(metric => metric.latency)
     }
   }
 })

@@ -1,44 +1,53 @@
 <template>
-  <div id="wrapper">
-    <div id="chart-area">
-      <apexchart :height="options1.chart.height" :type="options1.chart.type" :options="options1" :series="options1.series"></apexchart>
+  <div>
+    <div v-if="values" id="wrapper">
+      <div id="chart-area">
+        <apexchart :height="options1.chart.height" :type="options1.chart.type" :options="options1" :series="options1.series"></apexchart>
+      </div>
+      <div id="chart-bar">
+        <apexchart :height="options2.chart.height" :type="options2.chart.type" :options="options2" :series="options2.series"></apexchart>
+      </div>    
     </div>
-    <div id="chart-bar">
-      <apexchart :height="options2.chart.height" :type="options2.chart.type" :options="options2" :series="options2.series"></apexchart>
-    </div>    
+    <p v-else>Not enough response data. Check back soon!
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import VueApexCharts from 'vue-apexcharts'
+
 Vue.use(VueApexCharts)
 Vue.component('apexchart', VueApexCharts)
 
-var data = generateDayWiseTimeSeries(new Date("22 Apr 2017").getTime(), 115, {
-  min: 30,
-  max: 90
-})
-
-function generateDayWiseTimeSeries(baseval, count, yrange) {
-  var i = 0;
-  var series = [];
-  while (i < count) {
-    var x = baseval;
-    var y =
-      Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
-
-    series.push([x, y]);
-    baseval += 86400000;
-    i++;
-  }
-  return series;
-}
-
 export default Vue.extend({
-  data () {
-    return {
-      options1: {
+  props: {
+    endpoint: {
+      required: true
+    }
+  },
+  methods: {
+    generateDayWiseTimeSeries (baseval, count, yrange) {
+      var i = 0;
+      var series = [];
+      while (i < count) {
+        var x = baseval;
+        var y = Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
+        series.push([x, y]);
+        baseval += 86400000;
+        i++;
+      }
+      return series;
+    }
+  },
+  computed: {
+    values () {
+      return this.generateDayWiseTimeSeries(new Date("22 Apr 2017").getTime(), 115, {
+        min: 30,
+        max: 90
+      })
+    },
+    options1 () {
+      return {
         chart: {
           id: "chart2",
           type: "area",
@@ -80,7 +89,7 @@ export default Vue.extend({
         },
         series: [
           {
-            data: data
+            data: this.values
           }
         ],
         tooltip: {
@@ -93,8 +102,10 @@ export default Vue.extend({
           min: 0,
           tickAmount: 4
         }
-      },
-      options2: {
+      }
+    },
+    options2 () {
+      return {
         chart: {
           id: "chart1",
           height: 130,
@@ -119,7 +130,7 @@ export default Vue.extend({
         colors: ["#FF0080"],
         series: [
           {
-            data: data
+            data: this.values
           }
         ],
         stroke: {

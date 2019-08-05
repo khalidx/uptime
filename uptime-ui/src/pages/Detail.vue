@@ -49,14 +49,14 @@
               <div class="card shadow-lg mb-3 bg-white rounded">
                 <h5 class="card-header">Errors</h5>
                 <div class="card-body">
-                  <chart :values="{ '2019-07-10': 2, '2019-07-12': 5, '2019-07-14': 1, '2019-07-16': 3, '2019-07-18': 3 }"></chart>
+                  <chart :endpoint="endpoint"></chart>
                 </div>
               </div>
 
               <div class="card shadow-lg mb-3 bg-white rounded">
                 <h5 class="card-header">Responses <a class="pull-right" v-on:click="toggleFullWidthChart"><i class="fa fa-expand"></i></a></h5>
                 <div class="card-body" :style="style">
-                  <advanced-chart ></advanced-chart>
+                  <advanced-chart :endpoint="endpoint"></advanced-chart>
                 </div>
               </div>
 
