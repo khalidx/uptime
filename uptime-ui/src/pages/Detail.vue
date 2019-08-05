@@ -67,14 +67,14 @@
                   <table class="table">
                     <thead>
                       <tr>
-                        <th scope="col">cron</th>
+                        <th scope="col">Rate</th>
                         <th scope="col">Last check</th>
                         <th scope="col">Next check</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr v-for="(check, index) in endpoint.checks" :key="index">
-                        <th scope="row">{{ check.cron }}</th>
+                        <th scope="row">{{ check.rate }}</th>
                         <td>{{ check.lastCheck }}</td>
                         <td>{{ check.nextCheck }}</td>
                       </tr>

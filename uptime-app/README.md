@@ -1,4 +1,4 @@
-# uptime-core
+# uptime-app
 
 Includes:
 

@@ -6,6 +6,9 @@ import CRUD, { Table, Identifiable } from './crud'
 
 export type Status = 'Operational' | 'Maintenance' | 'Down'
 
+export type Rate = '1 minute' | '5 minutes' | '15 minutes' | '30 minutes' | '1 hour'
+export const rates: Array<Rate> = [ '1 minute', '5 minutes', '15 minutes', '30 minutes', '1 hour' ]
+
 export type Service = {
   name: string
   title: string
@@ -15,11 +18,26 @@ export type Service = {
     start: string
     end: string
     latency: number
-    response: {
-      type: 'success' | 'error',
-      message: string
-      raw: string
-    }
+    type: 'success' | 'error',
+    message: string
+    raw: string
+  }>
+  checks: Array<{
+    rate: Rate
+    lastCheck: string,
+    nextCheck: string
+  }>
+  feedback: Array<{
+    submitted: string
+    content: string
+  }>
+  messages: Array<{
+    id: string
+    submitted: string
+    summary: string
+    content?: string
+    status: Status
+    active: boolean
   }>
 }
 
@@ -39,7 +57,7 @@ export const serviceSchema: Joi.ObjectSchema = Joi.object().keys({
     })
   })),
   checks: Joi.array().required().items(Joi.object().keys({
-    cron: Joi.string().min(1).max(30).required(),
+    rate: Joi.string().min(1).max(30).required(),
     lastCheck: Joi.string().isoDate().required(),
     nextCheck: Joi.string().isoDate().required()
   })),
@@ -72,7 +90,7 @@ export default class extends CRUD<Service> {
     ]
     return (services.length > 0) ? services : samples.map<Identifiable & Service>(sample => {
       return {
-        id: uuid(),
+        id: `service-${uuid()}`,
         name: encodeURIComponent(sample.title.toLowerCase()),
         title: sample.title,
         location: `https://example.com/${encodeURIComponent(sample.title.toLowerCase())}`,
@@ -82,18 +100,21 @@ export default class extends CRUD<Service> {
             start: moment().subtract(n, 'days').format('YYYY-MM-DD'),
             end: moment().subtract(n, 'days').add(2, 'seconds').format('YYYY-MM-DD'),
             latency: 2000,
-            response: {
-              type: 'error',
-              message: '200 OK',
-              raw: 'Nothing'
-            }
+            type: 'success',
+            message: '200 OK',
+            raw: 'Nothing'
           }
         }),
         checks: [
           {
-            cron: '@hourly',
+            rate: '5 minutes',
             lastCheck: moment().calendar(),
-            nextCheck: moment().add(1, 'hours').calendar()
+            nextCheck: moment().add(5, 'minutes').calendar()
+          },
+          {
+            rate: '1 hour',
+            lastCheck: moment().calendar(),
+            nextCheck: moment().add(1, 'hour').calendar()
           }
         ],
         feedback: [

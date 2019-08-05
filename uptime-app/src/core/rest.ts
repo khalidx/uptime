@@ -1,5 +1,4 @@
 import KoaRouter from 'koa-router'
-import koaBodyParser from 'koa-bodyparser'
 import Joi from '@hapi/joi'
 
 import CRUD from './crud'
