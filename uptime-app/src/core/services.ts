@@ -81,16 +81,16 @@ export default class extends CRUD<Service> {
   }
   public async list () {
     let services = await super.list()
-    let samples: Array<{ title: string, status: Status }> = [
-      { title: 'Backend', status: 'Operational' },
-      { title: 'Frontend', status: 'Operational' },
-      { title: 'API', status: 'Maintenance' },
-      { title: 'Payments', status: 'Operational' },        
-      { title: 'Helpdesk', status: 'Down' }
+    let samples: Array<{ id: string, title: string, status: Status }> = [
+      { id: 'service-7a5cbe70-48c8-4789-b76a-a7b925d17ac4', title: 'Backend', status: 'Operational' },
+      { id: 'service-a16e70ab-80b1-4ad1-bbc7-73e753bbd1c4', title: 'Frontend', status: 'Operational' },
+      { id: 'service-d9749a56-2827-4598-94f4-90c7f91f98ea', title: 'API', status: 'Maintenance' },
+      { id: 'service-6530adaa-0279-45f3-883e-7ecd4829bbf5', title: 'Payments', status: 'Operational' },        
+      { id: 'service-3d302923-8369-486f-8789-49a252fbd046', title: 'Helpdesk', status: 'Down' }
     ]
     return (services.length > 0) ? services : samples.map<Identifiable & Service>(sample => {
       return {
-        id: `service-${uuid()}`,
+        id: sample.id,
         name: encodeURIComponent(sample.title.toLowerCase()),
         title: sample.title,
         location: `https://example.com/${encodeURIComponent(sample.title.toLowerCase())}`,

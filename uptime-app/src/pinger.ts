@@ -9,14 +9,14 @@ import Services, { Rate, rates } from './core/services'
 const services = new Services(servicesTable)
 
 export type Metric = {
-  id: string // service id (hash)
-  time: string // ISO timestamp (range)
+  id: string // service id (hash key)
+  time: string // ISO timestamp (range key)
   start: string
   end: string
   type: 'success' | 'error'
   code: number
   message: string
-  raw: string
+  raw?: string
   latency: number
 }
 

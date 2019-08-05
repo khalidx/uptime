@@ -6,7 +6,7 @@ import KoaRouter from 'koa-router'
 import koaBodyParser from 'koa-bodyparser'
 import moment from 'moment-timezone'
 
-import { servicesTable } from './core/constants'
+import { servicesTable, metricsTable } from './core/constants'
 import Settings, { settingsSchema } from './core/settings'
 import Services, { serviceSchema } from './core/services'
 import { list, create, read, update, del } from './core/rest'
@@ -32,6 +32,37 @@ router
   .get('/services/:id', read(services))
   .put('/services/:id', update(services, serviceSchema))
   .del('/services/:id', del(services))
+  // metrics
+  .get('/services/:id/metrics', async (ctx, next) => {
+    // todo: check service exists before query?
+    // todo: support complex crud
+    // todo: support nested paths
+    let response = await metricsTable.client.query({
+      TableName: metricsTable.name,
+      KeyConditionExpression: '#id = :id AND #time BETWEEN :fromDateTime AND :toDateTime',
+      ScanIndexForward: false, // read in descending order (most recent first)
+      Limit: 120, // max 120 records
+      ExpressionAttributeNames: {
+        '#id': 'id',
+        '#time': 'time',
+        '#start': 'start',
+        '#end': 'end',
+        '#type': 'type',
+        '#code': 'code',
+        '#message': 'message',
+        '#latency': 'latency'
+      },
+      ExpressionAttributeValues: {
+        ':id': ctx.params.id,
+        ':fromDateTime': moment().subtract(1, 'day').toISOString(),
+        ':toDateTime': moment().toISOString()
+      },
+      ProjectionExpression: '#time, #start, #end, #type, #code, #message, #latency'
+    }).promise()
+    ctx.body = response.Items
+    ctx.status = 200
+    await next()
+  })
 
 const app = new Koa()
 
