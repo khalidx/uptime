@@ -2,17 +2,26 @@ service:
   name: uptime-app
 
 custom:
-  stage: ${opt:stage, self:provider.stage}
   uptime:
-    prefix: ${self:service}-${self:custom.stage}
+    prefix: ${self:service}-${self:provider.stage}
+    deletionPolicy:
+      dev: Delete
+      prod: Retain
+    siteBucket:
+      name: ${self:custom.uptime.prefix}
     servicesTable:
       name: ${self:custom.uptime.prefix}-services
       throughput: 5
-      deletionPolicy: Retain
+      deletionPolicy: ${self:custom.uptime.deletionPolicy.${self:provider.stage}}
     metricsTable:
       name: ${self:custom.uptime.prefix}-metrics
       throughput: 5
-      deletionPolicy: Retain
+      deletionPolicy: ${self:custom.uptime.deletionPolicy.${self:provider.stage}}
+  webpack:
+    webpackConfig: ./src/app/webpack.config.js
+  client:
+    bucketName: ${self:custom.uptime.siteBucket.name}
+    distributionFolder: ./dist/
 
     # vpc: vpc-ea6db38c
     # vpce:
@@ -21,16 +30,20 @@ frameworkVersion: ">=1.47.0 <2.0.0"
 
 plugins:
   - serverless-webpack
+  - serverless-export-env
+  - serverless-finch
   - serverless-offline
 
 provider:
   name: aws
-  stage: dev
+  stage: ${opt:stage, 'dev'}
   region: us-east-1
   runtime: nodejs10.x
   environment:
     SERVICES_TABLE: ${self:custom.uptime.servicesTable.name}
     METRICS_TABLE: ${self:custom.uptime.metricsTable.name}
+    LOG_GROUP: /aws/lambda/${self:custom.uptime.prefix}-pinger
+    API_URL: { "Fn::Join" : ["", [ "https://", { "Ref" : "ApiGatewayRestApi" }, ".execute-api.${self:provider.region}.amazonaws.com/${self:provider.stage}" ] ] }
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -48,7 +61,7 @@ provider:
 functions:
 
   api:
-    handler: src/api.handler
+    handler: src/app/api.handler
     memorySize: 256
     timeout: 6
     events:
@@ -62,7 +75,7 @@ functions:
           cors: true
 
   pinger:
-    handler: src/pinger.handler
+    handler: src/app/pinger.handler
     memorySize: 256
     timeout: 45
     events:
@@ -116,5 +129,76 @@ package:
   individually: true
 
 resources:
-  - ${file(src/aws/DynamoDbTables.yaml)}
-  - ${file(src/aws/S3Bucket.yaml)}
+  Resources:
+
+    ServicesTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: ${self:custom.uptime.servicesTable.deletionPolicy}
+      Properties:
+        TableName: ${self:custom.uptime.servicesTable.name}
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: ${self:custom.uptime.servicesTable.throughput}
+          WriteCapacityUnits: ${self:custom.uptime.servicesTable.throughput}
+
+    MetricsTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: ${self:custom.uptime.metricsTable.deletionPolicy}
+      Properties:
+        TableName: ${self:custom.uptime.metricsTable.name}
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: time
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+          - AttributeName: time
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: ${self:custom.uptime.metricsTable.throughput}
+          WriteCapacityUnits: ${self:custom.uptime.metricsTable.throughput}
+        TimeToLiveSpecification:
+          AttributeName: ttl
+          Enabled: true
+
+    S3Bucket:
+      Type: 'AWS::S3::Bucket'
+      DeletionPolicy: Delete
+      Properties:
+        AccessControl: PublicRead
+        WebsiteConfiguration:
+          IndexDocument: index.html
+          ErrorDocument: error.html
+                  
+    # S3BucketPolicy: 
+    #   Type: 'AWS::S3::BucketPolicy'
+    #   Properties: 
+    #     Bucket: !Ref S3Bucket
+    #     PolicyDocument:
+    #       Version: "2012-10-17"
+    #       Statement:
+    #         - Effect: "Deny"
+    #           Action:
+    #             - "s3:*"
+    #           Principal: "*"
+    #           Resource:
+    #             - !Join [ "", [ "arn:aws:s3:::", !Ref S3Bucket ] ]
+    #             - !Join [ "", [ "arn:aws:s3:::", !Ref S3Bucket, "/*" ] ]
+    #           Condition:
+    #             StringNotEquals:
+    #               aws:sourceVpc:
+    #                 - "${self:custom.uptime.vpc}"
+
+  Outputs:
+
+    WebsiteUrl:
+      Value: !GetAtt S3Bucket.WebsiteURL
+      Export:
+        Name: "${self:custom.uptime.prefix}-website-url"
