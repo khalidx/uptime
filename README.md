@@ -1,6 +1,6 @@
 # uptime
 
-<img src="./logo.png" width="150px">
+<img src="./docs/logo.png" width="150px" />
 
 An uptime monitoring web application that is easy to understand, use, and extend.
 
@@ -19,14 +19,13 @@ An uptime monitoring web application that is easy to understand, use, and extend
     - [Usage](#usage)
       - [clone](#clone)
       - [install](#install)
+      - [deploy](#deploy)
       - [dev](#dev)
-      - [build](#build)
-      - [start](#start)
       - [docker](#docker)
 
 ## Screenshot
 
-<img src="./screenshot.png" width="500px">
+<img src="./docs/screenshot.png" width="500px" />
 
 ## Features
 
@@ -63,8 +62,8 @@ Coming soon.
 
 ## Components
 
-- `uptime-ui` (the uptime web application frontend)
-- `uptime-app` (the uptime serverless application backend)
+- `src/app` (the uptime serverless application backend)
+- `src/ui/` (the uptime web application frontend)
 
 ## API
 
@@ -92,6 +91,11 @@ This section is for developers looking to develop, modify, or extend this projec
 
 ### Usage
 
+Prerequisites:
+
+- `node` and `npm`
+- Ensure the `AWS_REGION` and `AWS_PROFILE` environment variables are set, or that you have the appropriate AWS region and credentials configured elsewhere in your environment.
+
 #### clone
 
 Clone the repository from GitHub.
@@ -108,35 +112,36 @@ Install the project dependencies.
 npm install
 ```
 
+#### deploy
+
+Deploy the application and site to AWS.
+
+```sh
+npm run deploy
+```
+
 #### dev
 
-Start the project with a development server and hot-reload.
+Starts the project with a development server and hot-reload, for developing the backend and front-end, locally.
+
+Make sure the application is deployed first, so that non-local assets (like DynamoDb) are available for use.
 
 ```sh
 npm run dev
 ```
 
-#### build
-
-Build the project into static assets.
-
-```sh
-npm run build
-```
-
-#### start
-
-Start a production-like HTTP server. Ensure you've run the `build` step first.
-
-```sh
-npm run start
-```
-
 #### docker
 
-Build and run with Docker.
+Alternatively, build, deploy the backend, and run the UI with Docker.
+
+Make sure to provide your AWS credentials and target region as build arguments.
 
 ```sh
-docker build -t uptime .
-docker run --rm uptime
+docker build \
+--build-arg AWS_ACCESS_KEY_ID=<your-aws-key> \
+--build-arg AWS_SECRET_ACCESS_KEY=<your-aws-secret> \
+--build-arg AWS_REGION=us-east-1 \
+-t uptime .
+
+docker run --rm -p 8080:8080 uptime
 ```
