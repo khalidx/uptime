@@ -1,4 +1,4 @@
-# uptime
+# [uptime](https://khalidx.github.io/uptime/)
 
 <img src="./docs/logo.png" width="150px" />
 
