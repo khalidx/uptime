@@ -1,6 +1,9 @@
 import AWS from 'aws-sdk'
 
-import { Table } from './crud'
+export type Table = {
+  name: string
+  client: AWS.DynamoDB.DocumentClient
+}
 
 const dynamodb = new AWS.DynamoDB.DocumentClient()
 

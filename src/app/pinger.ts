@@ -3,10 +3,8 @@ import { Context } from 'aws-lambda'
 import moment from 'moment-timezone'
 import request from 'request'
 
-import { servicesTable, metricsTable } from './core/constants'
-import Services, { Rate, rates } from './core/services'
-
-const services = new Services(servicesTable)
+import core from './core'
+import { Rate } from './core/services'
 
 export type Metric = {
   id: string // service id (hash key)
@@ -44,13 +42,13 @@ export const handler = async (event: CustomScheduledEvent, context: Context): Pr
     if (!event.id || !event.time || !event.rate) throw new Error('The event is not in the proper format (id, time, rate)')
 
     // Ensure a valid rate was specified
-    if (!rates.includes(event.rate as Rate)) throw new Error(`Invalid rate specified: ${event.rate}`)
+    if (!core.services.rates.includes(event.rate as Rate)) throw new Error(`Invalid rate specified: ${event.rate}`)
     console.log(`The current rate is ${event.rate}`)
 
     // Lock for processing
     try {
-      await metricsTable.client.put({
-        TableName: metricsTable.name,
+      await core.tables.metricsTable.client.put({
+        TableName: core.tables.metricsTable.name,
         ConditionExpression: 'attribute_not_exists (id)',
         Item: {
           id: `lock-${event.id}-${event.time}`,
@@ -67,7 +65,7 @@ export const handler = async (event: CustomScheduledEvent, context: Context): Pr
     }
     
     // Get all services and their applicable checks for the current rate, then run checks and return metrics
-    let metrics: Array<Metric> = await Promise.all((await services.list())
+    let metrics: Array<Metric> = await Promise.all((await core.services.list())
     .map(service => {
       return service
       .checks
@@ -114,19 +112,19 @@ export const handler = async (event: CustomScheduledEvent, context: Context): Pr
       if (unprocessed) {
         request.RequestItems = unprocessed
       } else {
-        request.RequestItems[metricsTable.name] = []
+        request.RequestItems[core.tables.metricsTable.name] = []
         let batch = metrics.slice(last, last + 25)
         if (batch.length === 0) break
         batch.forEach(metric => {
-          request.RequestItems[metricsTable.name].push({
+          request.RequestItems[core.tables.metricsTable.name].push({
             PutRequest: {
               Item: metric
             }
           })
         })
       }
-      if (Object.keys(request.RequestItems).length == 0 || request.RequestItems[metricsTable.name].length == 0) break
-      let response = await metricsTable.client.batchWrite(request).promise()
+      if (Object.keys(request.RequestItems).length == 0 || request.RequestItems[core.tables.metricsTable.name].length == 0) break
+      let response = await core.tables.metricsTable.client.batchWrite(request).promise()
       if (response.UnprocessedItems) unprocessed = response.UnprocessedItems
       else {
         unprocessed = undefined
