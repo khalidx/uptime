@@ -14,6 +14,12 @@ const router = new KoaRouter()
 router
   .get('/', async (ctx, next) => {
     ctx.body = { message: 'Welcome to uptime!' }
+    ctx.status = 200
+    await next()
+  })
+  .get('/health', async (ctx, next) => {
+    ctx.body = { message: 'Up!' }
+    ctx.status = 200
     await next()
   })
   .use(settings.routes(), settings.allowedMethods())
