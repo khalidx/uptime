@@ -1,6 +1,6 @@
 # [uptime](https://khalidx.github.io/uptime/)
 
-<img src="./docs/logo.png" width="150px" />
+<img src="./logo.png" width="150px" />
 
 An uptime monitoring web application that is easy to understand, use, and extend.
 
@@ -25,7 +25,7 @@ An uptime monitoring web application that is easy to understand, use, and extend
 
 ## Screenshot
 
-<img src="./docs/screenshot.png" width="500px" />
+<img src="./screenshot.png" width="500px" />
 
 ## Features
 
