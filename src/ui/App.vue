@@ -17,21 +17,22 @@ Vue.use(Vuex)
 
 import { store } from './services/data'
 
-import NavBar from './components/NavBar'
-import Actions from './components/Actions'
-import AddMessage from './components/AddMessage'
-import ArchiveMessage from './components/ArchiveMessage'
-import RemoveMessage from './components/RemoveMessage'
-import AddService from './components/AddService'
-import AddServiceCheck from './components/AddServiceCheck'
-import RemoveService from './components/RemoveService'
-import Settings from './components/Settings'
-import Export from './components/Export'
+import NavBar from './components/NavBar.vue'
+import Actions from './components/Actions.vue'
+import AddMessage from './components/AddMessage.vue'
+import ArchiveMessage from './components/ArchiveMessage.vue'
+import RemoveMessage from './components/RemoveMessage.vue'
+import AddService from './components/AddService.vue'
+import AddServiceCheck from './components/AddServiceCheck.vue'
+import RemoveService from './components/RemoveService.vue'
+import Settings from './components/Settings.vue'
+import Logs from './components/Logs.vue'
+import Export from './components/Export.vue'
 
-import Status from './pages/Status'
-import Detail from './pages/Detail'
-import Dashboard from './pages/Dashboard'
-import NotFound from './pages/NotFound'
+import Status from './pages/Status.vue'
+import Detail from './pages/Detail.vue'
+import Dashboard from './pages/Dashboard.vue'
+import NotFound from './pages/NotFound.vue'
 
 export default Vue.extend({
   components: {
@@ -39,7 +40,6 @@ export default Vue.extend({
   },
   store,
   router: new VueRouter({
-    mode: 'history',
     routes: [
       { path: '/', redirect: '/status' },
       { path: '/status', component: Status },
@@ -53,6 +53,7 @@ export default Vue.extend({
         { path: 'services/checks/add', component: AddServiceCheck },
         { path: 'services/remove', component: RemoveService },
         { path: 'settings', component: Settings },
+        { path: 'logs', component: Logs },
         { path: 'export', component: Export },
       ] },
       { path: '/404', component: NotFound },

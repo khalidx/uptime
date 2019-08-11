@@ -1,5 +1,6 @@
 <template>
   <div>
+    <error></error>
     <form>
       <p><em>Broadcast a change in service health</em></p>
       <div class="form-row align-items-center">
@@ -10,7 +11,7 @@
             <option
               v-for="(endpoint, index) in endpoints"
               :key="index"
-              :value="endpoint.name">
+              :value="endpoint.id">
               {{ endpoint.title }} | {{ endpoint.location }}
             </option>
           </select>
@@ -82,7 +83,15 @@ import Vue from 'vue'
 import uuid from 'uuid/v4'
 import moment from 'moment'
 
+import Error from './Error.vue'
+
 export default Vue.extend({
+  components: {
+    Error
+  },
+  created () {
+    this.$store.dispatch('getServices')
+  },
   data () {
     return {
       selectedService: '',
@@ -119,15 +128,15 @@ export default Vue.extend({
     },
     submit () {
       if (!this.submittable) return
-      this.endpoints.find(endpoint => endpoint.name === this.selectedService).messages.push({
-        id: uuid(),
-        submitted: moment().toISOString(),
-        content: this.content,
-        summary: this.summary,
-        status: this.selectedStatus,
-        active: true
-      })
-      this.$store.dispatch('putServices', this.endpoints).then(() => this.$router.push('/status'))
+      this.$store.dispatch('createMessage', {
+        serviceId: this.selectedService,
+        message: {
+          content: this.content,
+          summary: this.summary,
+          status: this.selectedStatus,
+          signature: this.signature
+        }
+      }).then(() => this.$router.push('/status'))
     }
   }
 })

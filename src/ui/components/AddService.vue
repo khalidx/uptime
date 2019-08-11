@@ -1,5 +1,6 @@
 <template>
   <div>
+    <error></error>
     <form>
       <p><em>Add a new service</em></p>
       <div class="form-row align-items-center">
@@ -16,8 +17,8 @@
       </div>
       <div class="form-row align-items-center mt-3">
         <div class="col">
-          <label for="cron"><strong>Ping Frequency</strong></label>
-          <input type="text" v-model="cron" class="form-control" id="cron" placeholder="Use 10 * * * * (cron syntax)">
+          <label for="rate"><strong>Ping Frequency</strong></label>
+          <input type="text" v-model="rate" class="form-control" id="rate" placeholder="Use 10 * * * * (cron syntax)">
         </div>
       </div>
       <div class="form-row align-items-center mt-3">
@@ -63,12 +64,18 @@ import Vue from 'vue'
 import uuid from 'uuid/v4'
 import moment from 'moment'
 
+import { CreateService } from '../../app/core/services'
+import Error from './Error.vue'
+
 export default Vue.extend({
+  components: {
+    Error
+  },
   data () {
     return {
       title: '',
       location: '',
-      cron: '',
+      rate: '',
       selectedStatus: ''
     }
   },
@@ -95,44 +102,17 @@ export default Vue.extend({
     },
     submit () {
       if (!this.submittable) return
-      this.endpoints.push({
-        id: uuid(),
-        name: encodeURIComponent(this.title.toLowerCase()),
+      let service: CreateService = {
         title: this.title,
         location: this.location,
         status: this.selectedStatus,
-        requests: [ 5, 4, 3, 2, 1 ].map(n => {
-          return {
-            start: moment().subtract(n, 'days').format('YYYY-MM-DD'),
-            end: moment().subtract(n, 'days').add(2, 'seconds').format('YYYY-MM-DD'),
-            latency: '2000',
-            response: {
-              type: 'error',
-              message: '200 OK',
-              raw: ''
-            }
-          }
-        }),
         checks: [
           {
-            cron: this.cron || '@hourly',
-            lastCheck: moment().calendar(),
-            nextCheck: moment().add(1, 'hours').calendar()
+            rate: this.rate
           }
-        ],
-        feedback: [
-          {
-            submitted: moment().subtract(3, 'months').subtract(4, 'hours').subtract(23, 'minutes').calendar(),
-            content: 'You guys are awesome! The service is so fast. Keep the good work going!'
-          },
-          {
-            submitted: moment().subtract(1, 'days').subtract(14, 'seconds').calendar(),
-            content: 'That has to be a fake review down there. This has been down for hours and no-one is on-call!'
-          }
-        ],
-        messages: []
-      })
-      this.$store.dispatch('putServices', this.endpoints).then(() => this.$router.push('/status'))
+        ]
+      }
+      this.$store.dispatch('createService', service).then(() => this.$router.push('/status'))
     }
   }
 })

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <trend v-if="values"
+    <trend v-if="values && values.length > 0"
       :data="values"
       :gradient="gradients[endpoint.status]"
       auto-draw

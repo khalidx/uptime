@@ -1,10 +1,11 @@
 <template>
   <div>
+    <error></error>
     <p><em>Remove a service</em><p>
     <p><strong>Select the service to remove</strong>
     <ul class="list-group push mt-3">
       <li
-        v-for="endpoint in endpoints" :key="endpoint.title"
+        v-for="endpoint in endpoints" :key="endpoint.id"
         class="list-group-item d-flex justify-content-between align-items-center"
         @click="remove(endpoint)"
         >
@@ -27,11 +28,18 @@ import Vue from 'vue'
 
 import moment from 'moment'
 
+import Error from './Error.vue'
+
 export default Vue.extend({
+  components: {
+    Error
+  },
+  created () {
+    this.$store.dispatch('getServices')
+  },
   methods: {
     remove (endpoint) {
-      this.endpoints = this.endpoints.filter(e => e.name !== endpoint.name)
-      this.$store.dispatch('putServices', this.endpoints)
+      this.$store.dispatch('deleteService', endpoint)
     },
     status (endpoint) {
       let sortedRecentToOldest = endpoint.messages.slice().sort((a, b) => moment(b.submitted).valueOf() - moment(a.submitted).valueOf())

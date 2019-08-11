@@ -62,10 +62,10 @@
 <script lang="ts">
 import Vue from 'vue'
 
-import Loading from '../components/Loading'
-import Subscribe from '../components/Subscribe'
-import Services from '../components/Services'
-import Timeline from '../components/Timeline'
+import Loading from '../components/Loading.vue'
+import Subscribe from '../components/Subscribe.vue'
+import Services from '../components/Services.vue'
+import Timeline from '../components/Timeline.vue'
 
 export default Vue.extend({
   components: {
@@ -86,7 +86,7 @@ export default Vue.extend({
       return this.$store.state.services
     },
     messages () {
-      return (this.endpoints || [])
+      return this.$store.state.services
         .filter(endpoint => endpoint.messages.length > 0)
         .reduce((final, endpoint) => final.concat(endpoint.messages.filter(message => message.active)), [])
     }

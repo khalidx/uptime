@@ -1,7 +1,7 @@
 <template>
   <ul class="list-group push">
     <li
-      v-for="endpoint in endpoints" :key="endpoint.title"
+      v-for="endpoint in endpoints" :key="endpoint.id"
       class="list-group-item d-flex justify-content-between align-items-center">
 
       <router-link

@@ -8,7 +8,7 @@
         <apexchart :height="options2.chart.height" :type="options2.chart.type" :options="options2" :series="options2.series"></apexchart>
       </div>    
     </div>
-    <p v-else>Not enough response data. Check back soon!
+    <p v-else>Not enough response data. Check back soon!</p>
   </div>
 </template>
 

@@ -24,10 +24,16 @@
       <ul v-else>
         <li v-for="(message, index) in sortedMessagesWithEndpointTitle" v-bind:key="index">
           <span></span>
-          <div class="mb-2">{{ message.status }} <small class="text-info">{{ formatFromNow(message) }}</small></div>
-          <div>{{ message.endpointTitle }}</div>
-          <div class="mb-2">{{ formatLocalDate(message) }}</div>
-          <div>{{ message.summary }}</div>
+          <div>{{ message.status }} <small class="text-info">{{ formatFromNow(message) }}</small></div>
+          <div>{{ formatLocalDate(message) }}</div>
+          <div class="mb-2">
+            <router-link
+              :to="`/status/${message.endpointName}`"
+              tag="a">
+              {{ message.endpointTitle }}
+            </router-link>
+          </div>
+          <div><strong>{{ message.summary }}</strong></div>
           <div>{{ message.content }}</div>
           <div class="year">
             <span>{{ isFirstMessage(index) ? formatYear(message) : '' }}</span>
@@ -78,6 +84,7 @@ export default Vue.extend({
       return (this.endpoints || [])
         .filter(endpoint => endpoint.messages.length > 0)
         .reduce((final, endpoint) => final.concat(endpoint.messages.map(message => {
+          message.endpointName = endpoint.name
           message.endpointTitle = endpoint.title
           return message
         })), [])

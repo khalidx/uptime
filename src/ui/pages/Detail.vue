@@ -68,14 +68,12 @@
                     <thead>
                       <tr>
                         <th scope="col">Rate</th>
-                        <th scope="col">Last check</th>
                         <th scope="col">Next check</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr v-for="(check, index) in endpoint.checks" :key="index">
                         <th scope="row">{{ check.rate }}</th>
-                        <td>{{ check.lastCheck }}</td>
                         <td>{{ check.nextCheck }}</td>
                       </tr>
                     </tbody>
@@ -116,12 +114,12 @@
 <script lang="ts">
 import Vue from 'vue'
 
-import Loading from '../components/Loading'
-import Subscribe from '../components/Subscribe'
-import Trend from '../components/Trend'
-import Chart from '../components/Chart'
-import AdvancedChart from '../components/AdvancedChart'
-import Feedback from '../components/Feedback'
+import Loading from '../components/Loading.vue'
+import Subscribe from '../components/Subscribe.vue'
+import Trend from '../components/Trend.vue'
+import Chart from '../components/Chart.vue'
+import AdvancedChart from '../components/AdvancedChart.vue'
+import Feedback from '../components/Feedback.vue'
 
 export default Vue.extend({
   components: {

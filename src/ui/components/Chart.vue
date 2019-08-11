@@ -1,6 +1,6 @@
 <template>
   <div>
-    <line-chart v-if="values" :data="values"></line-chart>
+    <line-chart v-if="values && values.length > 0" :data="values"></line-chart>
     <p v-else>Not enough error data. Check back soon!</p>
   </div>
 </template>

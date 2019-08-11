@@ -1,5 +1,6 @@
 <template>
   <div>
+    <error></error>
     <p><em>Remove a message broadcast</em><p>
     <p><strong>Select the message to remove</strong>
     <div
@@ -31,13 +32,22 @@
 <script lang="ts">
 import Vue from 'vue'
 
+import Error from './Error.vue'
+
 export default Vue.extend({
+  components: {
+    Error
+  },
+  created () {
+    this.$store.dispatch('getServices')
+  },
   methods: {
     remove (message) {
-      this.$store.dispatch('putServices', this.endpoints.map(endpoint => {
-        endpoint.messages = endpoint.messages.filter(m => m.id !== message.id)
-        return endpoint
-      }))
+      let endpoint = this.endpoints.find(endpoint => endpoint.messages.some(m => m.id === message.id))
+      this.$store.dispatch('deleteMessage', {
+        serviceId: endpoint.id,
+        messageId: message.id
+      })
     }
   },
   computed: {

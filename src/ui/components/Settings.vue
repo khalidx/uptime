@@ -61,7 +61,7 @@ export default Vue.extend({
     submit () {
       if (!this.submittable) return
       this.settings.title = this.title
-      this.$store.dispatch('putSettings', this.settings).then(() => this.$router.push('/status'))      
+      this.$store.dispatch('updateSettings', this.settings).then(() => this.$router.push('/status'))      
     }
   }
 })
