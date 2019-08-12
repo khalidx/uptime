@@ -101,7 +101,7 @@ This section is for developers looking to develop, modify, or extend this projec
 
 ### Components
 
-- `src/app` (the uptime serverless application backend)
+- `src/app/` (the uptime serverless application backend)
 - `src/ui/` (the uptime web application frontend)
 
 ### Usage
