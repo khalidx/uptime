@@ -11,7 +11,7 @@
   ],
   "license": "MIT",
   "scripts": {
-    "clean:app": "rimraf src/app/.webpack/",
+    "clean:app": "rimraf src/app/.webpack/ src/app/lib/",
     "clean:ui": "rimraf .cache/ dist/",
     "clean": "run-p clean:*",
     "dev:app": "serverless offline start",
