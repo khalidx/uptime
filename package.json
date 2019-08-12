@@ -26,7 +26,7 @@
     "start": "run-s start:*",
     "deploy:app": "serverless deploy",
     "deploy:ui": "serverless client deploy --no-confirm",
-    "deploy": "run-s build deploy:*",
+    "deploy": "run-s clean deploy:app build:ui deploy:ui",
     "function:deploy": "serverless deploy --function $FUNCTION",
     "function:logs": "serverless logs --function $FUNCTION --tail",
     "undeploy:app": "serverless remove",
