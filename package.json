@@ -16,7 +16,7 @@
     "clean": "run-p clean:*",
     "dev:app": "serverless offline start",
     "dev:ui": "parcel src/ui/index.html --open",
-    "dev": "run-s clean dev:*",
+    "dev": "npm-run-all clean --parallel dev:*",
     "build:app": "serverless package",
     "build:ui": "serverless export-env && parcel build src/ui/index.html",
     "build": "run-s clean build:*",
