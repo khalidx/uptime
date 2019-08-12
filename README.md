@@ -33,7 +33,7 @@ An uptime monitoring web application that is easy to understand, use, and extend
 
 ## Demo
 
-http://uptime-app-dev.s3-website-us-east-1.amazonaws.com/
+[Click here to view the live demo site.](http://uptime-app-dev.s3-website-us-east-1.amazonaws.com/)
 
 ## Getting started
 
