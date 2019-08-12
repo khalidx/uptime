@@ -10,6 +10,7 @@ An uptime monitoring web application that is easy to understand, use, and extend
 
 - [uptime](#uptime)
   - [Screenshot](#screenshot)
+  - [Demo](#demo)
   - [Getting started](#getting-started)
   - [Web](#web)
     - [/status](#status)
@@ -29,6 +30,10 @@ An uptime monitoring web application that is easy to understand, use, and extend
 ## Screenshot
 
 <img src="./screenshot.png" width="500px" />
+
+## Demo
+
+http://uptime-app-dev.s3-website-us-east-1.amazonaws.com/
 
 ## Getting started
 
