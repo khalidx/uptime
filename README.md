@@ -10,12 +10,11 @@ An uptime monitoring web application that is easy to understand, use, and extend
 
 - [uptime](#uptime)
   - [Screenshot](#screenshot)
-  - [Features](#features)
   - [Getting started](#getting-started)
-  - [Components](#components)
   - [API](#api)
   - [Support](#support)
   - [Developers](#developers)
+    - [Components](#components)
     - [Usage](#usage)
       - [clone](#clone)
       - [install](#install)
@@ -27,43 +26,21 @@ An uptime monitoring web application that is easy to understand, use, and extend
 
 <img src="./screenshot.png" width="500px" />
 
-## Features
-
-- [x] static page with static data (for MVP)
-- [x] status page with services (for MVP)
-- [x] detail page with charts (for MVP)
-- [x] create (and delete) services and service messages
-- [x] export JSON data
-- [x] deployable to s3
-- [x] serverless infrastructure (1 day)
-- [ ] ping thousands of endpoints and IPs (1 day)
-- [ ] call thousands of endpoints with a pre-defined request (2 days)
-- [ ] log to CloudWatch and use CloudWatch alarms (2 days)
-- [x] manually toggle health status, with message (3 days)
-- [x] scheduled checks
-- [ ] manually trigger a check, outside of schedule (3 days)
-- [ ] see debug logs for a check
-- [ ] auth for UI and API users
-- [x] display errors when actions fail
-- [x] persistent history (3 days)
-- [x] post status and scheduled maintenance messages (5 days)
-- [ ] notifications via email, sms, slack, and webhooks (5 days)
-- [ ] webpage screenshot support (7 days)
-- [ ] load testing support with artillery (7 days)
-- [ ] version/refresh/etag support to prevent stale updates
-- [ ] one-click AWS deployment
-- [x] serverless deployment
-- [ ] terraform deployment
-- [ ] deployable as: EC2/AMI/Docker/Fargate/Lambda/S3/NGINX/Process
-
 ## Getting started
 
-Coming soon.
+`uptime` is easy to deploy to your AWS account, with a one-liner for deployment.
 
-## Components
+1. Make sure that the `AWS_REGION` and `AWS_PROFILE` environment variables are set, or that you have the appropriate AWS region and credentials configured elsewhere in your environment
 
-- `src/app` (the uptime serverless application backend)
-- `src/ui/` (the uptime web application frontend)
+2. Make sure that you have `node` and `npm`
+
+3. Clone this repository, with `git clone https://github.com/khalidx/uptime`
+
+4. Run the following command to build and deploy:
+
+```sh
+npm install && npm run deploy
+```
 
 ## API
 
@@ -83,11 +60,19 @@ Coming soon.
 
 ## Support
 
-Open a GitHub issue to ask a question, report a bug, raise a concern, or request a new feature.
+[Open a GitHub issue](https://github.com/khalidx/uptime/issues/new) to ask a question, report a bug, raise a concern, or request a new feature.
+
+- [Completed features](https://github.com/khalidx/uptime/issues?utf8=%E2%9C%93&q=is%3Aclosed+label%3Aenhancement)
+- [Open issues](https://github.com/khalidx/uptime/issues)
 
 ## Developers
 
 This section is for developers looking to develop, modify, or extend this project.
+
+### Components
+
+- `src/app` (the uptime serverless application backend)
+- `src/ui/` (the uptime web application frontend)
 
 ### Usage
 
