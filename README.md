@@ -11,6 +11,10 @@ An uptime monitoring web application that is easy to understand, use, and extend
 - [uptime](#uptime)
   - [Screenshot](#screenshot)
   - [Getting started](#getting-started)
+  - [Web](#web)
+    - [/status](#status)
+    - [/status/{service}](#statusservice)
+    - [/dashboard](#dashboard)
   - [API](#api)
   - [Support](#support)
   - [Developers](#developers)
@@ -42,21 +46,47 @@ An uptime monitoring web application that is easy to understand, use, and extend
 npm install && npm run deploy
 ```
 
+## Web
+
+This section contains information about what you'll find on each page of the `uptime` web application. 
+
+### /status
+
+- relevant messages
+- a listing of all services and their status
+- incident history
+
+### /status/{service}
+
+- service status
+- latency metrics
+- error metrics
+- scheduled checks
+
+### /dashboard
+
+- message management
+- service management
+- settings
+- logs
+- data export
+
 ## API
+
+This section contains information about the `uptime` API and the operations it supports.
 
 | Done | Operations | Path | Description |
 |--- |--- |--- |--- |
-| 👍 | GET, PUT, DELETE | `/settings` | Manage system settings, like the status page `title` |
-| 👍 | GET, POST | `/services` | Get a list of monitored services or add a service |
-| 👍 | GET, PUT, DELETE | `/services/{id}` | Get or manage a specific service |
-| 🚧 | GET, POST | `/services/messages` | Get a list of operational status messages for a service, or add a new message |
-| 🚧 | GET, PUT, DELETE | `/services/messages/{id}` | Get or manage a specific service message |
-| 🚧 | GET, POST | `/services/feedback` | Get a list of feedback messages for a service, or submit a feedback message |
-| 🚧 | GET, PUT, DELETE | `/services/feedback/{id}` | Get or manage a specific service feedback message |
-| 🚧 | GET, POST | `/services/checks` | Get the configured checks for a service, like scheduled pings, or add a new service check |
-| 🚧 | GET, PUT, DELETE | `/services/checks/{id}` | Get or manage a specific service check |
-| 🚧 | GET, POST | `/services/requests` | Get the request metrics for a service |
-| 🚧 | GET, PUT, DELETE | `/services/requests/{id}` | Get or manage a specific request metric |
+| 🚧 | GET, PUT, DELETE | `/settings` | Manage system settings, like the status page `title` |
+| 🚧 | GET, POST | `/services` | Get a list of monitored services or add a service |
+| 🚧 | GET, PUT, DELETE | `/services/{serviceId}` | Get or manage a specific service |
+| 🚧 | GET, DELETE | `/services/{serviceId}/metrics` | Get service metrics, or reset collected metrics data for a service |
+| 🚧 | GET, POST | `/services/{serviceId}/messages` |  Get a list of operational status messages for a service, or add a new message |
+| 🚧 | GET, PUT, DELETE | `/services/{serviceId}/messages/{messageId}` |  Get or manage a specific message |
+| 🚧 | GET, POST | `/services/{serviceId}/feedback` | Get a list of feedback messages for a service, or submit a feedback message |
+| 🚧 | GET, POST | `/services/{serviceId}/feedback/{feedbackId}` | Get or manage a specific feedback message |
+| 🚧 | GET, POST | `/services/{serviceId}/checks` | Get the configured checks for a service, like scheduled pings, or add a new service check |
+| 🚧 | GET, PUT, DELETE | `/services/{serviceId}/checks/{checkId}` | Get or manage a specific service check |
 
 ## Support
 
