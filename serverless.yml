@@ -19,6 +19,7 @@ custom:
       deletionPolicy: ${self:custom.uptime.deletionPolicy.${self:provider.stage}}
   webpack:
     webpackConfig: ./src/app/webpack.config.js
+    keepOutputDirectory: true
   client:
     bucketName: ${self:custom.uptime.siteBucket.name}
     distributionFolder: ./dist/
