@@ -38,7 +38,7 @@ plugins:
 provider:
   name: aws
   stage: ${opt:stage, 'dev'}
-  region: us-east-1
+  region: ${opt:region, 'us-east-1'}
   runtime: nodejs10.x
   environment:
     SERVICES_TABLE: ${self:custom.uptime.servicesTable.name}
