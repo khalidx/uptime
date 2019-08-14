@@ -7,8 +7,6 @@ custom:
     deletionPolicy:
       dev: Delete
       prod: Retain
-    siteBucket:
-      name: ${self:custom.uptime.prefix}
     servicesTable:
       name: ${self:custom.uptime.prefix}-services
       throughput: 5
@@ -20,9 +18,15 @@ custom:
   webpack:
     webpackConfig: ./src/app/webpack.config.js
     keepOutputDirectory: true
-  client:
-    bucketName: ${self:custom.uptime.siteBucket.name}
-    distributionFolder: ./dist/
+  assets:
+    targets:
+      - bucket: 
+          Ref: S3Bucket
+        acl: public-read
+        files:
+          - source: ./dist/
+            globs: '**/*.*'
+            empty: true
 
     # vpc: vpc-ea6db38c
     # vpce:
@@ -32,7 +36,7 @@ frameworkVersion: ">=1.47.0 <2.0.0"
 plugins:
   - serverless-webpack
   - serverless-export-env
-  - serverless-finch
+  - serverless-s3-deploy
   - serverless-offline
 
 provider:

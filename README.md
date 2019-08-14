@@ -51,6 +51,8 @@ An uptime monitoring web application that is easy to understand, use, and extend
 npm install && npm run deploy
 ```
 
+After deployment, the `WebsiteUrl` for the status page and the `ServiceEndpoint` for the API will be logged to the console.
+
 ## Web
 
 This section contains information about what you'll find on each page of the `uptime` web application. 
