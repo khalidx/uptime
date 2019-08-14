@@ -30,7 +30,7 @@
     "function:deploy": "serverless deploy --function $FUNCTION",
     "function:logs": "serverless logs --function $FUNCTION --tail",
     "undeploy:app": "serverless remove",
-    "undeploy:ui": "serverless s3remove",
+    "undeploy:ui": "cd src/destroy/ && serverless s3remove",
     "undeploy": "run-s undeploy:ui undeploy:app"
   },
   "devDependencies": {

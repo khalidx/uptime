@@ -27,9 +27,6 @@ custom:
           - source: ./dist/
             globs: '**/*.*'
             empty: true
-  remover:
-    buckets:
-      - ${cf:${self:custom.uptime.prefix}.WebsiteBucket}
 
     # vpc: vpc-ea6db38c
     # vpce:
@@ -40,7 +37,6 @@ plugins:
   - serverless-webpack
   - serverless-export-env
   - serverless-s3-deploy
-  - serverless-s3-remover
   - serverless-offline
 
 provider:
