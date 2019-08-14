@@ -1,0 +1,22 @@
+Resources:
+
+  S3Bucket:
+      Type: 'AWS::S3::Bucket'
+      DeletionPolicy: Delete
+      Properties:
+        AccessControl: PublicRead
+        WebsiteConfiguration:
+          IndexDocument: index.html
+          ErrorDocument: error.html
+
+Outputs:
+
+    WebsiteBucket:
+      Value: !Ref S3Bucket
+      Export:
+        Name: "${self:custom.uptime.prefix}-website-bucket"
+
+    WebsiteUrl:
+      Value: !GetAtt S3Bucket.WebsiteURL
+      Export:
+        Name: "${self:custom.uptime.prefix}-website-url"

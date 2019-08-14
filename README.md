@@ -12,6 +12,7 @@ An uptime monitoring web application that is easy to understand, use, and extend
   - [Screenshot](#screenshot)
   - [Demo](#demo)
   - [Getting started](#getting-started)
+    - [Public vs VPC deployments](#public-vs-vpc-deployments)
   - [Web](#web)
     - [/status](#status)
     - [/status/{service}](#statusservice)
@@ -55,6 +56,21 @@ npm install && npm run deploy
 After deployment, the `WebsiteUrl` for the status page and the `ServiceEndpoint` for the API will be logged to the console.
 
 If you are just trying out `uptime`, you can easily remove it from your AWS account with `npm run undeploy`.
+
+### Public vs VPC deployments
+
+By default, the status page site will be **accessible to the internet**.
+
+If you'd like the site to only be accessible within your AWS network, set the following variables in the `serverless.yml` file before deployment.
+
+```yaml
+...
+custom:
+  uptime:
+    privacy: vpc
+    vpc: <your-vpc-id>
+...
+```
 
 ## Web
 

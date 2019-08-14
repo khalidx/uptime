@@ -4,6 +4,8 @@ service:
 custom:
   uptime:
     prefix: ${self:service}-${self:provider.stage}
+    privacy: ${opt:privacy, 'public'}
+    vpc: ${opt:vpc, ''}
     deletionPolicy:
       dev: Delete
       prod: Retain
@@ -134,81 +136,5 @@ package:
   individually: true
 
 resources:
-  Resources:
-
-    ServicesTable:
-      Type: 'AWS::DynamoDB::Table'
-      DeletionPolicy: ${self:custom.uptime.servicesTable.deletionPolicy}
-      Properties:
-        TableName: ${self:custom.uptime.servicesTable.name}
-        AttributeDefinitions:
-          - AttributeName: id
-            AttributeType: S
-        KeySchema:
-          - AttributeName: id
-            KeyType: HASH
-        ProvisionedThroughput:
-          ReadCapacityUnits: ${self:custom.uptime.servicesTable.throughput}
-          WriteCapacityUnits: ${self:custom.uptime.servicesTable.throughput}
-
-    MetricsTable:
-      Type: 'AWS::DynamoDB::Table'
-      DeletionPolicy: ${self:custom.uptime.metricsTable.deletionPolicy}
-      Properties:
-        TableName: ${self:custom.uptime.metricsTable.name}
-        AttributeDefinitions:
-          - AttributeName: id
-            AttributeType: S
-          - AttributeName: time
-            AttributeType: S
-        KeySchema:
-          - AttributeName: id
-            KeyType: HASH
-          - AttributeName: time
-            KeyType: RANGE
-        ProvisionedThroughput:
-          ReadCapacityUnits: ${self:custom.uptime.metricsTable.throughput}
-          WriteCapacityUnits: ${self:custom.uptime.metricsTable.throughput}
-        TimeToLiveSpecification:
-          AttributeName: ttl
-          Enabled: true
-
-    S3Bucket:
-      Type: 'AWS::S3::Bucket'
-      DeletionPolicy: Delete
-      Properties:
-        AccessControl: PublicRead
-        WebsiteConfiguration:
-          IndexDocument: index.html
-          ErrorDocument: error.html
-                  
-    # S3BucketPolicy: 
-    #   Type: 'AWS::S3::BucketPolicy'
-    #   Properties: 
-    #     Bucket: !Ref S3Bucket
-    #     PolicyDocument:
-    #       Version: "2012-10-17"
-    #       Statement:
-    #         - Effect: "Deny"
-    #           Action:
-    #             - "s3:*"
-    #           Principal: "*"
-    #           Resource:
-    #             - !Join [ "", [ "arn:aws:s3:::", !Ref S3Bucket ] ]
-    #             - !Join [ "", [ "arn:aws:s3:::", !Ref S3Bucket, "/*" ] ]
-    #           Condition:
-    #             StringNotEquals:
-    #               aws:sourceVpc:
-    #                 - "${self:custom.uptime.vpc}"
-
-  Outputs:
-
-    WebsiteBucket:
-      Value: !Ref S3Bucket
-      Export:
-        Name: "${self:custom.uptime.prefix}-website-bucket"
-
-    WebsiteUrl:
-      Value: !GetAtt S3Bucket.WebsiteURL
-      Export:
-        Name: "${self:custom.uptime.prefix}-website-url"
+  - ${file(src/aws/s3-${self:custom.uptime.privacy}.yml)}
+  - ${file(src/aws/dynamodb.yml)}
