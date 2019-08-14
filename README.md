@@ -25,6 +25,7 @@ An uptime monitoring web application that is easy to understand, use, and extend
       - [install](#install)
       - [deploy](#deploy)
       - [dev](#dev)
+      - [undeploy](#undeploy)
       - [docker](#docker)
 
 ## Screenshot
@@ -52,6 +53,8 @@ npm install && npm run deploy
 ```
 
 After deployment, the `WebsiteUrl` for the status page and the `ServiceEndpoint` for the API will be logged to the console.
+
+If you are just trying out `uptime`, you can easily remove it from your AWS account with `npm run undeploy`.
 
 ## Web
 
@@ -150,6 +153,14 @@ Make sure the application is deployed first, so that non-local assets (like Dyna
 
 ```sh
 npm run dev
+```
+
+#### undeploy
+
+Remove the site and application from AWS.
+
+```sh
+npm run undeploy
 ```
 
 #### docker
