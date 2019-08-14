@@ -12,7 +12,6 @@ An uptime monitoring web application that is easy to understand, use, and extend
   - [Screenshot](#screenshot)
   - [Demo](#demo)
   - [Getting started](#getting-started)
-    - [Public vs VPC deployments](#public-vs-vpc-deployments)
   - [Web](#web)
     - [/status](#status)
     - [/status/{service}](#statusservice)
@@ -57,7 +56,7 @@ After deployment, the `WebsiteUrl` for the status page and the `ServiceEndpoint`
 
 If you are just trying out `uptime`, you can easily remove it from your AWS account with `npm run undeploy`.
 
-### Public vs VPC deployments
+> **Public vs VPC deployments**
 
 By default, the status page site will be **accessible to the internet**.
 
