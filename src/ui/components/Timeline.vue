@@ -35,6 +35,7 @@
           </div>
           <div><strong>{{ message.summary }}</strong></div>
           <div>{{ message.content }}</div>
+          <div class="pull-right"><small><i class="fa fa-at"></i>{{ message.signature }}</small></div>
           <div class="year">
             <span>{{ isFirstMessage(index) ? formatYear(message) : '' }}</span>
             <span>{{ isLastMessage(index, sortedMessagesWithEndpointTitle) ? formatYear(message) : '' }}</span>
