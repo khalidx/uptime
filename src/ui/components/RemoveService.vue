@@ -3,7 +3,7 @@
     <error></error>
     <p><em>Remove a service</em><p>
     <p v-if="!endpoints || endpoints.length == 0" class="text-primary">There are no services.</p>
-    <p v-else><strong>Select the service to remove</strong>
+    <p v-else><strong>Select the service to remove</strong></p>
     <ul class="list-group push mt-3">
       <li
         v-for="endpoint in endpoints" :key="endpoint.id"

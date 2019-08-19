@@ -1,7 +1,8 @@
 <template>
   <div>
     <p><em>Archive a message broadcast</em><p>
-    <p><strong>Select the message to archive</strong>
+    <p v-if="!messages || messages.length == 0" class="text-primary">There are no messages.</p>
+    <p v-else><strong>Select the message to archive</strong></p>
     <div
       v-for="(message, index) in messages" :key="index"
       :class="{
