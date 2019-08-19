@@ -47,9 +47,16 @@
                 </div>
               </div>
 
-              <services :endpoints="endpoints"></services>
+              <router-link
+                :to="`/dashboard/services/add`"
+                tag="button"
+                class="btn btn-success btn-block">
+                <i class="fa fa-plus"></i> <span class="ml-1">Add a service</span>
+              </router-link>
 
-              <timeline :endpoints="endpoints"></timeline>
+              <services v-if="endpoints && endpoints.length > 0" :endpoints="endpoints"></services>
+
+              <timeline v-if="endpoints && endpoints.length > 0" :endpoints="endpoints"></timeline>
 
             </div>
           </div>
