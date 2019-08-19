@@ -1,8 +1,9 @@
 <template>
   <div>
     <error></error>
-    <form>
-      <p><em>Broadcast a change in service health</em></p>
+    <p><em>Broadcast a change in service health</em></p>
+    <p v-if="!endpoints || endpoints.length == 0" class="text-primary">There are no services.</p>
+    <form v-else>
       <div class="form-row align-items-center">
         <div class="col">
           <label class="sr-only" for="selectService">Service</label>
