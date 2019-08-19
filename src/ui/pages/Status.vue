@@ -48,6 +48,7 @@
               </div>
 
               <router-link
+                v-if="!endpoints || endpoints.length == 0"
                 :to="`/dashboard/services/add`"
                 tag="button"
                 class="btn btn-success btn-block">
