@@ -94,6 +94,13 @@
       <ul>
         <li class="mb-3">
           <a
+            href="https://github.com/khalidx/uptime/labels/enhancement"
+            class="btn btn-outline-primary">
+            <i class="fa fa-level-up"></i> <span class="ml-1">Upcoming features</span>
+          </a>
+        </li>
+        <li class="mb-3">
+          <a
             href="https://github.com/khalidx/uptime/issues"
             class="btn btn-warning">
             <i class="fa fa-github"></i> <span class="ml-1">Open a GitHub issue</span>
