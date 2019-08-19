@@ -17,8 +17,16 @@
       </div>
       <div class="form-row align-items-center mt-3">
         <div class="col">
-          <label for="rate"><strong>Ping Frequency</strong></label>
-          <input type="text" v-model="rate" class="form-control" id="rate" placeholder="Use 10 * * * * (cron syntax)">
+          <label for="selectRate"><strong>Ping Frequency</strong></label>
+          <select class="custom-select form-control mb-2" id="selectRate" @change="onSelectRateChange">
+            <option selected>Select a rate</option>
+            <option
+              v-for="rate in rates"
+              :key="rate"
+              :value="rate">
+              {{ rate }}
+            </option>
+          </select>
         </div>
       </div>
       <div class="form-row align-items-center mt-3">
@@ -73,10 +81,11 @@ export default Vue.extend({
   },
   data () {
     return {
+      rates: [ '1 minute', '5 minutes', '15 minutes', '30 minutes', '1 hour' ],
       title: '',
       location: '',
-      rate: '',
-      selectedStatus: ''
+      selectedRate: '',
+      selectedStatus: '',
     }
   },
   computed: {
@@ -86,6 +95,7 @@ export default Vue.extend({
     submittable () {
       if (!this.title || this.title.length == 0
         || !this.location || this.location.length == 0
+        || !this.selectedRate || this.selectedRate.length == 0
         || !this.selectedStatus || this.selectedStatus.length == 0
         ) {
         return false
@@ -94,6 +104,9 @@ export default Vue.extend({
     }
   },
   methods: {
+    onSelectRateChange (event) {
+      this.selectedRate = event.target.value
+    },
     onSelectStatusChange (event) {
       this.selectedStatus = event.target.value
     },
@@ -108,7 +121,7 @@ export default Vue.extend({
         status: this.selectedStatus,
         checks: [
           {
-            rate: this.rate
+            rate: this.selectedRate
           }
         ]
       }
