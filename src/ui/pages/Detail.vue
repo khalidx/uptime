@@ -53,13 +53,6 @@
                 </div>
               </div>
 
-              <div class="card shadow-lg mb-3 bg-white rounded">
-                <h5 class="card-header">Responses <a class="pull-right" v-on:click="toggleFullWidthChart"><i class="fa fa-expand"></i></a></h5>
-                <div class="card-body" :style="style">
-                  <advanced-chart :endpoint="endpoint"></advanced-chart>
-                </div>
-              </div>
-
               <div class="card shadow-lg mb-3 text-white bg-primary rounded">
                 <h5 class="card-header">Checks</h5>
                 <div class="card-body">
@@ -118,7 +111,6 @@ import Loading from '../components/Loading.vue'
 import Subscribe from '../components/Subscribe.vue'
 import Trend from '../components/Trend.vue'
 import Chart from '../components/Chart.vue'
-import AdvancedChart from '../components/AdvancedChart.vue'
 import Feedback from '../components/Feedback.vue'
 
 export default Vue.extend({
@@ -127,7 +119,6 @@ export default Vue.extend({
     Subscribe,
     Trend,
     Chart,
-    AdvancedChart,
     Feedback
   },
   props: {
@@ -135,28 +126,12 @@ export default Vue.extend({
       required: true,
     }
   },
-  data () {
-    return {
-      fullWidthChart: false
-    }
-  },
   created () {
     this.$store.dispatch('getServices')
-  },
-  methods: {
-    toggleFullWidthChart () {
-      this.fullWidthChart = !this.fullWidthChart
-    }
   },
   computed: {
     endpoint () {
       return this.$store.state.services.find(endpoint => endpoint.name === this.name)
-    },
-    style () {
-      return (!this.fullWidthChart) ? {} : {
-        'margin-left': '-100%',
-        'margin-right': '-100%'
-      }
     }
   }
 })
