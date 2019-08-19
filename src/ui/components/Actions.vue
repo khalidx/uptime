@@ -89,5 +89,17 @@
         </li>
       </ul>
     </div>
+    <p class="lead">Support</p>
+    <div class="d-flex justify-content-between">
+      <ul>
+        <li class="mb-3">
+          <a
+            href="https://github.com/khalidx/uptime/issues"
+            class="btn btn-warning">
+            <i class="fa fa-github"></i> <span class="ml-1">Open a GitHub issue</span>
+          </a>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
