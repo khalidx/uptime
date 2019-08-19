@@ -1,6 +1,6 @@
 <template>
   <a class="btn btn-outline-secondary btn-hero-sm btn-hero-success" href="#" @click="comingSoon">
-    <i class="fa fa-rss"></i> <span class="d-none d-sm-inline-block ml-1">{{ text }}</span>
+    <i class="fa fa-rss"></i> <span class="ml-1">{{ text }}</span>
   </a>
 </template>
 

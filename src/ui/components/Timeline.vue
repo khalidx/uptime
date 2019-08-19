@@ -12,7 +12,7 @@
               to="/dashboard/messages/add"
               class="btn btn-primary btn-hero-sm btn-hero-success mt-2"
               tag="a">
-              <i class="fa fa-rss"></i> <span class="d-none d-sm-inline-block ml-1">Broadcast a change in service health</span>
+              <i class="fa fa-rss"></i> <span class="ml-1">Broadcast a change in service health</span>
             </router-link>
           </div>
           <div class="year">

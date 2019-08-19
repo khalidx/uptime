@@ -60,7 +60,7 @@
             type="cancel"
             class="btn btn-outline-danger btn-hero-sm btn-hero-success mb-2"
             @click="cancel">
-            <i class="fa fa-window-close"></i> <span class="d-none d-sm-inline-block ml-1">Cancel</span>
+            <i class="fa fa-window-close"></i> <span class="ml-1">Cancel</span>
           </button>
         </div>
         <div class="col-auto">
@@ -69,7 +69,7 @@
             class="btn btn-primary btn-hero-sm btn-hero-success mb-2"
             @click="submit"
             :disabled="!submittable">
-            <i class="fa fa-paper-plane"></i> <span class="d-none d-sm-inline-block ml-1">Submit</span>
+            <i class="fa fa-paper-plane"></i> <span class="ml-1">Submit</span>
           </button>
         </div>
       </div>
