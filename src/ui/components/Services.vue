@@ -10,7 +10,15 @@
         {{ endpoint.title }}
       </router-link>
 
-      <div v-html="status(endpoint)"></div>
+      <div v-if="endpoint.status === 'Operational'">
+        <span class="badge badge-pill badge-success">{{ endpoint.status }}</span>
+      </div>
+      <div v-if="endpoint.status === 'Maintenance'">
+        <span class="badge badge-pill badge-warning">{{ endpoint.status }}</span>
+      </div>
+      <div v-if="endpoint.status === 'Down'">
+        <span class="badge badge-pill badge-danger">{{ endpoint.status }}</span>
+      </div>
 
     </li>
   </ul>
@@ -25,20 +33,6 @@ export default Vue.extend({
   props: {
     endpoints: {
       required: true
-    }
-  },
-  methods: {
-    status (endpoint) {
-      let sortedRecentToOldest = endpoint.messages.slice().sort((a, b) => moment(b.submitted).valueOf() - moment(a.submitted).valueOf())
-      let recentActiveMessage = sortedRecentToOldest.slice().reverse().find(message => message.active)
-      let status = (recentActiveMessage) ? recentActiveMessage.status: endpoint.status
-      let className = status === 'Operational' ? 'badge-success'
-        : status === 'Maintenance' ? 'badge-warning'
-          : status === 'Down' ? 'badge-danger'
-            : undefined
-      return (className)
-        ? `<span class="badge badge-pill ${className}">${status}</span>`
-        : `<span class="badge badge-pill">${status}</span>`
     }
   }
 })

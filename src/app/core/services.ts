@@ -244,6 +244,7 @@ export const createMessage = async (serviceId: string, createMessage: CreateMess
     active: true
   }
   service.messages.push(message)
+  service.status = message.status
   await servicesTable.client.put({
     TableName: servicesTable.name,
     ConditionExpression: 'attribute_exists (id)',
@@ -257,6 +258,9 @@ export const deleteMessage = async (serviceId: string, messageId: string): Promi
   if (!service) throw new HttpCompatibleError(404, 'Not found')  
   if (!service.messages.some(message => message.id === messageId)) throw new HttpCompatibleError(404, 'Not found')
   service.messages = service.messages.filter(message => message.id !== messageId)
+  let sortedRecentToOldest = service.messages.slice().sort((a, b) => moment(b.submitted).valueOf() - moment(a.submitted).valueOf())
+  let recentActiveMessage = sortedRecentToOldest.find(message => message.active)
+  if (recentActiveMessage) service.status = recentActiveMessage.status
   await servicesTable.client.put({
     TableName: servicesTable.name,
     ConditionExpression: 'attribute_exists (id)',
