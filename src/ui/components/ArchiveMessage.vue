@@ -1,5 +1,6 @@
 <template>
   <div>
+    <error></error>
     <p><em>Archive a message broadcast</em><p>
     <p v-if="!messages || messages.length == 0" class="text-primary">There are no messages.</p>
     <p v-else><strong>Select the message to archive</strong></p>
