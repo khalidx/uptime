@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    name: Make sure it builds on node ${{ matrix.node_version }} and ${{ matrix.os }}
+    name: Make sure it builds on node ${{ matrix.node_version }} and ${{ matrix.os }} and deploys
     runs-on: ubuntu-latest
     strategy:
       matrix:      
@@ -19,10 +19,13 @@ jobs:
       uses: actions/setup-node@v1
       with:
         version: ${{ matrix.node-version }}
-    - name: npm install, build, and test
+    - name: npm install and deploy
       run: |
         npm install
-        npm run build --if-present
-        npm test
+        npm run build
+        npm run deploy 
       env:
         CI: true
+        AWS_REGION: us-east-1
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
