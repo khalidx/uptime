@@ -6,7 +6,7 @@ import {
   Settings, updateSettingsSchema
 } from './types'
 
-export const read = async (): Promise<Settings | undefined> => {
+export const read = async (): Promise<Settings> => {
   let response = await servicesTable.client.get({
     TableName: servicesTable.name,
     Key: {
@@ -17,12 +17,15 @@ export const read = async (): Promise<Settings | undefined> => {
       '#title': 'title'
     }
   }).promise()
-  return response.Item as Settings | undefined
+  return (response.Item) ? response.Item as Settings : { title: 'API' }
 }
 
 export const update = async (updateSettings: Settings): Promise<Settings> => {
-  let validation = updateSettingsSchema.validate(updateSettings, { abortEarly: false, allowUnknown: false })
-  if (validation.error) throw new HttpCompatibleError(400, 'Bad request')
+  let validation = updateSettingsSchema.validate(updateSettings, { abortEarly: false, stripUnknown: true })
+  if (validation.error) {
+    console.error(validation.error.message)
+    throw new HttpCompatibleError(400, 'Bad request')
+  }
   await servicesTable.client.put({
     TableName: servicesTable.name,
     Item: {
@@ -45,7 +48,6 @@ export const del = async (): Promise<void> => {
 export const router = new KoaRouter()
 .get('/settings', async (ctx, next) => {
   let result = await read()
-  if (!result) result = { title: 'API' }
   ctx.body = result
   ctx.status = 200
   await next()

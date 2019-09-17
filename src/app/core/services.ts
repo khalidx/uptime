@@ -149,8 +149,11 @@ export const listSamples = async (): Promise<Array<Service>> => {
 }
 
 export const create = async (createService: CreateService): Promise<Service> => {
-  let validation = createServiceSchema.validate<CreateService>(createService, { abortEarly: false, allowUnknown: false })
-  if (validation.error) throw new HttpCompatibleError(400, 'Bad request')
+  let validation = createServiceSchema.validate<CreateService>(createService, { abortEarly: false, stripUnknown: true })
+  if (validation.error) {
+    console.error(validation.error.message)
+    throw new HttpCompatibleError(400, 'Bad request')
+  }
   let service: Service = {
     ...validation.value,
     id: `service-${uuid()}`,
@@ -174,8 +177,11 @@ export const create = async (createService: CreateService): Promise<Service> => 
 }
 
 export const createMessage = async (serviceId: string, createMessage: CreateMessage): Promise<Message> => {
-  let validation = createMessageSchema.validate<CreateMessage>(createMessage, { abortEarly: false, allowUnknown: false })
-  if (validation.error) throw new HttpCompatibleError(400, 'Bad request')
+  let validation = createMessageSchema.validate<CreateMessage>(createMessage, { abortEarly: false, stripUnknown: true })
+  if (validation.error) {
+    console.error(validation.error.message)
+    throw new HttpCompatibleError(400, 'Bad request')
+  }
   let service = await read(serviceId)
   if (!service) throw new HttpCompatibleError(404, 'Bad request')
   let message: Message = {
