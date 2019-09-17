@@ -32,11 +32,22 @@
 <script lang="ts">
 import Vue from 'vue'
 
+import Error from './Error.vue'
+
 export default Vue.extend({
+  components: {
+    Error
+  },
+  created () {
+    this.$store.dispatch('getServices')
+  },
   methods: {
     archive (message) {
-      message.active = false
-      this.$store.dispatch('putServices', this.endpoints)
+      let endpoint = this.endpoints.find(endpoint => endpoint.messages.some(m => m.id === message.id))
+      this.$store.dispatch('archiveMessage', {
+        serviceId: endpoint.id,
+        messageId: message.id
+      })
     }
   },
   computed: {

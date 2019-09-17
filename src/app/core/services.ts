@@ -200,6 +200,22 @@ export const createMessage = async (serviceId: string, createMessage: CreateMess
   return message
 }
 
+export const archiveMessage = async (serviceId: string, messageId: string): Promise<void> => {
+  let service = await read(serviceId)
+  if (!service) throw new HttpCompatibleError(404, 'Not found')
+  let messageIndex = service.messages.findIndex(message => message.id === messageId)
+  if (messageIndex < 0) throw new HttpCompatibleError(404, 'Not found')  
+  service.messages[messageIndex].active = false  
+  let sortedRecentToOldest = service.messages.slice().sort((a, b) => moment(b.submitted).valueOf() - moment(a.submitted).valueOf())
+  let recentActiveMessage = sortedRecentToOldest.find(message => message.active)
+  if (recentActiveMessage) service.status = recentActiveMessage.status
+  await servicesTable.client.put({
+    TableName: servicesTable.name,
+    ConditionExpression: 'attribute_exists (id)',
+    Item: service
+  }).promise()
+}
+
 export const deleteMessage = async (serviceId: string, messageId: string): Promise<void> => {
   let service = await read(serviceId)
   if (!service) throw new HttpCompatibleError(404, 'Not found')  
@@ -286,6 +302,11 @@ export const router = new KoaRouter()
 .post('/services/:id/messages', async (ctx, next) => {
   await createMessage(ctx.params.id, ctx.request.body)
   ctx.status = 201
+  await next()
+})
+.put('/services/:serviceId/messages/:messageId/archive', async (ctx, next) => {
+  await archiveMessage(ctx.params.serviceId, ctx.params.messageId)
+  ctx.status = 204
   await next()
 })
 .del('/services/:serviceId/messages/:messageId', async (ctx, next) => {

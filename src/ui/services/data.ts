@@ -102,6 +102,17 @@ const actions: ActionTree<State, State> = {
       throw error
     }
   },
+  async archiveMessage ({ commit, state }, payload: { serviceId: string, messageId: string }) {
+    try {
+      commit('loading')
+      await axios.put(`${apiUrl}/services/${payload.serviceId}/messages/${payload.messageId}/archive`)
+      return this.dispatch('getServices')
+    } catch (error) {
+      console.error(error)
+      commit('error', `Error while archiving the message: ${error.response.status}`)
+      throw error
+    }
+  },
   async deleteMessage ({ commit, state }, payload: { serviceId: string, messageId: string }) {
     try {
       commit('loading')
@@ -109,7 +120,7 @@ const actions: ActionTree<State, State> = {
       return this.dispatch('getServices')
     } catch (error) {
       console.error(error)
-      commit('error', `Error while creating the message: ${error.response.status}`)
+      commit('error', `Error while deleting the message: ${error.response.status}`)
       throw error
     }
   },
