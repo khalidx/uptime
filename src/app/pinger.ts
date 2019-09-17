@@ -123,6 +123,11 @@ export const handler = async (event: CustomScheduledEvent, context: Context): Pr
 
     // Update service statuses
     await Promise.all(metrics.filter(metric => metric.code >= 400).map(metric => {
+      let service = services.find(service => service.id === metric.id)
+      if (!service) return Promise.resolve()
+      // If a service is already in a non-operational status, don't bother updating the status
+      if (service && service.status !== 'Operational') return Promise.resolve()
+      // Otherwise, set the status to down
       return core.services
       .updateServiceStatus(metric.id, 'Down') // metric.id = service.id
       .catch(error => {
