@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    name: Make sure it builds on node ${{ matrix.node_version }} and ${{ matrix.os }} and deploys
+    name: Make sure it builds on node ${{ matrix.node-version }} and ${{ matrix.os }} and deploys
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:      
