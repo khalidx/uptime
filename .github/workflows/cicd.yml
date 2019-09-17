@@ -1,4 +1,4 @@
-name: CICD
+name: cicd
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    name: Make sure it builds on node ${{ matrix.node-version }} and ${{ matrix.os }} and deploys
+    name: Make sure it builds and tests on node ${{ matrix.node-version }} and ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:      
@@ -19,11 +19,28 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: npm install and deploy
+    - name: npm install, build, and test
       run: |
         npm install
         npm run build
-        npm run deploy 
+        npm run test
+  deploy:
+    name: Make sure it deploys on node ${{ matrix.node-version }} and ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:      
+        node-version: [10.x]
+        os: [ubuntu-latest]
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: npm install and deploy
+      run: |
+        npm install
+        npm run deploy
       env:
         CI: true
         AWS_REGION: us-east-1

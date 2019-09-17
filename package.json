@@ -21,7 +21,7 @@
     "build:ui": "serverless export-env && parcel build src/ui/index.html",
     "build": "run-s clean build:*",
     "test:app": "nyc --reporter=html --reporter=text ava --verbose",
-    "test": "run-s build test:*",
+    "test": "run-s test:*",
     "start:ui": "http-server dist/ -d false",
     "start": "run-s start:*",
     "deploy:app": "serverless deploy",
