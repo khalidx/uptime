@@ -103,7 +103,7 @@ This section contains information about the `uptime` API and the operations it s
 
 | Done | Operations | Path | Description |
 |--- |--- |--- |--- |
-| 🚧 | GET, PUT, DELETE | `/settings` | Manage system settings, like the status page `title` |
+| ✅ | GET, PUT, DELETE | `/settings` | Manage system settings, like the status page `title` |
 | 🚧 | GET, POST | `/services` | Get a list of monitored services or add a service |
 | 🚧 | GET, PUT, DELETE | `/services/{serviceId}` | Get or manage a specific service |
 | 🚧 | GET, DELETE | `/services/{serviceId}/metrics` | Get service metrics, or reset collected metrics data for a service |
