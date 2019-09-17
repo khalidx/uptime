@@ -39,11 +39,13 @@ export interface CreateService {
 export const createServiceSchema: Joi.ObjectSchema = Joi.object().keys({
   title: Joi.string().min(1).max(30).required(),
   location: Joi.string().uri().required(),
-  status: Joi.valid('Operational', 'Maintenance', 'Down').required(),
+  status: Joi.string().valid('Operational', 'Maintenance', 'Down').required(),
   checks: Joi.array().required().items(Joi.object().keys({
     rate: Joi.valid('1 minute', '5 minutes', '15 minutes', '30 minutes', '1 hour').required(),
   })).min(1)
 })
+
+export const updateServiceStatusSchema: Joi.StringSchema = Joi.string().valid('Operational', 'Maintenance', 'Down').required()
 
 export interface Service extends CreateService {
   id: string
@@ -73,7 +75,7 @@ export interface CreateMessage {
 export const createMessageSchema: Joi.ObjectSchema = Joi.object().keys({
   summary: Joi.string().min(1).max(280).required(),
   content: Joi.string().max(3000).optional(),
-  status: Joi.valid('Operational', 'Maintenance', 'Down').required(),
+  status: Joi.string().valid('Operational', 'Maintenance', 'Down').required(),
   signature: Joi.string().min(1).max(50).required()
 })
 

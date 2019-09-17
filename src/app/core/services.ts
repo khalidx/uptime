@@ -9,7 +9,7 @@ import {
   Rate,
   Metric,
   Status,
-  Service, CreateService, createServiceSchema,
+  Service, CreateService, createServiceSchema, updateServiceStatusSchema,
   Message, CreateMessage, createMessageSchema,
 } from './types'
 
@@ -176,6 +176,28 @@ export const create = async (createService: CreateService): Promise<Service> => 
   return service
 }
 
+export const updateServiceStatus = async (serviceId: string, status: Status): Promise<void> => {
+  let validation = updateServiceStatusSchema.validate<Status>(status, { abortEarly: false, stripUnknown: true })
+  if (validation.error) {
+    console.error(validation.error.message)
+    throw new HttpCompatibleError(400, 'Bad request')
+  }
+  await servicesTable.client.update({
+    TableName: servicesTable.name,
+    ConditionExpression: 'attribute_exists (id)',
+    UpdateExpression: 'SET #status = :status',
+    ExpressionAttributeNames: {
+      '#status': 'status',
+    },
+    ExpressionAttributeValues: {
+      ':status': validation.value
+    },
+    Key: {
+      id: serviceId
+    }
+  }).promise()
+}
+
 export const createMessage = async (serviceId: string, createMessage: CreateMessage): Promise<Message> => {
   let validation = createMessageSchema.validate<CreateMessage>(createMessage, { abortEarly: false, stripUnknown: true })
   if (validation.error) {
@@ -292,6 +314,11 @@ export const router = new KoaRouter()
   if (!result) throw new HttpCompatibleError(404, 'Not found')
   ctx.body = result
   ctx.status = 200
+  await next()
+})
+.put('/services/:id/:status', async (ctx, next) => {
+  await updateServiceStatus(ctx.params.id, ctx.params.status)
+  ctx.status = 204
   await next()
 })
 .del('/services/:id', async (ctx, next) => {

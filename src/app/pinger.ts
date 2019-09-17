@@ -51,10 +51,11 @@ export const handler = async (event: CustomScheduledEvent, context: Context): Pr
       }
       throw error
     }
+
+    let services = await core.services.list()
     
     // Get all services and their applicable checks for the current rate, then run checks and return metrics
-    let metrics: Array<Metric> = await Promise.all((await core.services.list())
-    .map(service => {
+    let metrics: Array<Metric> = await Promise.all(services.map(service => {
       return service
       .checks
       .filter(check => check.rate === event.rate)
@@ -119,6 +120,17 @@ export const handler = async (event: CustomScheduledEvent, context: Context): Pr
         last = last + 25
       }
     }
+
+    // Update service statuses
+    await Promise.all(metrics.filter(metric => metric.code >= 400).map(metric => {
+      return core.services
+      .updateServiceStatus(metric.id, 'Down') // metric.id = service.id
+      .catch(error => {
+        // if we can't update a service, we don't fail all service updates, we log and continue
+        console.error(`Failed to update service status for id ${metric.id}.`)
+        console.error(error)
+      })
+    }))
 
     // Log the end time and execution duration
     const end = moment()
