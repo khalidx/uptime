@@ -11,9 +11,7 @@ Resources:
       KeySchema:
         - AttributeName: id
           KeyType: HASH
-      ProvisionedThroughput:
-        ReadCapacityUnits: ${self:custom.uptime.servicesTable.throughput}
-        WriteCapacityUnits: ${self:custom.uptime.servicesTable.throughput}
+      BillingMode: PAY_PER_REQUEST
 
   MetricsTable:
     Type: 'AWS::DynamoDB::Table'
@@ -30,9 +28,7 @@ Resources:
           KeyType: HASH
         - AttributeName: time
           KeyType: RANGE
-      ProvisionedThroughput:
-        ReadCapacityUnits: ${self:custom.uptime.metricsTable.throughput}
-        WriteCapacityUnits: ${self:custom.uptime.metricsTable.throughput}
+      BillingMode: PAY_PER_REQUEST
       TimeToLiveSpecification:
         AttributeName: ttl
         Enabled: true
