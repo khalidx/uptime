@@ -27,6 +27,8 @@
               </div>
               <hr>
 
+              <error></error>
+
               <div v-if="endpoint.status === 'Operational'" class="alert alert-success" role="alert">
                 <i class="fa fa-thumbs-up"></i> <strong>{{ endpoint.status }}</strong>
               </div>
@@ -108,6 +110,7 @@
 import Vue from 'vue'
 
 import Loading from '../components/Loading.vue'
+import Error from '../components/Error.vue'
 import Subscribe from '../components/Subscribe.vue'
 import Trend from '../components/Trend.vue'
 import Chart from '../components/Chart.vue'
@@ -116,6 +119,7 @@ import Feedback from '../components/Feedback.vue'
 export default Vue.extend({
   components: {
     Loading,
+    Error,
     Subscribe,
     Trend,
     Chart,

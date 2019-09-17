@@ -25,6 +25,9 @@
                 <subscribe></subscribe>
               </div>
               <hr>
+
+              <error></error>
+              
               <div
                 v-for="(message, index) in messages" :key="index"
                 :class="{
@@ -71,6 +74,7 @@
 import Vue from 'vue'
 
 import Loading from '../components/Loading.vue'
+import Error from '../components/Error.vue'
 import Subscribe from '../components/Subscribe.vue'
 import Services from '../components/Services.vue'
 import Timeline from '../components/Timeline.vue'
@@ -78,6 +82,7 @@ import Timeline from '../components/Timeline.vue'
 export default Vue.extend({
   components: {
     Loading,
+    Error,
     Subscribe,
     Services,
     Timeline

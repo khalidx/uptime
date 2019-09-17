@@ -26,6 +26,8 @@
               </div>
               <hr>
 
+              <error></error>
+
               <router-view></router-view>
 
             </div>
@@ -39,12 +41,14 @@
 <script lang="ts">
 import Vue from 'vue'
 
-import Loading from '../components/Loading'
-import Subscribe from '../components/Subscribe'
+import Loading from '../components/Loading.vue'
+import Error from '../components/Error.vue'
+import Subscribe from '../components/Subscribe.vue'
 
 export default Vue.extend({
   components: {
     Loading,
+    Error,
     Subscribe
   },
   created () {

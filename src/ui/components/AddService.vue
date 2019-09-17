@@ -1,6 +1,5 @@
 <template>
   <div>
-    <error></error>
     <form>
       <p><em>Add a new service</em></p>
       <div class="form-row align-items-center">
@@ -72,13 +71,9 @@ import Vue from 'vue'
 import uuid from 'uuid/v4'
 import moment from 'moment'
 
-import { CreateService } from '../../app/core/services'
-import Error from './Error.vue'
+import { CreateService } from '../../app/core/types'
 
 export default Vue.extend({
-  components: {
-    Error
-  },
   data () {
     return {
       rates: [ '1 minute', '5 minutes', '15 minutes', '30 minutes', '1 hour' ],

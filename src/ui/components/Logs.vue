@@ -1,6 +1,5 @@
 <template>
   <div>
-    <error></error>
     <terminal v-if="logs" :content="logs"></terminal>
     <p v-else>No log data. Check back soon!</p>
   </div>
@@ -9,12 +8,10 @@
 <script lang="ts">
 import Vue from 'vue'
 
-import Error from './Error.vue'
 import Terminal from './Terminal.vue'
 
 export default Vue.extend({
   components: {
-    Error,
     Terminal
   },
   mounted () {

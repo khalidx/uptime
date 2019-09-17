@@ -39,7 +39,7 @@
 <script lang="ts">
 import Vue from 'vue'
 
-import Subscribe from '../components/Subscribe'
+import Subscribe from '../components/Subscribe.vue'
 
 export default Vue.extend({
   components: {

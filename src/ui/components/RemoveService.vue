@@ -1,6 +1,5 @@
 <template>
   <div>
-    <error></error>
     <p><em>Remove a service</em><p>
     <p v-if="!endpoints || endpoints.length == 0" class="text-primary">There are no services.</p>
     <p v-else><strong>Select the service to remove</strong></p>
@@ -29,12 +28,7 @@ import Vue from 'vue'
 
 import moment from 'moment'
 
-import Error from './Error.vue'
-
 export default Vue.extend({
-  components: {
-    Error
-  },
   created () {
     this.$store.dispatch('getServices')
   },
