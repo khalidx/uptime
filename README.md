@@ -10,7 +10,10 @@ An uptime monitoring web application that is easy to understand, use, and extend
 ![GitHub Actions status](https://github.com/khalidx/uptime/workflows/cicd/badge.svg)
 
 - [uptime](#uptime)
-  - [Screenshot](#screenshot)
+  - [Screenshots](#screenshots)
+    - [Status Page](#status-page)
+    - [Detail Page](#detail-page)
+    - [Dashboard Page](#dashboard-page)
   - [Demo](#demo)
   - [Getting started](#getting-started)
   - [Web](#web)
@@ -29,9 +32,19 @@ An uptime monitoring web application that is easy to understand, use, and extend
       - [undeploy](#undeploy)
       - [docker](#docker)
 
-## Screenshot
+## Screenshots
 
-<img src="./screenshot.png" width="500px" />
+### Status Page
+
+<img src="./screenshots/status.png" width="500px" />
+
+### Detail Page
+
+<img src="./screenshots/detail.png" width="500px" />
+
+### Dashboard Page
+
+<img src="./screenshots/dashboard.png" width="500px" />
 
 ## Demo
 
