@@ -33,6 +33,10 @@
     "undeploy:ui": "cd src/destroy/ && serverless s3remove",
     "undeploy": "run-s undeploy:ui undeploy:app"
   },
+  "engines": {
+    "node" : ">=10.16.0",
+    "npm" : ">=6.9.0"
+  },
   "devDependencies": {
     "@babel/core": "^7.6.0",
     "@babel/preset-env": "^7.6.0",
