@@ -24,6 +24,11 @@ jobs:
         npm install
         npm run build
         npm run test
+      env:
+        CI: true
+        AWS_REGION: us-east-1
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   deploy:
     name: Make sure it deploys on node ${{ matrix.node-version }} and ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
