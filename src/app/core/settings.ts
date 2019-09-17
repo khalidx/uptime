@@ -1,16 +1,10 @@
 import KoaRouter from 'koa-router'
-import Joi from '@hapi/joi'
 
 import { servicesTable } from './tables'
-import { HttpCompatibleError } from './errors'
-
-export interface Settings {
-  title: string
-}
-
-export const updateSettingsSchema: Joi.ObjectSchema = Joi.object().keys({
-  title: Joi.string().min(3).max(30).required()
-})
+import { 
+  HttpCompatibleError,
+  Settings, updateSettingsSchema
+} from './types'
 
 export const read = async (): Promise<Settings | undefined> => {
   let response = await servicesTable.client.get({

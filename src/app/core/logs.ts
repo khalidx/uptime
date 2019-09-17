@@ -1,12 +1,9 @@
 import KoaRouter from 'koa-router'
 import { CloudWatchLogs } from 'aws-sdk'
 
-const cloudwatchlogs = new CloudWatchLogs()
+import { Log } from './types'
 
-export interface Log {
-  timestamp: number
-  message: string
-}
+const cloudwatchlogs = new CloudWatchLogs()
 
 export const list = async (): Promise<Array<Log>> => {
   if (!process.env.LOG_GROUP) throw new Error('No log group specified')

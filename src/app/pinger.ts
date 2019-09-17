@@ -4,19 +4,7 @@ import moment from 'moment-timezone'
 import request from 'request'
 
 import core from './core'
-import { Rate } from './core/services'
-
-export type Metric = {
-  id: string // service id (hash key)
-  time: string // ISO timestamp (range key)
-  start: string
-  end: string
-  type: 'success' | 'error'
-  code: number
-  message: string
-  raw?: string
-  latency: number
-}
+import { Rate, Metric } from './core/types'
 
 type CustomScheduledEvent = {
   id: string

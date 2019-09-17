@@ -2,9 +2,13 @@ import Vuex, { MutationTree, ActionTree } from 'vuex'
 
 import axios from 'axios'
 
-import { CreateService, Service, CreateMessage } from '../../app/core/services'
-import { Settings } from '../../app/core/settings'
-import { Log } from '../../app/core/logs'
+import {
+  Settings,
+  Service, CreateService,
+  CreateMessage,
+  Log
+} from '../../app/core/types'
+
 
 interface State {
   services: Array<Service>
