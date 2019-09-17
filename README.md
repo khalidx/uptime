@@ -7,6 +7,7 @@ An uptime monitoring web application that is easy to understand, use, and extend
 ![GitHub](https://img.shields.io/github/license/khalidx/uptime.svg?style=flat-square)
 ![GitHub top language](https://img.shields.io/github/languages/top/khalidx/uptime.svg?style=flat-square)
 ![GitHub last commit](https://img.shields.io/github/last-commit/khalidx/uptime.svg?style=flat-square)
+![GitHub Actions status](https://github.com/khalidx/uptime/workflows/cicd/badge.svg)
 
 - [uptime](#uptime)
   - [Screenshot](#screenshot)
