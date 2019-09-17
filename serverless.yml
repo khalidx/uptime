@@ -64,6 +64,12 @@ provider:
       Resource:
         - "Fn::GetAtt": [ ServicesTable, Arn ]
         - "Fn::GetAtt": [ MetricsTable, Arn ]
+    - Effect: Allow
+      Action:
+        - logs:DescribeLogStreams
+        - logs:GetLogEvents
+      Resource:
+        - "arn:aws:logs:*:*:log-group:/aws/lambda/${self:custom.uptime.prefix}-pinger:log-stream:*"
 
 functions:
 
