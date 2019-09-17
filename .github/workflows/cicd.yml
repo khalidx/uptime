@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    name: Make sure it builds and tests on node ${{ matrix.node-version }} and ${{ matrix.os }}
+    name: build & test on node ${{ matrix.node-version }} and ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:      
@@ -30,7 +30,7 @@ jobs:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   deploy:
-    name: Make sure it deploys on node ${{ matrix.node-version }} and ${{ matrix.os }}
+    name: deploy on node ${{ matrix.node-version }} and ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:      
