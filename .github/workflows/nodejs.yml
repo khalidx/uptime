@@ -8,7 +8,7 @@ on:
 jobs:
   build:
     name: Make sure it builds on node ${{ matrix.node_version }} and ${{ matrix.os }} and deploys
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:      
         node-version: [8.x, 10.x, 12.x]
