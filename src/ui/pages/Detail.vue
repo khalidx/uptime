@@ -88,7 +88,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="(feedback, index) in endpoint.feedback" :key="index">
+                      <tr v-for="(feedback, index) in feedbackSorted" :key="index">
                         <th scope="row">{{ feedback.submitted }}</th>
                         <td>{{ feedback.content }}</td>
                       </tr>
@@ -108,6 +108,8 @@
 
 <script lang="ts">
 import Vue from 'vue'
+
+import moment from 'moment'
 
 import Loading from '../components/Loading.vue'
 import Error from '../components/Error.vue'
@@ -136,6 +138,9 @@ export default Vue.extend({
   computed: {
     endpoint () {
       return this.$store.state.services.find(endpoint => endpoint.name === this.name)
+    },
+    feedbackSorted () {
+      return this.endpoint.feedback.sort((a, b) => moment(b.submitted).valueOf() - moment(a.submitted).valueOf())
     }
   }
 })
