@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="settings && services">
     <a
       class="btn btn-primary btn-hero-sm btn-hero-success pull-right m-3"
       :href="`data:text/json;charset=utf-8,${encodeURIComponent(settings)}`"
@@ -27,6 +27,10 @@
 import Vue from 'vue'
 
 export default Vue.extend({
+  created () {
+    this.$store.dispatch('getSettings')
+    this.$store.dispatch('getServices')
+  },
   computed: {
     settings () {
       return JSON.stringify(this.$store.state.settings, null, 2)
