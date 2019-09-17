@@ -57,7 +57,7 @@ export const router = new KoaRouter()
   ctx.status = 200
   await next()
 })
-.del('/services/:id', async (ctx, next) => {
+.del('/settings', async (ctx, next) => {
   await del()
   ctx.status = 204
   await next()
