@@ -23,6 +23,14 @@
                   Status
                 </router-link>
 
+                <router-link
+                  :to="`/dashboard/services/${endpoint.id}/update`"
+                  class="btn btn-outline-primary btn-hero-sm btn-hero-secondary"
+                  tag="a">
+                  <i class="fa fa-edit mr-1"></i> 
+                  Edit
+                </router-link>
+
                 <subscribe></subscribe>
               </div>
               <hr>

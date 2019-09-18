@@ -9,7 +9,7 @@ import {
   Rate,
   Metric,
   Status,
-  Service, CreateService, createServiceSchema, updateServiceStatusSchema,
+  Service, CreateService, createServiceSchema, UpdateService, updateServiceSchema,
   Message, CreateMessage, createMessageSchema,
 } from './types'
 
@@ -176,26 +176,23 @@ export const create = async (createService: CreateService): Promise<Service> => 
   return service
 }
 
-export const updateServiceStatus = async (serviceId: string, status: Status): Promise<void> => {
-  let validation = updateServiceStatusSchema.validate<Status>(status, { abortEarly: false, stripUnknown: true })
+export const update = async (id: string, updateService: UpdateService): Promise<Service> => {
+  let validation = updateServiceSchema.validate<UpdateService>(updateService, { abortEarly: false, stripUnknown: true })
   if (validation.error) {
     console.error(validation.error.message)
     throw new HttpCompatibleError(400, 'Bad request')
   }
-  await servicesTable.client.update({
+  let service = await read(id)
+  if (!service) throw new HttpCompatibleError(404, 'Not found')
+  await servicesTable.client.put({
     TableName: servicesTable.name,
     ConditionExpression: 'attribute_exists (id)',
-    UpdateExpression: 'SET #status = :status',
-    ExpressionAttributeNames: {
-      '#status': 'status',
-    },
-    ExpressionAttributeValues: {
-      ':status': validation.value
-    },
-    Key: {
-      id: serviceId
+    Item: {
+      ...service,
+      ...validation.value
     }
   }).promise()
+  return service
 }
 
 export const createMessage = async (serviceId: string, createMessage: CreateMessage): Promise<Message> => {
@@ -316,9 +313,9 @@ export const router = new KoaRouter()
   ctx.status = 200
   await next()
 })
-.put('/services/:id/:status', async (ctx, next) => {
-  await updateServiceStatus(ctx.params.id, ctx.params.status)
-  ctx.status = 204
+.patch('/services/:id', async (ctx, next) => {
+  ctx.body = await update(ctx.params.id, ctx.request.body)
+  ctx.status = 200
   await next()
 })
 .del('/services/:id', async (ctx, next) => {

@@ -129,7 +129,7 @@ export const handler = async (event: CustomScheduledEvent, context: Context): Pr
       if (service && service.status !== 'Operational') return Promise.resolve()
       // Otherwise, set the status to down
       return core.services
-      .updateServiceStatus(metric.id, 'Down') // metric.id = service.id
+      .update(metric.id, { status: 'Down' }) // metric.id = service.id
       .catch(error => {
         // if we can't update a service, we don't fail all service updates, we log and continue
         console.error(`Failed to update service status for id ${metric.id}.`)

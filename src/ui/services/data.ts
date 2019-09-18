@@ -4,7 +4,7 @@ import axios from 'axios'
 
 import {
   Settings,
-  Service, CreateService,
+  Service, CreateService, UpdateService,
   CreateMessage,
   Log
 } from '../../app/core/types'
@@ -88,6 +88,17 @@ const actions: ActionTree<State, State> = {
     } catch (error) {
       console.error(error)
       commit('error', `Error while deleting the service: ${error.response.status}`)
+      throw error
+    }
+  },
+  async updateService ({ commit, state }, payload: { id: string, service: UpdateService }) {
+    try {
+      commit('loading')
+      await axios.patch(`${apiUrl}/services/${payload.id}`, payload.service)
+      return this.dispatch('getServices')
+    } catch (error) {
+      console.error(error)
+      commit('error', `Error while updating the service location: ${error.response.status}`)
       throw error
     }
   },

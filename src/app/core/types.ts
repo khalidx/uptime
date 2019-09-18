@@ -45,7 +45,23 @@ export const createServiceSchema: Joi.ObjectSchema = Joi.object().keys({
   })).min(1)
 })
 
-export const updateServiceStatusSchema: Joi.StringSchema = Joi.string().valid('Operational', 'Maintenance', 'Down').required()
+export interface UpdateService {
+  title?: string
+  location?: string
+  status?: Status
+  checks?: Array<{
+    rate: Rate
+  }>
+}
+
+export const updateServiceSchema: Joi.ObjectSchema = Joi.object().keys({
+  title: Joi.string().min(1).max(30).optional(),
+  location: Joi.string().uri().optional(),
+  status: Joi.string().valid('Operational', 'Maintenance', 'Down').optional(),
+  checks: Joi.array().optional().items(Joi.object().keys({
+    rate: Joi.valid('1 minute', '5 minutes', '15 minutes', '30 minutes', '1 hour').required(),
+  })).min(1)
+})
 
 export interface Service extends CreateService {
   id: string

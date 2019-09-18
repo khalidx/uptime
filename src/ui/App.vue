@@ -24,6 +24,7 @@ import ArchiveMessage from './components/ArchiveMessage.vue'
 import RemoveMessage from './components/RemoveMessage.vue'
 import AddService from './components/AddService.vue'
 import AddServiceCheck from './components/AddServiceCheck.vue'
+import UpdateService from './components/UpdateService.vue'
 import RemoveService from './components/RemoveService.vue'
 import Settings from './components/Settings.vue'
 import Logs from './components/Logs.vue'
@@ -51,6 +52,7 @@ export default Vue.extend({
         { path: 'messages/remove', component: RemoveMessage },
         { path: 'services/add', component: AddService },
         { path: 'services/checks/add', component: AddServiceCheck },
+        { path: 'services/:id/update', component: UpdateService, props: true },
         { path: 'services/remove', component: RemoveService },
         { path: 'settings', component: Settings },
         { path: 'logs', component: Logs },
