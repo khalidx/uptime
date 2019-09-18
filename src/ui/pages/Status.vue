@@ -5,9 +5,12 @@
       <div v-if="settings && endpoints" class="content content-full">
         <div class="px-3 py-5">
           <div class="mb-5 text-center">
-            <a class="link-fx font-w700 font-size-h1 display-4" href="#">
+            <router-link
+              to="/"
+              class="link-fx font-w700 font-size-h1 display-4"
+              tag="a">
               <span class="text-dark">{{ settings.title }}</span><span class="text-primary"></span>
-            </a>
+            </router-link>
             <p class="text-uppercase font-w700 font-size-sm text-muted">Status Page</p>
           </div>
           <div class="row no-gutters d-flex justify-content-center">

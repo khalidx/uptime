@@ -1,7 +1,10 @@
 <template>
   <nav class="navbar navbar-light bg-white navbar-static sticky-top">
-    <a class="navbar-brand">
+    <router-link
+      to="/"
+      class="navbar-brand"
+      tag="a">
       <i class="fa fa-star"></i>
-    </a>
+    </router-link>
   </nav>
 </template>

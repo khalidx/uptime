@@ -1,7 +1,7 @@
 <template>
-  <a class="btn btn-outline-secondary btn-hero-sm btn-hero-success" href="#" @click="comingSoon">
+  <button class="btn btn-outline-secondary btn-hero-sm btn-hero-success" @click="comingSoon">
     <i class="fa fa-rss"></i> <span class="ml-1">{{ text }}</span>
-  </a>
+  </button>
 </template>
 
 <script lang="ts">
