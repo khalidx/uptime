@@ -34,9 +34,6 @@
 <script lang="ts">
 import Vue from 'vue'
 
-import uuid from 'uuid/v4'
-import moment from 'moment'
-
 export default Vue.extend({
   data () {
     return {
@@ -60,8 +57,7 @@ export default Vue.extend({
     },
     submit () {
       if (!this.submittable) return
-      this.settings.title = this.title
-      this.$store.dispatch('updateSettings', this.settings).then(() => this.$router.push('/status'))      
+      this.$store.dispatch('updateSettings', { ...this.settings, title: this.title }).then(() => this.$router.push('/status'))      
     }
   }
 })
