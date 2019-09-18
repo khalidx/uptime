@@ -28,7 +28,7 @@
           <div>{{ formatLocalDate(message) }}</div>
           <div class="mb-2">
             <router-link
-              :to="`/status/${message.endpointName}`"
+              :to="`/status/${message.endpointId}`"
               tag="a">
               {{ message.endpointTitle }}
             </router-link>
@@ -85,7 +85,7 @@ export default Vue.extend({
       return (this.endpoints || [])
         .filter(endpoint => endpoint.messages.length > 0)
         .reduce((final, endpoint) => final.concat(endpoint.messages.map(message => {
-          message.endpointName = endpoint.name
+          message.endpointId = endpoint.id
           message.endpointTitle = endpoint.title
           return message
         })), [])

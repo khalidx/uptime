@@ -11,7 +11,7 @@
         >
 
         <router-link
-          :to="`/status/${endpoint.name}`"
+          :to="`/status/${endpoint.id}`"
           tag="a">
           {{ endpoint.title }}
         </router-link>

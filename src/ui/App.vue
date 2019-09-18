@@ -43,7 +43,7 @@ export default Vue.extend({
     routes: [
       { path: '/', redirect: '/status' },
       { path: '/status', component: Status },
-      { path: '/status/:name', component: Detail, props: true },
+      { path: '/status/:id', component: Detail, props: true },
       { path: '/dashboard', component: Dashboard, children: [
         { path: '', component: Actions },
         { path: 'messages/add', component: AddMessage },

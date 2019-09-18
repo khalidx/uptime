@@ -128,7 +128,7 @@ export default Vue.extend({
     Feedback
   },
   props: {
-    name: {
+    id: {
       required: true
     }
   },
@@ -137,7 +137,7 @@ export default Vue.extend({
   },
   computed: {
     endpoint () {
-      return this.$store.state.services.find(service => service.name === encodeURIComponent(this.name))
+      return this.$store.state.services.find(service => service.id === this.id)
     },
     feedbackSorted () {
       return this.endpoint.feedback.sort((a, b) => moment(b.submitted).valueOf() - moment(a.submitted).valueOf())
