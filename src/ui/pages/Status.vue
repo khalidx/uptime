@@ -53,13 +53,23 @@
                 </div>
               </div>
 
-              <router-link
-                v-if="!endpoints || endpoints.length == 0"
-                :to="`/dashboard/services/add`"
-                tag="button"
-                class="btn btn-success btn-block">
-                <i class="fa fa-plus"></i> <span class="ml-1">Add a service</span>
-              </router-link>
+              <div v-if="!error && (!endpoints || endpoints.length == 0)" class="card border-success mb-3" >
+                <div class="card-body">
+                  <h5 class="card-title text-success">Welcome to uptime!</h5>
+                  <p class="card-text">
+                    It looks like it's your first time here <i class="fa fa-thumbs-up"></i><br/>
+                    Add your first service to begin monitoring its uptime status.
+                  </p>
+                  <p class="card-text">
+                    <router-link
+                      :to="`/dashboard/services/add`"
+                      tag="button"
+                      class="btn btn-success btn-block">
+                      <i class="fa fa-plus"></i> <span class="ml-1">Add a service</span>
+                    </router-link>
+                  </p>
+                </div>
+              </div>
 
               <services v-if="endpoints && endpoints.length > 0" :endpoints="endpoints"></services>
 
@@ -95,6 +105,9 @@ export default Vue.extend({
     this.$store.dispatch('getServices')
   },
   computed: {
+    error () {
+      return this.$store.state.error
+    },
     settings () {
       return this.$store.state.settings
     },
