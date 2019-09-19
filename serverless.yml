@@ -48,7 +48,7 @@ provider:
   environment:
     SERVICES_TABLE: ${self:custom.uptime.servicesTable.name}
     METRICS_TABLE: ${self:custom.uptime.metricsTable.name}
-    LOG_GROUP: /aws/lambda/${self:custom.uptime.prefix}-pinger
+    PINGER_LOG_GROUP: /aws/lambda/${self:custom.uptime.prefix}-pinger
     STORAGE_BUCKET: { "Ref": "S3StorageBucket" }
     API_URL: { "Fn::Join" : [ "", [ "https://", { "Ref" : "ApiGatewayRestApi" }, ".execute-api.${self:provider.region}.amazonaws.com/${self:provider.stage}" ] ] }
   iamRoleStatements:
