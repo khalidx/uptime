@@ -6,6 +6,7 @@ custom:
     prefix: ${self:service}-${self:provider.stage}
     privacy: ${opt:privacy, 'public'}
     vpc: ${opt:vpc, ''}
+    permissionsBoundary: ${opt:permissionsBoundary, ''}
     deletionPolicy:
       dev: Delete
       prod: Retain
@@ -38,6 +39,7 @@ plugins:
   - serverless-webpack
   - serverless-export-env
   - serverless-s3-deploy
+  - serverless-attach-managed-policy
   - serverless-offline
 
 provider:
@@ -51,6 +53,7 @@ provider:
     PINGER_LOG_GROUP: /aws/lambda/${self:custom.uptime.prefix}-pinger
     STORAGE_BUCKET: { "Ref": "S3StorageBucket" }
     API_URL: { "Fn::Join" : [ "", [ "https://", { "Ref" : "ApiGatewayRestApi" }, ".execute-api.${self:provider.region}.amazonaws.com/${self:provider.stage}" ] ] }
+  managedPolicyArns: ${self:custom.uptime.permissionsBoundary}
   iamRoleStatements:
     - Effect: Allow
       Action:

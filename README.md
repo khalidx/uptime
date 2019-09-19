@@ -91,6 +91,20 @@ custom:
 ...
 ```
 
+> **Using an IAM managed policy or permissions boundary
+
+By default, IAM roles will be created as-is.
+
+If your organization requires a permissions boundary to be associated to the roles created for Lambda functions when deploying, set the following variables in the `serverless.yml` file before deployment.
+
+```yaml
+...
+custom:
+  uptime:
+    permissionsBoundary: <your-managed-iam-policy-arn>
+...
+```
+
 ## Web
 
 This section contains information about what you'll find on each page of the `uptime` web application. 
