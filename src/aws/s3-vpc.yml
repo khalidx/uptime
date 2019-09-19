@@ -1,18 +1,18 @@
 Resources:
 
-  S3Bucket:
-      Type: 'AWS::S3::Bucket'
-      DeletionPolicy: Delete
-      Properties:
-        AccessControl: PublicRead
-        WebsiteConfiguration:
-          IndexDocument: index.html
-          ErrorDocument: error.html      
+  S3WebsiteBucket:
+    Type: 'AWS::S3::Bucket'
+    DeletionPolicy: Delete
+    Properties:
+      AccessControl: PublicRead
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: error.html      
             
-  S3BucketPolicy: 
+  S3WebsiteBucketPolicy: 
     Type: 'AWS::S3::BucketPolicy'
     Properties: 
-      Bucket: !Ref S3Bucket
+      Bucket: !Ref S3WebsiteBucket
       PolicyDocument:
         Version: "2012-10-17"
         Statement:
@@ -21,8 +21,8 @@ Resources:
               - "s3:*"
             Principal: "*"
             Resource:
-              - !Join [ "", [ "arn:aws:s3:::", !Ref S3Bucket ] ]
-              - !Join [ "", [ "arn:aws:s3:::", !Ref S3Bucket, "/*" ] ]
+              - !Join [ "", [ "arn:aws:s3:::", !Ref S3WebsiteBucket ] ]
+              - !Join [ "", [ "arn:aws:s3:::", !Ref S3WebsiteBucket, "/*" ] ]
             Condition:
               StringNotEquals:
                 aws:sourceVpc:
@@ -30,12 +30,12 @@ Resources:
 
 Outputs:
 
-    WebsiteBucket:
-      Value: !Ref S3Bucket
-      Export:
-        Name: "${self:custom.uptime.prefix}-website-bucket"
+  WebsiteBucket:
+    Value: !Ref S3WebsiteBucket
+    Export:
+      Name: "${self:custom.uptime.prefix}-website-bucket"
 
-    WebsiteUrl:
-      Value: !GetAtt S3Bucket.WebsiteURL
-      Export:
-        Name: "${self:custom.uptime.prefix}-website-url"
+  WebsiteUrl:
+    Value: !GetAtt S3WebsiteBucket.WebsiteURL
+    Export:
+      Name: "${self:custom.uptime.prefix}-website-url"

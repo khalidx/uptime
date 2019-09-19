@@ -23,7 +23,7 @@ custom:
   assets:
     targets:
       - bucket: 
-          Ref: S3Bucket
+          Ref: S3WebsiteBucket
         acl: public-read
         files:
           - source: ./dist/
