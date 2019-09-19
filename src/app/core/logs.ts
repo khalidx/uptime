@@ -1,22 +1,19 @@
 import KoaRouter from 'koa-router'
-import { CloudWatchLogs } from 'aws-sdk'
 
+import { pingerLogs } from './clients'
 import { Log } from './types'
 
-const cloudwatchlogs = new CloudWatchLogs()
-
 export const list = async (): Promise<Array<Log>> => {
-  if (!process.env.LOG_GROUP) throw new Error('No log group specified')
-  let streams = await cloudwatchlogs.describeLogStreams({
-    logGroupName: process.env.LOG_GROUP,
+  let streams = await pingerLogs.client.describeLogStreams({
+    logGroupName: pingerLogs.name,
     orderBy: 'LastEventTime',
     descending: true,
-    limit: 1,
+    limit: 1
   }).promise()
   if (!streams.logStreams || streams.logStreams.length == 0) return []
   if (!streams.logStreams[0].logStreamName) return []
-  let logs = await cloudwatchlogs.getLogEvents({
-    logGroupName: process.env.LOG_GROUP,
+  let logs = await pingerLogs.client.getLogEvents({
+    logGroupName: pingerLogs.name,
     logStreamName: streams.logStreams[0].logStreamName,
     limit: 100,
     startFromHead: false
