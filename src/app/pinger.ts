@@ -77,7 +77,7 @@ export const handler = async (event: CustomScheduledEvent, context: Context): Pr
               type: (error || response.statusCode >= 400 || response.statusCode >= 500) ? 'error' : 'success',
               code: response.statusCode,
               message: response.statusMessage,
-              raw: JSON.stringify(response),
+              raw: JSON.stringify(response, null, 2),
               latency: response.timingPhases!.firstByte
             }
             resolve(metric)
@@ -94,8 +94,9 @@ export const handler = async (event: CustomScheduledEvent, context: Context): Pr
     await Promise.all(metrics.map(metric => {
       return core.clients.storageBucket.client.putObject({
         Bucket: core.clients.storageBucket.name,
-        Key: `${metric.id}/${metric.time}`,
-        Body: metric.raw
+        Key: `${metric.id}/${metric.time}.json`,
+        Body: metric.raw,
+        ContentType: 'application/json'
       }).promise()
     }))
 
