@@ -22,4 +22,4 @@ function getClientForLogs (environmentVariable: string | undefined): { name: str
 export const servicesTable = getClientForTable(process.env.SERVICES_TABLE)
 export const metricsTable = getClientForTable(process.env.METRICS_TABLE)
 export const storageBucket = getClientForBucket(process.env.STORAGE_BUCKET)
-export const pingerLogs = getClientForLogs(process.env.LOG_GROUP)
+export const pingerLogs = getClientForLogs(process.env.PINGER_LOG_GROUP)
