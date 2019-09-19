@@ -57,8 +57,8 @@
                 <div class="card-body">
                   <h5 class="card-title text-success">Welcome to uptime!</h5>
                   <p class="card-text">
-                    It looks like it's your first time here <i class="fa fa-thumbs-up"></i><br/>
-                    Add your first service to begin monitoring its uptime status.
+                    It looks like it's your first time here <i class="fa fa-thumbs-up text-success"></i><br/>
+                    Add your first service to begin monitoring its uptime status <i class="fa fa-tachometer text-success"></i>
                   </p>
                   <p class="card-text">
                     <router-link
