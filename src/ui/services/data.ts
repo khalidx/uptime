@@ -102,6 +102,17 @@ const actions: ActionTree<State, State> = {
       throw error
     }
   },
+  async createSampleData ({ commit, state }) {
+    try {
+      commit('loading')
+      await axios.put(`${apiUrl}/samples`)
+      return this.dispatch('getServices')
+    } catch (error) {
+      console.error(error)
+      commit('error', `Error while creating sample data: ${error.response.status}`)
+      throw error
+    }
+  },
   async createMessage ({ commit, state }, payload: { serviceId: string, message: CreateMessage }) {
     try {
       commit('loading')

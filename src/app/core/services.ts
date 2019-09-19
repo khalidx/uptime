@@ -49,19 +49,19 @@ export const list = async (): Promise<Array<Service>> => {
 }
 
 export const listSamples = async (): Promise<Array<Service>> => {
-  let samples: Array<{ id: string, title: string, status: Status }> = [
-    { id: 'service-7a5cbe70-48c8-4789-b76a-a7b925d17ac4', title: 'Backend', status: 'Operational' },
-    { id: 'service-a16e70ab-80b1-4ad1-bbc7-73e753bbd1c4', title: 'Frontend', status: 'Operational' },
-    { id: 'service-d9749a56-2827-4598-94f4-90c7f91f98ea', title: 'API', status: 'Maintenance' },
-    { id: 'service-6530adaa-0279-45f3-883e-7ecd4829bbf5', title: 'Payments', status: 'Operational' },        
-    { id: 'service-3d302923-8369-486f-8789-49a252fbd046', title: 'Helpdesk', status: 'Down' }
+  let samples: Array<{ id: string, title: string, location: string, status: Status }> = [
+    { id: 'service-sample-1', title: 'Backend', location: 'https://httpstat.us/201', status: 'Operational' },
+    { id: 'service-sample-2', title: 'Frontend', location: 'https://httpstat.us/200', status: 'Operational' },
+    { id: 'service-sample-3', title: 'API', location: 'https://httpstat.us/503', status: 'Maintenance' },
+    { id: 'service-sample-4', title: 'Payments', location: 'https://httpstat.us/204', status: 'Operational' },        
+    { id: 'service-sample-5', title: 'Helpdesk', location: 'https://httpstat.us/500', status: 'Down' }
   ]
   return samples.map<Service>(sample => {
     return {
       id: sample.id,
       name: encodeURIComponent(sample.title.toLowerCase()),
       title: sample.title,
-      location: `https://example.com/${encodeURIComponent(sample.title.toLowerCase())}`,
+      location: sample.location,
       status: sample.status,
       metrics: [...Array(15).keys()].map(n => {
         return {
@@ -78,20 +78,20 @@ export const listSamples = async (): Promise<Array<Service>> => {
       checks: [
         {
           rate: '5 minutes',
-          nextCheck: moment().add(5, 'minutes').calendar()
+          nextCheck: moment().add(5, 'minutes').toISOString()
         },
         {
           rate: '1 hour',
-          nextCheck: moment().add(1, 'hour').calendar()
+          nextCheck: moment().add(1, 'hour').toISOString()
         }
       ],
       feedback: [
         {
-          submitted: moment().subtract(3, 'months').subtract(4, 'hours').subtract(23, 'minutes').calendar(),
+          submitted: moment().subtract(3, 'months').subtract(4, 'hours').subtract(23, 'minutes').toISOString(),
           content: 'You guys are awesome! The service is so fast. Keep the good work going!'
         },
         {
-          submitted: moment().subtract(1, 'days').subtract(14, 'seconds').calendar(),
+          submitted: moment().subtract(1, 'days').subtract(14, 'seconds').toISOString(),
           content: 'That has to be a fake review down there. This has been down for hours and no-one is on-call!'
         }
       ],
@@ -99,7 +99,7 @@ export const listSamples = async (): Promise<Array<Service>> => {
         {
           id: uuid(),
           submitted: moment().subtract(3, 'hours').toISOString(),
-          content: '',
+          content: 'Scheduled database backup is in progress.',
           summary: 'API is currently under maintenance.',
           status: 'Maintenance',
           signature: 'Admin',
@@ -109,7 +109,7 @@ export const listSamples = async (): Promise<Array<Service>> => {
         {
           id: uuid(),
           submitted: moment().subtract(5, 'minutes').toISOString(),
-          content: '',
+          content: `Triage meeting invites will be sent shortly.`,
           summary: 'Helpdesk is experiencing issues.',
           status: 'Down',
           signature: 'Admin',
@@ -146,6 +146,22 @@ export const listSamples = async (): Promise<Array<Service>> => {
       ] :[]
     }
   })
+}
+
+export const createSamples = async (): Promise<void> => {
+  let samples = await listSamples() // samples array should be no more than 5 elements (TODO handle)
+  let request: AWS.DynamoDB.DocumentClient.BatchWriteItemInput = {
+    RequestItems: {}
+  }
+  request.RequestItems[servicesTable.name] = []
+  samples.forEach((sample, index) => {
+    request.RequestItems[servicesTable.name].push({
+      PutRequest: {
+        Item: sample
+      }
+    })
+  })
+  await servicesTable.client.batchWrite(request).promise()
 }
 
 export const create = async (createService: CreateService): Promise<Service> => {
@@ -341,5 +357,10 @@ export const router = new KoaRouter()
 .get('/services/:id/metrics', async (ctx, next) => {
   ctx.body = await readMetrics(ctx.params.id)
   ctx.status = 200
+  await next()
+})
+.put('/samples', async (ctx, next) => {
+  await createSamples()
+  ctx.status = 204
   await next()
 })

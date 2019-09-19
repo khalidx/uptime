@@ -68,6 +68,11 @@
                       <i class="fa fa-plus"></i> <span class="ml-1">Add a service</span>
                     </router-link>
                   </p>
+                  <p class="card-text">
+                    <button class="btn btn-outline-primary btn-block" @click="createSampleData">
+                      <i class="fa fa-database"></i> <span class="ml-1">Create sample data</span>
+                    </button>
+                  </p>
                 </div>
               </div>
 
@@ -103,6 +108,11 @@ export default Vue.extend({
   created () {
     this.$store.dispatch('getSettings')
     this.$store.dispatch('getServices')
+  },
+  methods: {
+    createSampleData () {
+      this.$store.dispatch('createSampleData')
+    }
   },
   computed: {
     error () {
