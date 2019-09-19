@@ -94,7 +94,7 @@ export const handler = async (event: CustomScheduledEvent, context: Context): Pr
     await Promise.all(metrics.map(metric => {
       return core.clients.storageBucket.client.putObject({
         Bucket: core.clients.storageBucket.name,
-        Key: `${metric.id}/${metric.time}.json`,
+        Key: `responses/${metric.id}/${metric.time}.json`,
         Body: metric.raw,
         ContentType: 'application/json'
       }).promise()

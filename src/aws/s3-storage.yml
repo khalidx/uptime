@@ -5,6 +5,11 @@ Resources:
     DeletionPolicy: ${self:custom.uptime.storageBucket.deletionPolicy}
     Properties:
       AccessControl: Private
+      LifecycleConfiguration:
+        Rules:
+          - Status: Enabled
+            ExpirationInDays: 31
+            Prefix: responses/
 
 Outputs:
 
