@@ -89,6 +89,21 @@ export const handler = async (event: CustomScheduledEvent, context: Context): Pr
       return accumulator.concat(current)
     }, []))
 
+    console.log(`Storing ${metrics.length} metrics raw responses in S3 ...`)
+
+    await Promise.all(metrics.map(metric => {
+      return core.clients.storageBucket.client.putObject({
+        Bucket: core.clients.storageBucket.name,
+        Key: `${metric.id}/${metric.time}`,
+        Body: metric.raw
+      }).promise()
+    }))
+
+    metrics = metrics.map(metric => {
+      delete metric.raw
+      return metric
+    })
+
     console.log(`Writing ${metrics.length} metrics ...`)
 
     // Write metrics to the table, in batches
