@@ -1,10 +1,10 @@
-import * as tables from './tables'
+import * as clients from './clients'
 
 import * as settings from './settings'
 import * as services from './services'
 
 export default {
-  tables,
+  clients,
   settings,
   services
 }

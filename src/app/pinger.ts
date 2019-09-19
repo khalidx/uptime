@@ -35,8 +35,8 @@ export const handler = async (event: CustomScheduledEvent, context: Context): Pr
 
     // Lock for processing
     try {
-      await core.tables.metricsTable.client.put({
-        TableName: core.tables.metricsTable.name,
+      await core.clients.metricsTable.client.put({
+        TableName: core.clients.metricsTable.name,
         ConditionExpression: 'attribute_not_exists (id)',
         Item: {
           id: `lock-${event.id}-${event.time}`,
@@ -101,19 +101,19 @@ export const handler = async (event: CustomScheduledEvent, context: Context): Pr
       if (unprocessed) {
         request.RequestItems = unprocessed
       } else {
-        request.RequestItems[core.tables.metricsTable.name] = []
+        request.RequestItems[core.clients.metricsTable.name] = []
         let batch = metrics.slice(last, last + 25)
         if (batch.length === 0) break
         batch.forEach(metric => {
-          request.RequestItems[core.tables.metricsTable.name].push({
+          request.RequestItems[core.clients.metricsTable.name].push({
             PutRequest: {
               Item: metric
             }
           })
         })
       }
-      if (Object.keys(request.RequestItems).length == 0 || request.RequestItems[core.tables.metricsTable.name].length == 0) break
-      let response = await core.tables.metricsTable.client.batchWrite(request).promise()
+      if (Object.keys(request.RequestItems).length == 0 || request.RequestItems[core.clients.metricsTable.name].length == 0) break
+      let response = await core.clients.metricsTable.client.batchWrite(request).promise()
       if (response.UnprocessedItems) unprocessed = response.UnprocessedItems
       else {
         unprocessed = undefined

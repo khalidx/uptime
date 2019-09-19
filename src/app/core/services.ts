@@ -3,7 +3,7 @@ import uuid from 'uuid/v4'
 import moment from 'moment-timezone'
 import cronParser from 'cron-parser'
 
-import { servicesTable, metricsTable } from './tables'
+import { servicesTable, metricsTable } from './clients'
 import {
   HttpCompatibleError,
   Rate,

@@ -1,6 +1,6 @@
 import KoaRouter from 'koa-router'
 
-import { servicesTable } from './tables'
+import { servicesTable } from './clients'
 import { 
   HttpCompatibleError,
   Settings, updateSettingsSchema
