@@ -5,6 +5,7 @@ custom:
   remover:
     buckets:
       - ${cf:uptime-${self:provider.stage}.WebsiteBucket}
+      - ${cf:uptime-${self:provider.stage}.StorageBucket}
 
 frameworkVersion: ">=1.47.0 <2.0.0"
 

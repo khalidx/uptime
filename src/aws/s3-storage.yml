@@ -1,0 +1,14 @@
+Resources:
+
+  S3StorageBucket:
+    Type: 'AWS::S3::Bucket'
+    DeletionPolicy: ${self:custom.uptime.storageBucket.deletionPolicy}
+    Properties:
+      AccessControl: Private
+
+Outputs:
+
+  StorageBucket:
+    Value: !Ref S3StorageBucket
+    Export:
+      Name: "${self:custom.uptime.prefix}-storage-bucket"

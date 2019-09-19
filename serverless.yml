@@ -9,6 +9,8 @@ custom:
     deletionPolicy:
       dev: Delete
       prod: Retain
+    storageBucket:
+      deletionPolicy: ${self:custom.uptime.deletionPolicy.${self:provider.stage}}
     servicesTable:
       name: ${self:custom.uptime.prefix}-services
       throughput: 5
@@ -30,9 +32,6 @@ custom:
             globs: '**/*.*'
             empty: true
 
-    # vpc: vpc-ea6db38c
-    # vpce:
-
 frameworkVersion: ">=1.47.0 <2.0.0"
 
 plugins:
@@ -50,7 +49,8 @@ provider:
     SERVICES_TABLE: ${self:custom.uptime.servicesTable.name}
     METRICS_TABLE: ${self:custom.uptime.metricsTable.name}
     LOG_GROUP: /aws/lambda/${self:custom.uptime.prefix}-pinger
-    API_URL: { "Fn::Join" : ["", [ "https://", { "Ref" : "ApiGatewayRestApi" }, ".execute-api.${self:provider.region}.amazonaws.com/${self:provider.stage}" ] ] }
+    STORAGE_BUCKET: { "Ref": "S3StorageBucket" }
+    API_URL: { "Fn::Join" : [ "", [ "https://", { "Ref" : "ApiGatewayRestApi" }, ".execute-api.${self:provider.region}.amazonaws.com/${self:provider.stage}" ] ] }
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -70,6 +70,17 @@ provider:
         - logs:GetLogEvents
       Resource:
         - "arn:aws:logs:*:*:log-group:/aws/lambda/${self:custom.uptime.prefix}-pinger:log-stream:*"
+    - Effect: Allow
+      Action:
+        - s3:ListBucket
+      Resource:
+        - "Fn::GetAtt": [ S3StorageBucket, Arn ]
+    - Effect: Allow  
+      Action:
+        - s3:GetObject
+        - s3:PutObject
+      Resource:
+        - "Fn::Join": [ "", [ { "Fn::GetAtt": [ S3StorageBucket, Arn ] }, "/*" ] ]
 
 functions:
 
@@ -143,4 +154,5 @@ package:
 
 resources:
   - ${file(src/aws/s3-${self:custom.uptime.privacy}.yml)}
+  - ${file(src/aws/s3-storage.yml)}
   - ${file(src/aws/dynamodb.yml)}
