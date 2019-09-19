@@ -5,6 +5,10 @@ Resources:
     DeletionPolicy: ${self:custom.uptime.storageBucket.deletionPolicy}
     Properties:
       AccessControl: Private
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          ServerSideEncryptionByDefault:
+            SSEAlgorithm: AES256
       LifecycleConfiguration:
         Rules:
           - Status: Enabled
